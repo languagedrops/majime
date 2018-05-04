@@ -15,10 +15,8 @@
         "noImplicitReturns": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react-native",
-        "noEmit": true,
         "target": "es2017",
-        "rootDir": ".",
-        "baseUrl": "./src",
+        "rootDir": "./src",
         "outDir": "dist",
         "lib": [
             "dom",

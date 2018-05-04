@@ -1,3 +1,6 @@
+import { describe, it } from 'mocha'
+import { expect } from 'chai'
+
 import { range } from '../standard'
 import { getRandomWeightedElement, ElementAndWeight } from '../weightedArray'
 
@@ -34,22 +37,22 @@ describe('weightedArray', () => {
     const arrayOfOptions = range(0, 5000).map( () => getRandomWeightedElement(weightedOptions))
 
     const controlCount = arrayOfOptions.filter( (item) => item === 'OtherOption').length
-    expect(controlCount).toBeGreaterThan(100)
+    expect(controlCount).greaterThan(100)
 
     const otherOptionCount = arrayOfOptions.filter( (item) => item === 'OtherOption').length
-    expect(otherOptionCount).toBeGreaterThan(100)
+    expect(otherOptionCount).greaterThan(100)
 
     const otherOption1Count = arrayOfOptions.filter( (item) => item === 'OtherOption1').length
-    expect(otherOption1Count).toBeGreaterThan(200)
+    expect(otherOption1Count).greaterThan(200)
 
     const otherOption2Count = arrayOfOptions.filter( (item) => item === 'OtherOption2').length
-    expect(otherOption2Count).toBeGreaterThan(100)
+    expect(otherOption2Count).greaterThan(100)
 
     const otherOption3Count = arrayOfOptions.filter( (item) => item === 'OtherOption3').length
-    expect(otherOption3Count).toBeGreaterThan(100)
+    expect(otherOption3Count).greaterThan(100)
 
     const dontSelect1Count = arrayOfOptions.filter( (item) => item === 'DontSelect1').length
-    expect(dontSelect1Count).toBe(0)
+    expect(dontSelect1Count).equal(0)
 
   })
 
