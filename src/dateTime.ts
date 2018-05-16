@@ -25,6 +25,14 @@ export const getDaysDifference = (date1: Date, date2: Date) => {
   return diffInMillisec / (1000 * 60 * 60 * 24)
 }
 
+export const getMillisecondsBetweenDates = (first: Date, second: Date) => {
+  return second.getTime() - first.getTime()
+}
+
+export const getMillisecondsSinceDate = (date: Date) => {
+  return getMillisecondsBetweenDates(date, new Date())
+}
+
 const addZeroPaddingToNumber = (figure: number) => {
   const stringFigure = figure.toString()
   return stringFigure.length < 2 ? '0' + stringFigure : stringFigure
