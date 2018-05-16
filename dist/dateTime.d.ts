@@ -4,6 +4,8 @@ export declare const addHoursToDate: (date: Date, hours: number) => Date;
 export declare const addDaysToDate: (date: Date, days: number) => Date;
 export declare const getDateDifference: (date1: Date, date2: Date) => Date;
 export declare const getDaysDifference: (date1: Date, date2: Date) => number;
+export declare const getMillisecondsBetweenDates: (first: Date, second: Date) => number;
+export declare const getMillisecondsSinceDate: (date: Date) => number;
 export declare const formatDate: (date: Date, addSeconds?: boolean) => string;
 export declare const oneHourValue: number;
 export declare const oneMinuteValue: number;
