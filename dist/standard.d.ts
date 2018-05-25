@@ -49,3 +49,4 @@ export declare const filterDictionary: <T>(dict: {
     [key: string]: T;
 };
 export declare const isArrayUnique: <T>(array: T[]) => boolean;
+export declare const getHash: (inputString: string) => number;

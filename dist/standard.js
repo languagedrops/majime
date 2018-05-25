@@ -245,3 +245,8 @@ export const filterDictionary = (dict, filterFunction) => {
     return result;
 };
 export const isArrayUnique = (array) => array.length === new Set(array).size;
+export const getHash = (inputString) => {
+    return range(0, inputString.length).reduce((accum, index) => {
+        return accum + inputString.charCodeAt(index);
+    }, 0);
+};

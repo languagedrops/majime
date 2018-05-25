@@ -296,3 +296,9 @@ export const filterDictionary = <T>(dict: {[key: string]: T}, filterFunction: (e
 }
 
 export const isArrayUnique = <T>(array: T[]): boolean => array.length === new Set(array).size
+
+export const getHash = (inputString: string): number => {
+  return range(0, inputString.length).reduce((accum, index) => {
+    return accum + inputString.charCodeAt(index)
+  }, 0)
+}
