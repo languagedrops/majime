@@ -3,6 +3,7 @@ declare global {
     remove(elem: T): T[]
     flatten(): T[]
     removeLastElement(): T[]
+    unique(): T[]
   }
 }
 
@@ -27,6 +28,14 @@ if (!Array.prototype.removeLastElement) {
     return this.slice(0, this.length - 1)
   }
 }
+
+if (!Array.prototype.unique) {
+  Array.prototype.unique = function<T>(): T[] {
+    return [...new Set(this)]
+  }
+}
+
+
 
 
 export const substractArrays = <T>(a: T[], b: T[]): T[] => {

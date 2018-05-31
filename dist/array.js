@@ -16,6 +16,11 @@ if (!Array.prototype.removeLastElement) {
         return this.slice(0, this.length - 1);
     };
 }
+if (!Array.prototype.unique) {
+    Array.prototype.unique = function () {
+        return [...new Set(this)];
+    };
+}
 export const substractArrays = (a, b) => {
     return a.filter((aElement) => !b.includes(aElement));
 };
