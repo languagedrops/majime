@@ -110,9 +110,6 @@ export const clamp = (value, min, max) => {
 export const probablity = (likelihood) => {
     return Math.random() <= likelihood;
 };
-export const reverseArray = (array) => {
-    return [...array].reverse();
-};
 export const makeUnique = (array) => {
     return [...new Set(array)];
 };
@@ -209,11 +206,6 @@ export const generateUUID = () => {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
 };
-export const insert = (array, index, newItem) => [
-    ...array.slice(0, index),
-    newItem,
-    ...array.slice(index),
-];
 export class SafeSetInterval {
     constructor() {
         this.timer = null;
@@ -242,7 +234,6 @@ export const filterDictionary = (dict, filterFunction) => {
     });
     return result;
 };
-export const isArrayUnique = (array) => array.length === new Set(array).size;
 export const getHash = (inputString) => {
     return range(0, inputString.length).reduce((accum, index) => {
         return accum + inputString.charCodeAt(index);

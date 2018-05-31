@@ -22,7 +22,6 @@ export declare const lastElement: <T>(array: T[]) => T;
 export declare const toMMSS: (time: number) => string;
 export declare const clamp: (value: number, min: number, max: number) => number;
 export declare const probablity: (likelihood: number) => boolean;
-export declare const reverseArray: <T>(array: T[]) => T[];
 export declare const makeUnique: <T>(array: T[]) => T[];
 export declare const delay: <T>(millis: number, value?: T | undefined) => Promise<T>;
 export declare const omit: (key: string, object: object) => object;
@@ -34,7 +33,6 @@ export declare const truncate: (str: string, length: number) => string;
 export declare const reverseString: (str: string) => any;
 export declare const capitalizeFirstLetter: (str: string) => string;
 export declare const generateUUID: () => string;
-export declare const insert: <T>(array: T[], index: number, newItem: T) => T[];
 export declare class SafeSetInterval {
     private timer;
     start: (handler: () => void, milliseconds: number) => void;
@@ -47,5 +45,4 @@ export declare const filterDictionary: <T>(dict: {
 }, filterFunction: (element: T) => boolean) => {
     [key: string]: T;
 };
-export declare const isArrayUnique: <T>(array: T[]) => boolean;
 export declare const getHash: (inputString: string) => number;

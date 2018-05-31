@@ -139,9 +139,7 @@ export const probablity = (likelihood: number) => {
   return Math.random() <= likelihood
 }
 
-export const reverseArray = <T>(array: T[]): T[] => {
-  return [...array].reverse()
-}
+
 
 export const makeUnique = <T>(array: T[]): T[] => {
   return [...new Set(array)]
@@ -252,11 +250,7 @@ export const generateUUID = (): string => {
     s4() + '-' + s4() + s4() + s4()
 }
 
-export const insert = <T>(array: T[], index: number, newItem: T): T[] => [
-  ...array.slice(0, index),
-  newItem,
-  ...array.slice(index),
-]
+
 
 export class SafeSetInterval {
   private timer: any = null
@@ -292,7 +286,6 @@ export const filterDictionary = <T>(dict: {[key: string]: T}, filterFunction: (e
   return result
 }
 
-export const isArrayUnique = <T>(array: T[]): boolean => array.length === new Set(array).size
 
 export const getHash = (inputString: string): number => {
   return range(0, inputString.length).reduce((accum, index) => {
