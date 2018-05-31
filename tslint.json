@@ -68,7 +68,7 @@
             true
         ],
         "no-conditional-assignment": true,
-        "no-invalid-this": true,
+        "no-invalid-this": false,
         "no-unused-expression": true,
         // "no-use-before-declare": true,
         "no-shadowed-variable": false,
