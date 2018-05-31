@@ -1,6 +1,5 @@
 export declare const randomElement: <T>(fromArray: T[]) => T;
 export declare const randomElementWithExceptions: <T>(fromArray: T[], excludeArray: T[]) => T;
-export declare const substractArrays: <T>(a: T[], b: T[]) => T[];
 export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
 export declare const firstElement: <T>(fromArray: T[]) => T;
 export declare const isNull: (item: any) => boolean;

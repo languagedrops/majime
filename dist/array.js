@@ -1,4 +1,3 @@
-"use strict";
 if (!Array.prototype.remove) {
     Array.prototype.remove = function (elem) {
         return this.filter((e) => e !== elem);
@@ -17,3 +16,6 @@ if (!Array.prototype.removeLastElement) {
         return this.slice(0, this.length - 1);
     };
 }
+export const substractArrays = (a, b) => {
+    return a.filter((aElement) => !b.includes(aElement));
+};

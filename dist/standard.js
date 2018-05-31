@@ -1,14 +1,12 @@
 import GraphemeSplitter from 'grapheme-splitter';
 const splitter = new GraphemeSplitter();
+import { substractArrays } from './array';
 export const randomElement = (fromArray) => {
     return fromArray[Math.floor(Math.random() * fromArray.length)];
 };
 export const randomElementWithExceptions = (fromArray, excludeArray) => {
     const filteredArray = substractArrays(fromArray, excludeArray);
     return randomElement(filteredArray);
-};
-export const substractArrays = (a, b) => {
-    return a.filter((aElement) => !b.includes(aElement));
 };
 export const randomElements = (fromArray, count) => {
     if (count > fromArray.length) {

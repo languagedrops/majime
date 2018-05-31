@@ -2,6 +2,7 @@ import GraphemeSplitter from 'grapheme-splitter'
 
 const splitter = new GraphemeSplitter()
 
+import { substractArrays } from './array'
 
 export const randomElement = <T>(fromArray: T[]): T => {
   return fromArray[Math.floor(Math.random() * fromArray.length)]
@@ -10,10 +11,6 @@ export const randomElement = <T>(fromArray: T[]): T => {
 export const randomElementWithExceptions = <T>(fromArray: T[], excludeArray: T[]) => {
   const filteredArray = substractArrays(fromArray, excludeArray)
   return randomElement(filteredArray)
-}
-
-export const substractArrays = <T>(a: T[], b: T[]): T[] => {
-  return a.filter((aElement) => !b.includes(aElement))
 }
 
 export const randomElements = <T>(fromArray: T[], count: number): T[] => {
