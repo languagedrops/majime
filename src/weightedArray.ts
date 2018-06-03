@@ -1,4 +1,4 @@
-import { getRandom } from './standard'
+import { getRandom } from './random'
 
 export interface ElementAndWeight<T> {
   element: T

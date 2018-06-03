@@ -2,99 +2,11 @@ import GraphemeSplitter from 'grapheme-splitter'
 
 const splitter = new GraphemeSplitter()
 
-import { substractArrays } from './array'
-
-export const randomElement = <T>(fromArray: T[]): T => {
-  return fromArray[Math.floor(Math.random() * fromArray.length)]
-}
-
-export const randomElementWithExceptions = <T>(fromArray: T[], excludeArray: T[]) => {
-  const filteredArray = substractArrays(fromArray, excludeArray)
-  return randomElement(filteredArray)
-}
-
-export const randomElements = <T>(fromArray: T[], count: number): T[] => {
-  if (count > fromArray.length) { throw Error('trying to get more elements than array length') }
-  return shuffle(fromArray).slice(0, count)
-}
-
-export const firstElement = <T>(fromArray: T[]): T => {
-  return fromArray[0]
-}
 
 export const isNull = (item: any): boolean => {
   return item === null || item === undefined
 }
 
-export const groupBy = <T>(fromArray: T[], keyExtractor: (item: T, index: number) => string): {[key: string]: T } => {
-  const groupped: {[key: string]: T } = {}
-  fromArray.forEach( (item, index) => {
-    groupped[keyExtractor(item, index)] = item
-  })
-  return groupped
-}
-
-export const groupByMultipleKeys = <T>(fromArray: T[], multipleKeysExtractor: (item: T, index: number) => string[]): {[key: string]: T } => {
-  const groupped: {[key: string]: T } = {}
-  fromArray.forEach( (item, index) => {
-    const keys = multipleKeysExtractor(item, index)
-    keys.forEach((currentKey) => {
-      groupped[currentKey] = item
-    })
-  })
-  return groupped
-}
-
-export const groupByAndMap = <T, U>(fromArray: T[], keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U): {[key: string]: U } => {
-  const groupped: {[key: string]: U } = {}
-  fromArray.forEach( (item, index) => {
-    groupped[keyExtractor(item, index)] = transform(item, index)
-  })
-  return groupped
-}
-
-
-
-export const removeLastElement = <T>(fromArray: T[]): T[] => {
-  if (fromArray.length === 0) {
-    return fromArray
-  }
-  return fromArray.slice(0, fromArray.length - 1)
-}
-
-export const shuffle = <T>(array: T[]): T[] => {
-  // if it's 1 or 0 items, just return
-  if (array.length <= 1) {
-    return array
-  }
-
-  const newArray = array.slice()
-
-  // For each index in array
-  for (let i = 0; i < newArray.length; i++) {
-
-    // choose a random not-yet-placed item to place there
-    // must be an item AFTER the current item, because the stuff
-    // before has all already been placed
-    const randomChoiceIndex = getRandom(i, newArray.length - 1)
-
-    const temp = newArray[i]
-    newArray[i] = newArray[randomChoiceIndex]
-    newArray[randomChoiceIndex] = temp
-  }
-
-  return newArray
-}
-
-export const getRandom = (floor: number, ceiling: number): number => {
-  return Math.floor(Math.random() * (ceiling - floor + 1)) + floor
-}
-
-
-// expects a number between 0-1
-export const getRandomBoolean = (weight?: number): boolean => {
-  return getRandom(1, 10000) < (weight || 0.5) * 10000
-}
 
 export const range = (start: number, limit: number): number[] => {
   return Array.apply(null, { length: limit })
@@ -112,9 +24,6 @@ export const chunk = <T>(chunkSize: number, array: T[]): T[][] => {
   return groups
 }
 
-export const lastElement = <T>(array: T[]): T => {
-  return array[array.length - 1]
-}
 
 export const toMMSS = (time: number) => {
   if (!time) {

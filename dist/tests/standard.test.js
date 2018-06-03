@@ -1,6 +1,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import { sortIntersection, removeLastElement, sortArrayByFunction } from '../standard';
+import { sortIntersection, sortArrayByFunction } from '../standard';
+import { removeLastElement } from '../array';
 describe('Standart utils', () => {
     describe('reorderArrayByPrevious', () => {
         it('Should return source like aray if order array didn\'t provide', () => {

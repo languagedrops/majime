@@ -9,9 +9,40 @@ declare global  {
         insert(elem: T, index: number): T[];
         isUnique(): boolean;
         substract(otherArray: T[]): T[];
+        groupBy(keyExtractor: (item: T, index: number) => string): {
+            [key: string]: T;
+        };
+        groupByMultipleKeys(multipleKeysExtractor: (item: T, index: number) => string[]): {
+            [key: string]: T;
+        };
+        groupByAndMap<U>(keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U): {
+            [key: string]: U;
+        };
+        shuffle(): T[];
+        randomElement(): T;
+        randomElementWithExceptions(except: T[]): T;
+        randomElements(count: number): T[];
+        firstElement(): T;
+        lastElement(): T;
     }
 }
+export declare const removeLastElement: <T>(fromArray: T[]) => T[];
 export declare const reverseArray: <T>(array: T[]) => T[];
 export declare const insert: <T>(array: T[], index: number, newItem: T) => T[];
 export declare const isArrayUnique: <T>(array: T[]) => boolean;
 export declare const substractArrays: <T>(a: T[], b: T[]) => T[];
+export declare const groupBy: <T>(fromArray: T[], keyExtractor: (item: T, index: number) => string) => {
+    [key: string]: T;
+};
+export declare const groupByMultipleKeys: <T>(fromArray: T[], multipleKeysExtractor: (item: T, index: number) => string[]) => {
+    [key: string]: T;
+};
+export declare const groupByAndMap: <T, U>(fromArray: T[], keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U) => {
+    [key: string]: U;
+};
+export declare const shuffle: <T>(array: T[]) => T[];
+export declare const randomElement: <T>(fromArray: T[]) => T;
+export declare const randomElementWithExceptions: <T>(fromArray: T[], excludeArray: T[]) => T;
+export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
+export declare const firstElement: <T>(fromArray: T[]) => T;
+export declare const lastElement: <T>(array: T[]) => T;

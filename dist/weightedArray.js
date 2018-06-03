@@ -1,4 +1,4 @@
-import { getRandom } from './standard';
+import { getRandom } from './random';
 export const getRandomWeightedElement = (fromArray) => {
     if (fromArray.length === 0) {
         return null;

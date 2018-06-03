@@ -1,24 +1,6 @@
-export declare const randomElement: <T>(fromArray: T[]) => T;
-export declare const randomElementWithExceptions: <T>(fromArray: T[], excludeArray: T[]) => T;
-export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
-export declare const firstElement: <T>(fromArray: T[]) => T;
 export declare const isNull: (item: any) => boolean;
-export declare const groupBy: <T>(fromArray: T[], keyExtractor: (item: T, index: number) => string) => {
-    [key: string]: T;
-};
-export declare const groupByMultipleKeys: <T>(fromArray: T[], multipleKeysExtractor: (item: T, index: number) => string[]) => {
-    [key: string]: T;
-};
-export declare const groupByAndMap: <T, U>(fromArray: T[], keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U) => {
-    [key: string]: U;
-};
-export declare const removeLastElement: <T>(fromArray: T[]) => T[];
-export declare const shuffle: <T>(array: T[]) => T[];
-export declare const getRandom: (floor: number, ceiling: number) => number;
-export declare const getRandomBoolean: (weight?: number | undefined) => boolean;
 export declare const range: (start: number, limit: number) => number[];
 export declare const chunk: <T>(chunkSize: number, array: T[]) => T[][];
-export declare const lastElement: <T>(array: T[]) => T;
 export declare const toMMSS: (time: number) => string;
 export declare const clamp: (value: number, min: number, max: number) => number;
 export declare const probablity: (likelihood: number) => boolean;
