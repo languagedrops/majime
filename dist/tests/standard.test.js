@@ -1,7 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 import { sortIntersection, sortArrayByFunction } from '../standard';
-import { removeLastElement } from '../array';
 describe('Standart utils', () => {
     describe('reorderArrayByPrevious', () => {
         it('Should return source like aray if order array didn\'t provide', () => {
@@ -34,9 +33,9 @@ describe('Standart utils', () => {
     });
     describe('removeLastElement', () => {
         it('Should correctly delete last element', () => {
-            expect(removeLastElement([1, 2, 3, 4])).equal([1, 2, 3]);
-            expect(removeLastElement([1])).equal([]);
-            expect(removeLastElement([])).equal([]);
+            expect([1, 2, 3, 4].removeLastElement()).equal([1, 2, 3]);
+            expect([1].removeLastElement()).equal([]);
+            expect([].removeLastElement()).equal([]);
         });
     });
     describe('sortArrayByFunction', () => {
