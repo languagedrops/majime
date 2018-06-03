@@ -4,7 +4,7 @@ import { getRandom } from './random'
 declare global {
   interface Array<T> {
     remove(elem: T): T[]
-    flatten(): T[]
+    flatten(): T
     removeLastElement(): T[]
     unique(): T[]
     toSet(): Set<T>
