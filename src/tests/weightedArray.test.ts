@@ -1,6 +1,3 @@
-import { describe, it } from 'mocha'
-import { expect } from 'chai'
-
 import { range } from '../standard'
 import { getRandomWeightedElement, ElementAndWeight } from '../weightedArray'
 
@@ -29,6 +26,9 @@ namespace Option {
 }
 
 describe('weightedArray', () => {
+  beforeEach(() => {
+    jest.resetModules()
+  })
 
   it('getRandomWeightedElement should pick OtherOption at least once every 200', () => {
 
@@ -37,24 +37,42 @@ describe('weightedArray', () => {
     const arrayOfOptions = range(0, 5000).map( () => getRandomWeightedElement(weightedOptions))
 
     const controlCount = arrayOfOptions.filter( (item) => item === 'OtherOption').length
-    expect(controlCount).greaterThan(100)
+    expect(controlCount).toBeGreaterThan(100)
 
     const otherOptionCount = arrayOfOptions.filter( (item) => item === 'OtherOption').length
-    expect(otherOptionCount).greaterThan(100)
+    expect(otherOptionCount).toBeGreaterThan(100)
 
     const otherOption1Count = arrayOfOptions.filter( (item) => item === 'OtherOption1').length
-    expect(otherOption1Count).greaterThan(200)
+    expect(otherOption1Count).toBeGreaterThan(200)
 
     const otherOption2Count = arrayOfOptions.filter( (item) => item === 'OtherOption2').length
-    expect(otherOption2Count).greaterThan(100)
+    expect(otherOption2Count).toBeGreaterThan(100)
 
     const otherOption3Count = arrayOfOptions.filter( (item) => item === 'OtherOption3').length
-    expect(otherOption3Count).greaterThan(100)
+    expect(otherOption3Count).toBeGreaterThan(100)
 
     const dontSelect1Count = arrayOfOptions.filter( (item) => item === 'DontSelect1').length
-    expect(dontSelect1Count).equal(0)
+    expect(dontSelect1Count).toEqual(0)
 
   })
 
+  it('getRandomWeightedElement should pick first option if random return less than first weight', () => {
+    jest.doMock('../random', () => ({
+      getRandom: jest.fn(() => 199),
+    }))
+    const weightedOptions: Array<ElementAndWeight<Option>> = Option.all.map( (element) => ({ element, weight: Option.weightFor(element) }))
 
+    // tslint:disable-next-line
+    expect(require('../weightedArray').getRandomWeightedElement(weightedOptions)).toEqual(Option.Control)
+  })
+
+  it('getRandomWeightedElement should pick second option if random return between first and second weights', () => {
+    jest.doMock('../random', () => ({
+      getRandom: jest.fn(() => 201),
+    }))
+    const weightedOptions: Array<ElementAndWeight<Option>> = Option.all.map( (element) => ({ element, weight: Option.weightFor(element) }))
+
+    // tslint:disable-next-line
+    expect(require('../weightedArray').getRandomWeightedElement(weightedOptions)).toEqual(Option.OtherOption)
+  })
 })
