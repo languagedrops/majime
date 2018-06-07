@@ -37,6 +37,6 @@ export const getRandomWeightedElement = <T>(fromArray: Array<ElementAndWeight<T>
         output: [...accum.output, { element: item.element, accumulatedWeight: currentAccumulatedWeight }],
       }
     }, initialAccum)
-  const pickedItem = elementsAndAccumWeight.output.find( (item) => item.accumulatedWeight > random )
+  const pickedItem = elementsAndAccumWeight.output.find( (item) => item.accumulatedWeight >= random )
   return pickedItem && pickedItem.element || null
 }
