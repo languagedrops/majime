@@ -24,6 +24,7 @@ declare global  {
         randomElements(count: number): T[];
         firstElement(): T;
         lastElement(): T;
+        lastElements(numberOfElements: number): T[];
     }
 }
 export declare const removeLastElement: <T>(fromArray: T[]) => T[];
@@ -46,3 +47,4 @@ export declare const randomElementWithExceptions: <T>(fromArray: T[], excludeArr
 export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
 export declare const firstElement: <T>(fromArray: T[]) => T;
 export declare const lastElement: <T>(array: T[]) => T;
+export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];

@@ -168,3 +168,11 @@ if (!Array.prototype.lastElement) {
 export const lastElement = (array) => {
     return array[array.length - 1];
 };
+if (!Array.prototype.lastElements) {
+    Array.prototype.lastElements = function (numberOfElements) {
+        return lastElements(this, numberOfElements);
+    };
+}
+export const lastElements = (array, numberOfElements) => {
+    return array.slice(Math.max(array.length - numberOfElements, 0));
+};

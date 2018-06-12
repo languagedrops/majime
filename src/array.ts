@@ -21,6 +21,7 @@ declare global {
     randomElements(count: number): T[]
     firstElement(): T
     lastElement(): T
+    lastElements(numberOfElements: number): T[]
   }
 }
 
@@ -234,4 +235,15 @@ if (!Array.prototype.lastElement) {
 
 export const lastElement = <T>(array: T[]): T => {
   return array[array.length - 1]
+}
+
+
+if (!Array.prototype.lastElements) {
+  Array.prototype.lastElements = function<T>(numberOfElements: number): T[] {
+    return lastElements(this, numberOfElements)
+  }
+}
+
+export const lastElements = <T>(array: T[], numberOfElements: number): T[] => {
+  return array.slice(Math.max(array.length - numberOfElements, 0))
 }
