@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const grapheme_splitter_1 = require("grapheme-splitter");
-const splitter = new grapheme_splitter_1.default();
+const splitter = new grapheme_splitter_1.GraphemeSplitter();
 exports.isNull = (item) => {
     return item === null || item === undefined;
 };

@@ -1,4 +1,4 @@
-import GraphemeSplitter from 'grapheme-splitter'
+import { GraphemeSplitter } from 'grapheme-splitter'
 
 const splitter = new GraphemeSplitter()
 
