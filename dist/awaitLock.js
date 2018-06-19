@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-class AwaitLock {
+export class AwaitLock {
     constructor() {
         this.isAcquired = false;
         this.waitingResolvers = [];
@@ -27,4 +25,3 @@ class AwaitLock {
         }
     }
 }
-exports.AwaitLock = AwaitLock;

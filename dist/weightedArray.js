@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const random_1 = require("./random");
-exports.getRandomWeightedElement = (fromArray) => {
+import { getRandom } from './random';
+export const getRandomWeightedElement = (fromArray) => {
     if (fromArray.length === 0) {
         return null;
     }
@@ -9,7 +7,7 @@ exports.getRandomWeightedElement = (fromArray) => {
         return fromArray[0].element;
     }
     const maximum = fromArray.reduce((accum, item) => accum + item.weight, 0);
-    const random = random_1.getRandom(0, maximum * 100) / 100;
+    const random = getRandom(0, maximum * 100) / 100;
     const initialAccum = {
         output: [],
         currentAccumulatedWeight: 0,

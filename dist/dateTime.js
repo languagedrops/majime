@@ -1,44 +1,42 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.addSecondsToDate = (date, seconds) => {
+export const addSecondsToDate = (date, seconds) => {
     return new Date(date.getTime() + seconds * 1000);
 };
-exports.addMinutesToDate = (date, minutes) => {
-    return exports.addSecondsToDate(date, minutes * 60);
+export const addMinutesToDate = (date, minutes) => {
+    return addSecondsToDate(date, minutes * 60);
 };
-exports.addHoursToDate = (date, hours) => {
-    return exports.addMinutesToDate(date, hours * 60);
+export const addHoursToDate = (date, hours) => {
+    return addMinutesToDate(date, hours * 60);
 };
-exports.addDaysToDate = (date, days) => {
-    return exports.addHoursToDate(date, days * 24);
+export const addDaysToDate = (date, days) => {
+    return addHoursToDate(date, days * 24);
 };
-exports.getDateDifference = (date1, date2) => {
+export const getDateDifference = (date1, date2) => {
     const newLocalTime = new Date(date1.getTime() - date2.getTime());
     const newUTCTimeStamp = (newLocalTime.getTime() + newLocalTime.getTimezoneOffset() * 60 * 1000);
     return new Date(newUTCTimeStamp);
 };
-exports.getDaysDifference = (date1, date2) => {
-    const diffInMillisec = exports.getDateDifference(date1, date2).getTime();
+export const getDaysDifference = (date1, date2) => {
+    const diffInMillisec = getDateDifference(date1, date2).getTime();
     return diffInMillisec / (1000 * 60 * 60 * 24);
 };
-exports.getMillisecondsBetweenDates = (first, second) => {
+export const getMillisecondsBetweenDates = (first, second) => {
     return second.getTime() - first.getTime();
 };
-exports.getMillisecondsSinceDate = (date) => {
-    return exports.getMillisecondsBetweenDates(date, new Date());
+export const getMillisecondsSinceDate = (date) => {
+    return getMillisecondsBetweenDates(date, new Date());
 };
 const addZeroPaddingToNumber = (figure) => {
     const stringFigure = figure.toString();
     return stringFigure.length < 2 ? '0' + stringFigure : stringFigure;
 };
-exports.formatDate = (date, addSeconds = true) => {
+export const formatDate = (date, addSeconds = true) => {
     const hours = addZeroPaddingToNumber(date.getHours());
     const minutes = addZeroPaddingToNumber(date.getMinutes());
     const seconds = addZeroPaddingToNumber(date.getSeconds());
     return addSeconds ? hours + ':' + minutes + ':' + seconds : hours + ':' + minutes;
 };
-exports.oneHourValue = 60 * 60 * 1000; /* ms */
-exports.oneMinuteValue = 60 * 1000; /* ms */
-exports.getTimeStamp = (year, month, day, hours = 0) => {
+export const oneHourValue = 60 * 60 * 1000; /* ms */
+export const oneMinuteValue = 60 * 1000; /* ms */
+export const getTimeStamp = (year, month, day, hours = 0) => {
     return new Date(Date.UTC(year, month, day, hours)).getTime();
 };

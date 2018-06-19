@@ -1,17 +1,15 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const grapheme_splitter_1 = require("grapheme-splitter");
-const splitter = new grapheme_splitter_1.GraphemeSplitter();
-exports.isNull = (item) => {
+import GraphemeSplitter from 'grapheme-splitter';
+const splitter = new GraphemeSplitter();
+export const isNull = (item) => {
     return item === null || item === undefined;
 };
-exports.range = (start, limit) => {
+export const range = (start, limit) => {
     return Array.apply(null, { length: limit })
         .map((_, index) => {
         return index + start;
     });
 };
-exports.chunk = (chunkSize, array) => {
+export const chunk = (chunkSize, array) => {
     const groups = [];
     let i = 0;
     for (i = 0; i < array.length; i += chunkSize) {
@@ -19,7 +17,7 @@ exports.chunk = (chunkSize, array) => {
     }
     return groups;
 };
-exports.toMMSS = (time) => {
+export const toMMSS = (time) => {
     if (!time) {
         return '0:00';
     }
@@ -29,26 +27,26 @@ exports.toMMSS = (time) => {
     const secondsString = seconds < 10 ? '0' + seconds : seconds.toString();
     return minuteString + ':' + secondsString;
 };
-exports.clamp = (value, min, max) => {
+export const clamp = (value, min, max) => {
     return min < max
         ? (value < min ? min : value > max ? max : value)
         : (value < max ? max : value > min ? min : value);
 };
-exports.probablity = (likelihood) => {
+export const probablity = (likelihood) => {
     return Math.random() <= likelihood;
 };
-exports.makeUnique = (array) => {
+export const makeUnique = (array) => {
     return [...new Set(array)];
 };
-exports.delay = (millis, value) => {
+export const delay = (millis, value) => {
     return new Promise((resolve) => setTimeout(() => resolve(value), millis));
 };
-exports.omit = (key, object) => {
+export const omit = (key, object) => {
     const newObject = Object.assign({}, object);
     delete newObject[key];
     return newObject;
 };
-exports.flattenArray = (arrays) => {
+export const flattenArray = (arrays) => {
     return [].concat(...arrays);
 };
 /*
@@ -58,13 +56,13 @@ exports.flattenArray = (arrays) => {
     elements are pairwise === to each other recursively under this
     definition.
 */
-exports.arraysEqual = (lhs, rhs) => {
+export const arraysEqual = (lhs, rhs) => {
     if (lhs instanceof Array && rhs instanceof Array) {
         if (lhs.length !== rhs.length) {
             return false;
         }
         for (let i = 0; i < lhs.length; i++) {
-            if (!exports.arraysEqual(lhs[i], rhs[i])) {
+            if (!arraysEqual(lhs[i], rhs[i])) {
                 return false;
             }
         }
@@ -77,7 +75,7 @@ exports.arraysEqual = (lhs, rhs) => {
 /*
     It leave elements of source array that also are contained in order array at the same indexes
 */
-exports.sortIntersection = (sourceArray, orderArray) => {
+export const sortIntersection = (sourceArray, orderArray) => {
     if (!orderArray || sourceArray.length !== orderArray.length) {
         return sourceArray;
     }
@@ -99,7 +97,7 @@ exports.sortIntersection = (sourceArray, orderArray) => {
     }
     return result;
 };
-exports.sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
+export const sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
     return sourceArray.slice().sort((a, b) => {
         const comparableA = compareFunction(a);
         const comparableB = compareFunction(b);
@@ -114,26 +112,26 @@ exports.sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
         }
     });
 };
-exports.truncate = (str, length) => {
+export const truncate = (str, length) => {
     if (str.length > length) {
         return str.slice(0, length - 3) + '...';
     }
     return str;
 };
-exports.reverseString = (str) => {
+export const reverseString = (str) => {
     return splitter.splitGraphemes(str).reverse().join('');
 };
-exports.capitalizeFirstLetter = (str) => {
+export const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
-exports.generateUUID = () => {
+export const generateUUID = () => {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
 };
-class SafeSetInterval {
+export class SafeSetInterval {
     constructor() {
         this.timer = null;
         this.start = (handler, milliseconds) => {
@@ -148,11 +146,10 @@ class SafeSetInterval {
         this.isRunning = () => this.timer !== null;
     }
 }
-exports.SafeSetInterval = SafeSetInterval;
-exports.asyncJsonParse = (data) => {
+export const asyncJsonParse = (data) => {
     return (new Response(data)).json();
 };
-exports.filterDictionary = (dict, filterFunction) => {
+export const filterDictionary = (dict, filterFunction) => {
     const result = {};
     Object.keys(dict).forEach((key) => {
         const currentValue = dict[key];
@@ -162,8 +159,8 @@ exports.filterDictionary = (dict, filterFunction) => {
     });
     return result;
 };
-exports.getHash = (inputString) => {
-    return exports.range(0, inputString.length).reduce((accum, index) => {
+export const getHash = (inputString) => {
+    return range(0, inputString.length).reduce((accum, index) => {
         return accum + inputString.charCodeAt(index);
     }, 0);
 };

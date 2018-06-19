@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const random_1 = require("./random");
+import { getRandom } from './random';
 if (!Array.prototype.remove) {
     Array.prototype.remove = function (elem) {
         return this.filter((e) => e !== elem);
@@ -13,10 +11,10 @@ if (!Array.prototype.flatten) {
 }
 if (!Array.prototype.removeLastElement) {
     Array.prototype.removeLastElement = function () {
-        return exports.removeLastElement(this);
+        return removeLastElement(this);
     };
 }
-exports.removeLastElement = (fromArray) => {
+export const removeLastElement = (fromArray) => {
     if (fromArray.length === 0) {
         return fromArray;
     }
@@ -34,42 +32,42 @@ if (!Array.prototype.toSet) {
 }
 if (!Array.prototype.reversed) {
     Array.prototype.reversed = function () {
-        return exports.reverseArray(this);
+        return reverseArray(this);
     };
 }
-exports.reverseArray = (array) => {
+export const reverseArray = (array) => {
     return [...array].reverse();
 };
 if (!Array.prototype.insert) {
     Array.prototype.insert = function (elem, index) {
-        return exports.insert(this, index, elem);
+        return insert(this, index, elem);
     };
 }
-exports.insert = (array, index, newItem) => [
+export const insert = (array, index, newItem) => [
     ...array.slice(0, index),
     newItem,
     ...array.slice(index),
 ];
 if (!Array.prototype.isUnique) {
     Array.prototype.isUnique = function () {
-        return exports.isArrayUnique(this);
+        return isArrayUnique(this);
     };
 }
-exports.isArrayUnique = (array) => array.length === new Set(array).size;
+export const isArrayUnique = (array) => array.length === new Set(array).size;
 if (!Array.prototype.substract) {
     Array.prototype.substract = function (otherArray) {
-        return exports.substractArrays(this, otherArray);
+        return substractArrays(this, otherArray);
     };
 }
-exports.substractArrays = (a, b) => {
+export const substractArrays = (a, b) => {
     return a.filter((aElement) => !b.includes(aElement));
 };
 if (!Array.prototype.groupBy) {
     Array.prototype.groupBy = function (keyExtractor) {
-        return exports.groupBy(this, keyExtractor);
+        return groupBy(this, keyExtractor);
     };
 }
-exports.groupBy = (fromArray, keyExtractor) => {
+export const groupBy = (fromArray, keyExtractor) => {
     const groupped = {};
     fromArray.forEach((item, index) => {
         groupped[keyExtractor(item, index)] = item;
@@ -78,10 +76,10 @@ exports.groupBy = (fromArray, keyExtractor) => {
 };
 if (!Array.prototype.groupByMultipleKeys) {
     Array.prototype.groupByMultipleKeys = function (multipleKeysExtractor) {
-        return exports.groupByMultipleKeys(this, multipleKeysExtractor);
+        return groupByMultipleKeys(this, multipleKeysExtractor);
     };
 }
-exports.groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
+export const groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
     const groupped = {};
     fromArray.forEach((item, index) => {
         const keys = multipleKeysExtractor(item, index);
@@ -93,10 +91,10 @@ exports.groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
 };
 if (!Array.prototype.groupByAndMap) {
     Array.prototype.groupByAndMap = function (keyExtractor, transform) {
-        return exports.groupByAndMap(this, keyExtractor, transform);
+        return groupByAndMap(this, keyExtractor, transform);
     };
 }
-exports.groupByAndMap = (fromArray, keyExtractor, transform) => {
+export const groupByAndMap = (fromArray, keyExtractor, transform) => {
     const groupped = {};
     fromArray.forEach((item, index) => {
         groupped[keyExtractor(item, index)] = transform(item, index);
@@ -105,10 +103,10 @@ exports.groupByAndMap = (fromArray, keyExtractor, transform) => {
 };
 if (!Array.prototype.shuffle) {
     Array.prototype.shuffle = function () {
-        return exports.shuffle(this);
+        return shuffle(this);
     };
 }
-exports.shuffle = (array) => {
+export const shuffle = (array) => {
     // if it's 1 or 0 items, just return
     if (array.length <= 1) {
         return array;
@@ -119,7 +117,7 @@ exports.shuffle = (array) => {
         // choose a random not-yet-placed item to place there
         // must be an item AFTER the current item, because the stuff
         // before has all already been placed
-        const randomChoiceIndex = random_1.getRandom(i, newArray.length - 1);
+        const randomChoiceIndex = getRandom(i, newArray.length - 1);
         const temp = newArray[i];
         newArray[i] = newArray[randomChoiceIndex];
         newArray[randomChoiceIndex] = temp;
@@ -128,53 +126,53 @@ exports.shuffle = (array) => {
 };
 if (!Array.prototype.randomElement) {
     Array.prototype.randomElement = function () {
-        return exports.randomElement(this);
+        return randomElement(this);
     };
 }
-exports.randomElement = (fromArray) => {
+export const randomElement = (fromArray) => {
     return fromArray[Math.floor(Math.random() * fromArray.length)];
 };
 if (!Array.prototype.randomElementWithExceptions) {
     Array.prototype.randomElementWithExceptions = function (except) {
-        return exports.randomElementWithExceptions(this, except);
+        return randomElementWithExceptions(this, except);
     };
 }
-exports.randomElementWithExceptions = (fromArray, excludeArray) => {
-    const filteredArray = exports.substractArrays(fromArray, excludeArray);
-    return exports.randomElement(filteredArray);
+export const randomElementWithExceptions = (fromArray, excludeArray) => {
+    const filteredArray = substractArrays(fromArray, excludeArray);
+    return randomElement(filteredArray);
 };
 if (!Array.prototype.randomElements) {
     Array.prototype.randomElements = function (count) {
-        return exports.randomElements(this, count);
+        return randomElements(this, count);
     };
 }
-exports.randomElements = (fromArray, count) => {
+export const randomElements = (fromArray, count) => {
     if (count > fromArray.length) {
         throw Error('trying to get more elements than array length');
     }
-    return exports.shuffle(fromArray).slice(0, count);
+    return shuffle(fromArray).slice(0, count);
 };
 if (!Array.prototype.firstElement) {
     Array.prototype.firstElement = function () {
-        return exports.firstElement(this);
+        return firstElement(this);
     };
 }
-exports.firstElement = (fromArray) => {
+export const firstElement = (fromArray) => {
     return fromArray[0];
 };
 if (!Array.prototype.lastElement) {
     Array.prototype.lastElement = function () {
-        return exports.lastElement(this);
+        return lastElement(this);
     };
 }
-exports.lastElement = (array) => {
+export const lastElement = (array) => {
     return array[array.length - 1];
 };
 if (!Array.prototype.lastElements) {
     Array.prototype.lastElements = function (numberOfElements) {
-        return exports.lastElements(this, numberOfElements);
+        return lastElements(this, numberOfElements);
     };
 }
-exports.lastElements = (array, numberOfElements) => {
+export const lastElements = (array, numberOfElements) => {
     return array.slice(Math.max(array.length - numberOfElements, 0));
 };

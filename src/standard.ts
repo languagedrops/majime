@@ -1,7 +1,6 @@
-import { GraphemeSplitter } from 'grapheme-splitter'
+import GraphemeSplitter from 'grapheme-splitter'
 
 const splitter = new GraphemeSplitter()
-
 
 export const isNull = (item: any): boolean => {
   return item === null || item === undefined

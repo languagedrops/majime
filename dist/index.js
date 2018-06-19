@@ -1,11 +1,6 @@
-"use strict";
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-__export(require("./standard"));
-__export(require("./dateTime"));
-__export(require("./awaitLock"));
-__export(require("./weightedArray"));
-__export(require("./array"));
-__export(require("./random"));
+export * from './standard';
+export * from './dateTime';
+export * from './awaitLock';
+export * from './weightedArray';
+export * from './array';
+export * from './random';
