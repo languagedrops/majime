@@ -1,4 +1,5 @@
 export const upperFirst = (source: string): string => {
+  if (!source) { return source }
   const [first, ...rest] = source
   return `${first.toUpperCase()}${rest.join('')}`
 }
