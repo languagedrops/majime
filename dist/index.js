@@ -4,3 +4,4 @@ export * from './awaitLock';
 export * from './weightedArray';
 export * from './array';
 export * from './random';
+export * from './strings';
