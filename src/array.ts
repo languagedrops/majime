@@ -247,3 +247,9 @@ if (!Array.prototype.lastElements) {
 export const lastElements = <T>(array: T[], numberOfElements: number): T[] => {
   return array.slice(Math.max(array.length - numberOfElements, 0))
 }
+
+export const filterNull = <T>(array: Array<T | null | undefined>): T[] => {
+  return array.filter( (elem) => elem != null) as T[]
+}
+
+

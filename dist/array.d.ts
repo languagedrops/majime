@@ -48,3 +48,4 @@ export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
 export declare const firstElement: <T>(fromArray: T[]) => T;
 export declare const lastElement: <T>(array: T[]) => T;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];
+export declare const filterNull: <T>(array: (T | null | undefined)[]) => T[];

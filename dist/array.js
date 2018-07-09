@@ -176,3 +176,6 @@ if (!Array.prototype.lastElements) {
 export const lastElements = (array, numberOfElements) => {
     return array.slice(Math.max(array.length - numberOfElements, 0));
 };
+export const filterNull = (array) => {
+    return array.filter((elem) => elem != null);
+};
