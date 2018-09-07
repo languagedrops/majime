@@ -1,4 +1,6 @@
-export const mapKeys = (input, keyTransformer) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.mapKeys = (input, keyTransformer) => {
     const newMap = {};
     Object.keys(input)
         .forEach((key) => {
@@ -7,7 +9,7 @@ export const mapKeys = (input, keyTransformer) => {
     });
     return newMap;
 };
-export const mapValues = (input, valueTransformer) => {
+exports.mapValues = (input, valueTransformer) => {
     const newMap = {};
     Object.keys(input)
         .forEach((key) => {

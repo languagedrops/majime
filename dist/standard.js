@@ -1,15 +1,15 @@
-import GraphemeSplitter from 'grapheme-splitter';
-const splitter = new GraphemeSplitter();
-export const isNull = (item) => {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isNull = (item) => {
     return item === null || item === undefined;
 };
-export const range = (start, limit) => {
+exports.range = (start, limit) => {
     return Array.apply(null, { length: limit })
         .map((_, index) => {
         return index + start;
     });
 };
-export const chunk = (chunkSize, array) => {
+exports.chunk = (chunkSize, array) => {
     const groups = [];
     let i = 0;
     for (i = 0; i < array.length; i += chunkSize) {
@@ -17,7 +17,7 @@ export const chunk = (chunkSize, array) => {
     }
     return groups;
 };
-export const toMMSS = (time) => {
+exports.toMMSS = (time) => {
     if (!time) {
         return '0:00';
     }
@@ -27,26 +27,26 @@ export const toMMSS = (time) => {
     const secondsString = seconds < 10 ? '0' + seconds : seconds.toString();
     return minuteString + ':' + secondsString;
 };
-export const clamp = (value, min, max) => {
+exports.clamp = (value, min, max) => {
     return min < max
         ? (value < min ? min : value > max ? max : value)
         : (value < max ? max : value > min ? min : value);
 };
-export const probablity = (likelihood) => {
+exports.probablity = (likelihood) => {
     return Math.random() <= likelihood;
 };
-export const makeUnique = (array) => {
+exports.makeUnique = (array) => {
     return [...new Set(array)];
 };
-export const delay = (millis, value) => {
+exports.delay = (millis, value) => {
     return new Promise((resolve) => setTimeout(() => resolve(value), millis));
 };
-export const omit = (key, object) => {
+exports.omit = (key, object) => {
     const newObject = Object.assign({}, object);
     delete newObject[key];
     return newObject;
 };
-export const flattenArray = (arrays) => {
+exports.flattenArray = (arrays) => {
     return [].concat(...arrays);
 };
 /*
@@ -56,13 +56,13 @@ export const flattenArray = (arrays) => {
     elements are pairwise === to each other recursively under this
     definition.
 */
-export const arraysEqual = (lhs, rhs) => {
+exports.arraysEqual = (lhs, rhs) => {
     if (lhs instanceof Array && rhs instanceof Array) {
         if (lhs.length !== rhs.length) {
             return false;
         }
         for (let i = 0; i < lhs.length; i++) {
-            if (!arraysEqual(lhs[i], rhs[i])) {
+            if (!exports.arraysEqual(lhs[i], rhs[i])) {
                 return false;
             }
         }
@@ -75,7 +75,7 @@ export const arraysEqual = (lhs, rhs) => {
 /*
     It leave elements of source array that also are contained in order array at the same indexes
 */
-export const sortIntersection = (sourceArray, orderArray) => {
+exports.sortIntersection = (sourceArray, orderArray) => {
     if (!orderArray || sourceArray.length !== orderArray.length) {
         return sourceArray;
     }
@@ -97,7 +97,7 @@ export const sortIntersection = (sourceArray, orderArray) => {
     }
     return result;
 };
-export const sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
+exports.sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
     return sourceArray.slice().sort((a, b) => {
         const comparableA = compareFunction(a);
         const comparableB = compareFunction(b);
@@ -112,26 +112,23 @@ export const sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
         }
     });
 };
-export const truncate = (str, length) => {
+exports.truncate = (str, length) => {
     if (str.length > length) {
         return str.slice(0, length - 3) + '...';
     }
     return str;
 };
-export const reverseString = (str) => {
-    return splitter.splitGraphemes(str).reverse().join('');
-};
-export const capitalizeFirstLetter = (str) => {
+exports.capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
-export const generateUUID = () => {
+exports.generateUUID = () => {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
 };
-export class SafeSetInterval {
+class SafeSetInterval {
     constructor() {
         this.timer = null;
         this.start = (handler, milliseconds) => {
@@ -146,10 +143,11 @@ export class SafeSetInterval {
         this.isRunning = () => this.timer !== null;
     }
 }
-export const asyncJsonParse = (data) => {
+exports.SafeSetInterval = SafeSetInterval;
+exports.asyncJsonParse = (data) => {
     return (new Response(data)).json();
 };
-export const filterDictionary = (dict, filterFunction) => {
+exports.filterDictionary = (dict, filterFunction) => {
     const result = {};
     Object.keys(dict).forEach((key) => {
         const currentValue = dict[key];
@@ -159,8 +157,8 @@ export const filterDictionary = (dict, filterFunction) => {
     });
     return result;
 };
-export const getHash = (inputString) => {
-    return range(0, inputString.length).reduce((accum, index) => {
+exports.getHash = (inputString) => {
+    return exports.range(0, inputString.length).reduce((accum, index) => {
         return accum + inputString.charCodeAt(index);
     }, 0);
 };

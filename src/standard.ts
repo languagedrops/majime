@@ -1,11 +1,7 @@
-import GraphemeSplitter from 'grapheme-splitter'
-
-const splitter = new GraphemeSplitter()
 
 export const isNull = (item: any): boolean => {
   return item === null || item === undefined
 }
-
 
 export const range = (start: number, limit: number): number[] => {
   return Array.apply(null, { length: limit })
@@ -141,9 +137,7 @@ export const truncate = (str: string, length: number) => {
   return str
 }
 
-export const reverseString = (str: string) => {
-  return splitter.splitGraphemes(str).reverse().join('')
-}
+
 
 export const capitalizeFirstLetter = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1)
