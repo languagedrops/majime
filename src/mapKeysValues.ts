@@ -17,3 +17,12 @@ export const mapValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (
     })
   return newMap
 }
+
+export const mapKeysAndValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (key: string, value: T) => U): {[keys: string]: U} => {
+  const newMap: {[keys: string]: U} = {}
+  Object.keys(input)
+    .forEach( (key) => {
+      newMap[key] = valueTransformer(key, input[key])
+    })
+  return newMap
+}

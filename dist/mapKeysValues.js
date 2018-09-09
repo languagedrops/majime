@@ -17,3 +17,11 @@ exports.mapValues = (input, valueTransformer) => {
     });
     return newMap;
 };
+exports.mapKeysAndValues = (input, valueTransformer) => {
+    const newMap = {};
+    Object.keys(input)
+        .forEach((key) => {
+        newMap[key] = valueTransformer(key, input[key]);
+    });
+    return newMap;
+};

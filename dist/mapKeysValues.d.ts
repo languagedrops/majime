@@ -8,3 +8,8 @@ export declare const mapValues: <T, U>(input: {
 }, valueTransformer: (value: T) => U) => {
     [keys: string]: U;
 };
+export declare const mapKeysAndValues: <T, U>(input: {
+    [keys: string]: T;
+}, valueTransformer: (key: string, value: T) => U) => {
+    [keys: string]: U;
+};
