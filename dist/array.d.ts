@@ -18,6 +18,9 @@ declare global  {
         groupByAndMap<U>(keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U): {
             [key: string]: U;
         };
+        groupByMultipleValues(keyExtractor: (item: T, index: number) => string): {
+            [key: string]: T[];
+        };
         shuffle(): T[];
         randomElement(): T;
         randomElementWithExceptions(except: T[]): T;
@@ -40,6 +43,9 @@ export declare const groupByMultipleKeys: <T>(fromArray: T[], multipleKeysExtrac
 };
 export declare const groupByAndMap: <T, U>(fromArray: T[], keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U) => {
     [key: string]: U;
+};
+export declare const groupByMultipleValues: <T>(fromArray: T[], keyExtractor: (item: T, index: number) => string) => {
+    [key: string]: T[];
 };
 export declare const shuffle: <T>(array: T[]) => T[];
 export declare const randomElement: <T>(fromArray: T[]) => T;

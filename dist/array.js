@@ -103,6 +103,19 @@ exports.groupByAndMap = (fromArray, keyExtractor, transform) => {
     });
     return groupped;
 };
+if (!Array.prototype.groupByMultipleValues) {
+    Array.prototype.groupByMultipleValues = function (keyExtractor) {
+        return exports.groupByMultipleValues(this, keyExtractor);
+    };
+}
+exports.groupByMultipleValues = (fromArray, keyExtractor) => {
+    const groupped = {};
+    fromArray.forEach((item, index) => {
+        const key = keyExtractor(item, index);
+        groupped[key] = [...(groupped[key] || []), item];
+    });
+    return groupped;
+};
 if (!Array.prototype.shuffle) {
     Array.prototype.shuffle = function () {
         return exports.shuffle(this);

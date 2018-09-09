@@ -15,6 +15,7 @@ declare global {
     groupBy(keyExtractor: (item: T, index: number) => string): {[key: string]: T }
     groupByMultipleKeys(multipleKeysExtractor: (item: T, index: number) => string[]): {[key: string]: T }
     groupByAndMap<U>(keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U): {[key: string]: U }
+    groupByMultipleValues(keyExtractor: (item: T, index: number) => string): {[key: string]: T[] }
     shuffle(): T[]
     randomElement(): T
     randomElementWithExceptions(except: T[]): T
@@ -147,6 +148,22 @@ export const groupByAndMap = <T, U>(fromArray: T[], keyExtractor: (item: T, inde
   const groupped: {[key: string]: U } = {}
   fromArray.forEach( (item, index) => {
     groupped[keyExtractor(item, index)] = transform(item, index)
+  })
+  return groupped
+}
+
+if (!Array.prototype.groupByMultipleValues) {
+  Array.prototype.groupByMultipleValues = function<T>(keyExtractor: (item: T, index: number) => string): {[key: string]: T[] } {
+    return groupByMultipleValues(this, keyExtractor)
+  }
+}
+
+
+export const groupByMultipleValues = <T>(fromArray: T[], keyExtractor: (item: T, index: number) => string): {[key: string]: T[] } => {
+  const groupped: {[key: string]: T[] } = {}
+  fromArray.forEach( (item, index) => {
+    const key = keyExtractor(item, index)
+    groupped[key] = [...(groupped[key] || []), item]
   })
   return groupped
 }
