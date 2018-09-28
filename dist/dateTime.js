@@ -54,6 +54,18 @@ exports.getMillisecondsBetweenDates = (first, second) => {
 exports.getMillisecondsSinceDate = (date) => {
     return exports.getMillisecondsBetweenDates(date, new Date());
 };
+exports.getSecondsSinceDate = (date) => {
+    return exports.getMillisecondsSinceDate(date) / 1000;
+};
+exports.getMinutesSinceDate = (date) => {
+    return exports.getSecondsSinceDate(date) / 60;
+};
+exports.getHoursSinceDate = (date) => {
+    return exports.getMinutesSinceDate(date) / 60;
+};
+exports.getDaysSinceDate = (date) => {
+    return exports.getHoursSinceDate(date) / 24;
+};
 const addZeroPaddingToNumber = (figure) => {
     const stringFigure = figure.toString();
     return stringFigure.length < 2 ? '0' + stringFigure : stringFigure;
