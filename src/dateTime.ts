@@ -78,6 +78,22 @@ export const getMillisecondsSinceDate = (date: Date) => {
   return getMillisecondsBetweenDates(date, new Date())
 }
 
+export const getSecondsSinceDate = (date: Date) => {
+  return getMillisecondsSinceDate(date) / 1000
+}
+
+export const getMinutesSinceDate = (date: Date) => {
+  return getSecondsSinceDate(date) / 60
+}
+
+export const getHoursSinceDate = (date: Date) => {
+  return getMinutesSinceDate(date) / 60
+}
+
+export const getDaysSinceDate = (date: Date) => {
+  return getHoursSinceDate(date) / 24
+}
+
 const addZeroPaddingToNumber = (figure: number) => {
   const stringFigure = figure.toString()
   return stringFigure.length < 2 ? '0' + stringFigure : stringFigure
