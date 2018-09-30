@@ -53,9 +53,9 @@ export const delay = <T>(millis: number, value?: T): Promise<T> => {
   return new Promise((resolve) => setTimeout( () => resolve(value) , millis) )
 }
 
-export const omit = (key: string, object: object): object => {
-  const newObject = { ...object }
-  delete (newObject as any)[key]
+export const omit = <T, K extends keyof T>(key: K, object: T): Omit<T, K> => {
+  const newObject = { ...object as any } as T
+  delete newObject[key]
   return newObject
 }
 
