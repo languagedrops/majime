@@ -28,6 +28,7 @@ declare global  {
         firstElement(): T;
         lastElement(): T;
         lastElements(numberOfElements: number): T[];
+        filterNull(): Array<Exclude<T, null | undefined>>;
     }
 }
 export declare const removeLastElement: <T>(fromArray: T[]) => T[];
@@ -54,4 +55,4 @@ export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
 export declare const firstElement: <T>(fromArray: T[]) => T;
 export declare const lastElement: <T>(array: T[]) => T;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];
-export declare const filterNull: <T>(array: (T | null | undefined)[]) => T[];
+export declare const filterNull: <T>(array: T[]) => Exclude<T, null | undefined>[];

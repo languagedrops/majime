@@ -191,6 +191,11 @@ if (!Array.prototype.lastElements) {
 exports.lastElements = (array, numberOfElements) => {
     return array.slice(Math.max(array.length - numberOfElements, 0));
 };
+if (!Array.prototype.filterNull) {
+    Array.prototype.filterNull = function () {
+        return exports.filterNull(this);
+    };
+}
 exports.filterNull = (array) => {
     return array.filter((elem) => elem != null);
 };
