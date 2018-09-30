@@ -23,6 +23,7 @@ declare global {
     firstElement(): T
     lastElement(): T
     lastElements(numberOfElements: number): T[]
+    filterNull(): Array<Exclude<T, null | undefined>>
   }
 }
 
@@ -265,8 +266,15 @@ export const lastElements = <T>(array: T[], numberOfElements: number): T[] => {
   return array.slice(Math.max(array.length - numberOfElements, 0))
 }
 
-export const filterNull = <T>(array: Array<T | null | undefined>): T[] => {
-  return array.filter( (elem) => elem != null) as T[]
+if (!Array.prototype.filterNull) {
+  Array.prototype.filterNull = function<T>(): Array<Exclude<T, null | undefined>> {
+    return filterNull(this)
+  }
+}
+
+
+export const filterNull = <T>(array: T[]): Array<Exclude<T, null | undefined>> => {
+  return array.filter( (elem) => elem != null) as Array<Exclude<T, null | undefined>>
 }
 
 
