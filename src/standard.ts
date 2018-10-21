@@ -116,20 +116,6 @@ export const sortIntersection = <T>(sourceArray: T[], orderArray?: T[]): T[] => 
   return result
 }
 
-export const sortArrayByFunction = <T>(sourceArray: T[], compareFunction: (element: T) => number | string, reverse?: boolean ) => {
-  return sourceArray.slice().sort((a, b) => {
-    const comparableA = compareFunction(a)
-    const comparableB = compareFunction(b)
-    if (comparableA < comparableB) {
-      return reverse ? 1 : -1
-    } else if (comparableA > comparableB) {
-      return reverse ? -1 : 1
-    } else {
-      return 0
-    }
-  })
-}
-
 export const truncate = (str: string, length: number) => {
   if (str.length > length) {
     return str.slice(0, length - 3) + '...'

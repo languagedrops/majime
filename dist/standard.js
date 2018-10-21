@@ -97,21 +97,6 @@ exports.sortIntersection = (sourceArray, orderArray) => {
     }
     return result;
 };
-exports.sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
-    return sourceArray.slice().sort((a, b) => {
-        const comparableA = compareFunction(a);
-        const comparableB = compareFunction(b);
-        if (comparableA < comparableB) {
-            return reverse ? 1 : -1;
-        }
-        else if (comparableA > comparableB) {
-            return reverse ? -1 : 1;
-        }
-        else {
-            return 0;
-        }
-    });
-};
 exports.truncate = (str, length) => {
     if (str.length > length) {
         return str.slice(0, length - 3) + '...';

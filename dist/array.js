@@ -199,3 +199,23 @@ if (!Array.prototype.filterNull) {
 exports.filterNull = (array) => {
     return array.filter((elem) => elem != null);
 };
+if (!Array.prototype.sortedByProperty) {
+    Array.prototype.sortedByProperty = function (compareFunction, reverse) {
+        return exports.sortArrayByFunction(this, compareFunction, reverse);
+    };
+}
+exports.sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
+    return sourceArray.slice().sort((a, b) => {
+        const comparableA = compareFunction(a);
+        const comparableB = compareFunction(b);
+        if (comparableA < comparableB) {
+            return reverse ? 1 : -1;
+        }
+        else if (comparableA > comparableB) {
+            return reverse ? -1 : 1;
+        }
+        else {
+            return 0;
+        }
+    });
+};

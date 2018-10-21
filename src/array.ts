@@ -24,6 +24,7 @@ declare global {
     lastElement(): T
     lastElements(numberOfElements: number): T[]
     filterNull(): Array<Exclude<T, null | undefined>>
+    sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[]
   }
 }
 
@@ -277,4 +278,22 @@ export const filterNull = <T>(array: T[]): Array<Exclude<T, null | undefined>> =
   return array.filter( (elem) => elem != null) as Array<Exclude<T, null | undefined>>
 }
 
+if (!Array.prototype.sortedByProperty) {
+  Array.prototype.sortedByProperty = function<T>(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[] {
+    return sortArrayByFunction(this, compareFunction, reverse)
+  }
+}
 
+export const sortArrayByFunction = <T>(sourceArray: T[], compareFunction: (element: T) => number | string | Date, reverse?: boolean ) => {
+  return sourceArray.slice().sort((a, b) => {
+    const comparableA = compareFunction(a)
+    const comparableB = compareFunction(b)
+    if (comparableA < comparableB) {
+      return reverse ? 1 : -1
+    } else if (comparableA > comparableB) {
+      return reverse ? -1 : 1
+    } else {
+      return 0
+    }
+  })
+}

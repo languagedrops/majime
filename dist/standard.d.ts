@@ -10,7 +10,6 @@ export declare const omit: <T, K extends keyof T>(key: K, object: T) => Pick<T, 
 export declare const flattenArray: <T>(arrays: T[][]) => T[];
 export declare const arraysEqual: <T>(lhs: T[], rhs: T[]) => boolean;
 export declare const sortIntersection: <T>(sourceArray: T[], orderArray?: T[] | undefined) => T[];
-export declare const sortArrayByFunction: <T>(sourceArray: T[], compareFunction: (element: T) => string | number, reverse?: boolean | undefined) => T[];
 export declare const truncate: (str: string, length: number) => string;
 export declare const capitalizeFirstLetter: (str: string) => string;
 export declare const generateUUID: () => string;

@@ -1,4 +1,4 @@
-import { sortIntersection, sortArrayByFunction } from '../standard'
+import { sortIntersection } from '../standard'
 import '../array'
 
 describe('Standart utils', () => {
@@ -44,40 +44,5 @@ describe('Standart utils', () => {
     })
   })
 
-  describe('sortArrayByFunction', () => {
-    it('Should sort the arrays by the length of the name while keeping the equal ones in the same order', () => {
-      const sourceArray = [
-        { name: 'J. K. Rowling', id: 3 },
-        { name: 'Agatha Christie', id: 4 },
-        { name: 'Jane Austen', id: 1 },
-        { name: 'George Orwell', id: 2 },
-      ]
-      const orderedArray = [
-        { name: 'Jane Austen', id: 1 },
-        { name: 'J. K. Rowling', id: 3 },
-        { name: 'George Orwell', id: 2 },
-        { name: 'Agatha Christie', id: 4 },
-      ]
-      const compareFunction = (element: any) => element.name.length
-      expect(sortArrayByFunction(sourceArray, compareFunction)).toEqual(orderedArray)
-    })
-
-    it('Should sort the arrays by the length of the name in reverse order while keeping the equal ones in the same order', () => {
-      const sourceArray = [
-        { name: 'J. K. Rowling', id: 3 },
-        { name: 'Agatha Christie', id: 4 },
-        { name: 'Jane Austen', id: 1 },
-        { name: 'George Orwell', id: 2 },
-      ]
-      const orderedArray = [
-        { name: 'Agatha Christie', id: 4 },
-        { name: 'J. K. Rowling', id: 3 },
-        { name: 'George Orwell', id: 2 },
-        { name: 'Jane Austen', id: 1 },
-      ]
-      const compareFunction = (element: any) => element.name.length
-      expect(sortArrayByFunction(sourceArray, compareFunction, true)).toEqual(orderedArray)
-    })
-  })
 
 })

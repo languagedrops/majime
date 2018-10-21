@@ -29,6 +29,7 @@ declare global  {
         lastElement(): T;
         lastElements(numberOfElements: number): T[];
         filterNull(): Array<Exclude<T, null | undefined>>;
+        sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean): T[];
     }
 }
 export declare const removeLastElement: <T>(fromArray: T[]) => T[];
@@ -56,3 +57,4 @@ export declare const firstElement: <T>(fromArray: T[]) => T;
 export declare const lastElement: <T>(array: T[]) => T;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];
 export declare const filterNull: <T>(array: T[]) => Exclude<T, null | undefined>[];
+export declare const sortArrayByFunction: <T>(sourceArray: T[], compareFunction: (element: T) => string | number | Date, reverse?: boolean | undefined) => T[];
