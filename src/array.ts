@@ -280,11 +280,11 @@ export const filterNull = <T>(array: T[]): Array<Exclude<T, null | undefined>> =
 
 if (!Array.prototype.sortedByProperty) {
   Array.prototype.sortedByProperty = function<T>(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[] {
-    return sortArrayByFunction(this, compareFunction, reverse)
+    return sortedByProperty(this, compareFunction, reverse)
   }
 }
 
-export const sortArrayByFunction = <T>(sourceArray: T[], compareFunction: (element: T) => number | string | Date, reverse?: boolean ) => {
+export const sortedByProperty = <T>(sourceArray: T[], compareFunction: (element: T) => number | string | Date, reverse?: boolean ) => {
   return sourceArray.slice().sort((a, b) => {
     const comparableA = compareFunction(a)
     const comparableB = compareFunction(b)

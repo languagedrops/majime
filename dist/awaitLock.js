@@ -28,3 +28,15 @@ class AwaitLock {
     }
 }
 exports.AwaitLock = AwaitLock;
+exports.wrapInLock = async (lock, promise) => {
+    await lock.acquireAsync();
+    try {
+        const value = await promise();
+        lock.release();
+        return value;
+    }
+    catch (error) {
+        lock.release();
+        throw error;
+    }
+};

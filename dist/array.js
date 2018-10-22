@@ -201,10 +201,10 @@ exports.filterNull = (array) => {
 };
 if (!Array.prototype.sortedByProperty) {
     Array.prototype.sortedByProperty = function (compareFunction, reverse) {
-        return exports.sortArrayByFunction(this, compareFunction, reverse);
+        return exports.sortedByProperty(this, compareFunction, reverse);
     };
 }
-exports.sortArrayByFunction = (sourceArray, compareFunction, reverse) => {
+exports.sortedByProperty = (sourceArray, compareFunction, reverse) => {
     return sourceArray.slice().sort((a, b) => {
         const comparableA = compareFunction(a);
         const comparableB = compareFunction(b);

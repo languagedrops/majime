@@ -30,3 +30,15 @@ export class AwaitLock {
     }
   }
 }
+
+export const wrapInLock = async <T>(lock: AwaitLock, promise: () => Promise<T>): Promise <T> => {
+  await lock.acquireAsync()
+  try {
+    const value = await promise()
+    lock.release()
+    return value
+  } catch (error) {
+    lock.release()
+    throw error
+  }
+}

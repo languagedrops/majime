@@ -57,4 +57,4 @@ export declare const firstElement: <T>(fromArray: T[]) => T;
 export declare const lastElement: <T>(array: T[]) => T;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];
 export declare const filterNull: <T>(array: T[]) => Exclude<T, null | undefined>[];
-export declare const sortArrayByFunction: <T>(sourceArray: T[], compareFunction: (element: T) => string | number | Date, reverse?: boolean | undefined) => T[];
+export declare const sortedByProperty: <T>(sourceArray: T[], compareFunction: (element: T) => string | number | Date, reverse?: boolean | undefined) => T[];
