@@ -11,3 +11,4 @@ __export(require("./array"));
 __export(require("./random"));
 __export(require("./strings"));
 __export(require("./mapKeysValues"));
+__export(require("./promise"));
