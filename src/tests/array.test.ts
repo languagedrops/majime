@@ -1,4 +1,4 @@
-import { sortArrayByFunction } from '../array'
+import { sortedByProperty, batch } from '../array'
 
 describe('Array function', () => {
 
@@ -25,7 +25,7 @@ describe('Array function', () => {
         { name: 'Agatha Christie', id: 4 },
       ]
       const compareFunction = (element: any) => element.name.length
-      expect(sortArrayByFunction(sourceArray, compareFunction)).toEqual(orderedArray)
+      expect(sortedByProperty(sourceArray, compareFunction)).toEqual(orderedArray)
     })
 
     it('Should sort the arrays by the length of the name in reverse order while keeping the equal ones in the same order', () => {
@@ -42,7 +42,15 @@ describe('Array function', () => {
         { name: 'Jane Austen', id: 1 },
       ]
       const compareFunction = (element: any) => element.name.length
-      expect(sortArrayByFunction(sourceArray, compareFunction, true)).toEqual(orderedArray)
+      expect(sortedByProperty(sourceArray, compareFunction, true)).toEqual(orderedArray)
+    })
+  })
+
+  describe('Batch', () => {
+    it('Should split array into chunks', () => {
+      const testArray = [1, 2, 3, 4, 5, 6, 7]
+      const expectedArray = [[1, 2], [3, 4], [5, 6], [7]]
+      expect(batch(testArray, 2)).toEqual(expectedArray)
     })
   })
 

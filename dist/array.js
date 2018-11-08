@@ -219,3 +219,22 @@ exports.sortedByProperty = (sourceArray, compareFunction, reverse) => {
         }
     });
 };
+if (!Array.prototype.batch) {
+    Array.prototype.batch = function (batchSize) {
+        return exports.batch(this, batchSize);
+    };
+}
+exports.batch = (sourceArray, batchSize) => {
+    if (batchSize === 0) {
+        return [];
+    }
+    let index = 0;
+    let resultIndex = 0;
+    const result = [];
+    while (index < sourceArray.length) {
+        result[resultIndex] = sourceArray.slice(index, index + batchSize);
+        resultIndex++;
+        index += batchSize;
+    }
+    return result;
+};

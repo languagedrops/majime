@@ -25,6 +25,7 @@ declare global {
     lastElements(numberOfElements: number): T[]
     filterNull(): Array<Exclude<T, null | undefined>>
     sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[]
+    batch(batchSize: number): T[][]
   }
 }
 
@@ -296,4 +297,25 @@ export const sortedByProperty = <T>(sourceArray: T[], compareFunction: (element:
       return 0
     }
   })
+}
+
+if (!Array.prototype.batch) {
+  Array.prototype.batch = function<T>(batchSize: number): T[][] {
+    return batch(this, batchSize)
+  }
+}
+
+export const batch = <T>(sourceArray: T[], batchSize: number): T[][] => {
+  if (batchSize === 0) { return [] }
+  let index = 0
+  let resultIndex = 0
+  const result: T[][] = []
+
+  while (index < sourceArray.length) {
+    result[resultIndex] = sourceArray.slice(index, index + batchSize)
+    resultIndex++
+    index += batchSize
+  }
+
+  return result
 }
