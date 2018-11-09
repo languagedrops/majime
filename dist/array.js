@@ -11,6 +11,57 @@ if (!Array.prototype.flatten) {
         return [].concat(...this);
     };
 }
+exports.flattenArray = (arrays) => {
+    return [].concat(...arrays);
+};
+/*
+    Array-aware equality checker:
+    Returns whether arguments a and b are == to each other;
+    however if they are equal-lengthed arrays, returns whether their
+    elements are pairwise === to each other recursively under this
+    definition.
+*/
+exports.arraysEqual = (lhs, rhs) => {
+    if (lhs instanceof Array && rhs instanceof Array) {
+        if (lhs.length !== rhs.length) {
+            return false;
+        }
+        for (let i = 0; i < lhs.length; i++) {
+            if (!exports.arraysEqual(lhs[i], rhs[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    else {
+        return lhs === rhs; // if not both arrays, should be the same
+    }
+};
+/*
+    It leave elements of source array that also are contained in order array at the same indexes
+*/
+exports.sortIntersection = (sourceArray, orderArray) => {
+    if (!orderArray || sourceArray.length !== orderArray.length) {
+        return sourceArray;
+    }
+    const result = [];
+    const sourceUniqueElements = [];
+    sourceArray.forEach((sourceItem) => {
+        const orderIndex = orderArray.findIndex((item) => item === sourceItem);
+        if (orderIndex === -1) {
+            sourceUniqueElements.push(sourceItem);
+        }
+        else {
+            result[orderIndex] = sourceItem;
+        }
+    });
+    for (let i = 0; i < sourceArray.length; i++) {
+        if (!result[i]) {
+            result[i] = sourceUniqueElements.shift();
+        }
+    }
+    return result;
+};
 if (!Array.prototype.removeLastElement) {
     Array.prototype.removeLastElement = function () {
         return exports.removeLastElement(this);
@@ -219,22 +270,16 @@ exports.sortedByProperty = (sourceArray, compareFunction, reverse) => {
         }
     });
 };
-if (!Array.prototype.batch) {
-    Array.prototype.batch = function (batchSize) {
-        return exports.batch(this, batchSize);
+if (!Array.prototype.chunk) {
+    Array.prototype.chunk = function (chunkSize) {
+        return exports.chunk(chunkSize, this);
     };
 }
-exports.batch = (sourceArray, batchSize) => {
-    if (batchSize === 0) {
-        return [];
+exports.chunk = (chunkSize, array) => {
+    const groups = [];
+    let i = 0;
+    for (i = 0; i < array.length; i += chunkSize) {
+        groups.push(array.slice(i, i + chunkSize));
     }
-    let index = 0;
-    let resultIndex = 0;
-    const result = [];
-    while (index < sourceArray.length) {
-        result[resultIndex] = sourceArray.slice(index, index + batchSize);
-        resultIndex++;
-        index += batchSize;
-    }
-    return result;
+    return groups;
 };

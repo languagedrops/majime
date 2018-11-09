@@ -30,9 +30,12 @@ declare global  {
         lastElements(numberOfElements: number): T[];
         filterNull(): Array<Exclude<T, null | undefined>>;
         sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean): T[];
-        batch(batchSize: number): T[][];
+        chunk(chunkSize: number): T[][];
     }
 }
+export declare const flattenArray: <T>(arrays: T[][]) => T[];
+export declare const arraysEqual: <T>(lhs: T[], rhs: T[]) => boolean;
+export declare const sortIntersection: <T>(sourceArray: T[], orderArray?: T[] | undefined) => T[];
 export declare const removeLastElement: <T>(fromArray: T[]) => T[];
 export declare const reverseArray: <T>(array: T[]) => T[];
 export declare const insert: <T>(array: T[], index: number, newItem: T) => T[];
@@ -59,4 +62,4 @@ export declare const lastElement: <T>(array: T[]) => T;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];
 export declare const filterNull: <T>(array: T[]) => Exclude<T, null | undefined>[];
 export declare const sortedByProperty: <T>(sourceArray: T[], compareFunction: (element: T) => string | number | Date, reverse?: boolean | undefined) => T[];
-export declare const batch: <T>(sourceArray: T[], batchSize: number) => T[][];
+export declare const chunk: <T>(chunkSize: number, array: T[]) => T[][];

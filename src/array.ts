@@ -25,7 +25,7 @@ declare global {
     lastElements(numberOfElements: number): T[]
     filterNull(): Array<Exclude<T, null | undefined>>
     sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[]
-    batch(batchSize: number): T[][]
+    chunk(chunkSize: number): T[][]
   }
 }
 
@@ -40,6 +40,63 @@ if (!Array.prototype.flatten) {
   Array.prototype.flatten = function<T>(): T {
     return [].concat(...this) as any
   }
+}
+
+export const flattenArray = <T>(arrays: T[][]): T[] => {
+  return ([] as T[]).concat(...arrays)
+}
+
+/*
+    Array-aware equality checker:
+    Returns whether arguments a and b are == to each other;
+    however if they are equal-lengthed arrays, returns whether their
+    elements are pairwise === to each other recursively under this
+    definition.
+*/
+
+export const arraysEqual = <T>(lhs: T[], rhs: T[]): boolean => {
+
+    if (lhs instanceof Array && rhs instanceof Array) {
+      if (lhs.length !== rhs.length) { return false }
+      for (let i = 0; i < lhs.length; i++) {
+        if (!arraysEqual((lhs as any)[i], (rhs as any)[i])) {
+          return false
+        }
+      }
+      return true
+  } else {
+    return lhs === rhs  // if not both arrays, should be the same
+  }
+}
+
+/*
+    It leave elements of source array that also are contained in order array at the same indexes
+*/
+
+export const sortIntersection = <T>(sourceArray: T[], orderArray?: T[]): T[] => {
+  if (!orderArray || sourceArray.length !== orderArray.length) {
+    return sourceArray
+  }
+
+  const result: T[] = []
+  const sourceUniqueElements: T[] = []
+
+  sourceArray.forEach((sourceItem) => {
+    const orderIndex = orderArray.findIndex((item) => item === sourceItem)
+    if (orderIndex === -1) {
+      sourceUniqueElements.push(sourceItem)
+    } else {
+      result[orderIndex] = sourceItem
+    }
+  })
+
+  for (let i = 0; i < sourceArray.length; i++) {
+    if (!result[i]) {
+      result[i] = sourceUniqueElements.shift() as T
+    }
+  }
+
+  return result
 }
 
 if (!Array.prototype.removeLastElement) {
@@ -299,23 +356,17 @@ export const sortedByProperty = <T>(sourceArray: T[], compareFunction: (element:
   })
 }
 
-if (!Array.prototype.batch) {
-  Array.prototype.batch = function<T>(batchSize: number): T[][] {
-    return batch(this, batchSize)
+if (!Array.prototype.chunk) {
+  Array.prototype.chunk = function<T>(chunkSize: number): T[][] {
+    return chunk(chunkSize, this)
   }
 }
 
-export const batch = <T>(sourceArray: T[], batchSize: number): T[][] => {
-  if (batchSize === 0) { return [] }
-  let index = 0
-  let resultIndex = 0
-  const result: T[][] = []
-
-  while (index < sourceArray.length) {
-    result[resultIndex] = sourceArray.slice(index, index + batchSize)
-    resultIndex++
-    index += batchSize
+export const chunk = <T>(chunkSize: number, array: T[]): T[][] => {
+  const groups: T[][] = []
+  let i = 0
+  for (i = 0; i < array.length; i += chunkSize) {
+    groups.push(array.slice(i, i + chunkSize))
   }
-
-  return result
+  return groups
 }

@@ -10,16 +10,6 @@ export const range = (start: number, limit: number): number[] => {
     })
 }
 
-export const chunk = <T>(chunkSize: number, array: T[]): T[][] => {
-  const groups: T[][] = []
-  let i = 0
-  for (i = 0; i < array.length; i += chunkSize) {
-    groups.push(array.slice(i, i + chunkSize))
-  }
-  return groups
-}
-
-
 export const toMMSS = (time: number) => {
   if (!time) {
     return '0:00'
@@ -43,8 +33,6 @@ export const probablity = (likelihood: number) => {
   return Math.random() <= likelihood
 }
 
-
-
 export const makeUnique = <T>(array: T[]): T[] => {
   return [...new Set(array)]
 }
@@ -57,63 +45,6 @@ export const omit = <T, K extends keyof T>(key: K, object: T): Omit<T, K> => {
   const newObject = { ...object as any } as T
   delete newObject[key]
   return newObject
-}
-
-export const flattenArray = <T>(arrays: T[][]): T[] => {
-  return ([] as T[]).concat(...arrays)
-}
-
-/*
-    Array-aware equality checker:
-    Returns whether arguments a and b are == to each other;
-    however if they are equal-lengthed arrays, returns whether their
-    elements are pairwise === to each other recursively under this
-    definition.
-*/
-
-export const arraysEqual = <T>(lhs: T[], rhs: T[]): boolean => {
-
-    if (lhs instanceof Array && rhs instanceof Array) {
-      if (lhs.length !== rhs.length) { return false }
-      for (let i = 0; i < lhs.length; i++) {
-        if (!arraysEqual((lhs as any)[i], (rhs as any)[i])) {
-          return false
-        }
-      }
-      return true
-  } else {
-    return lhs === rhs  // if not both arrays, should be the same
-  }
-}
-
-/*
-    It leave elements of source array that also are contained in order array at the same indexes
-*/
-
-export const sortIntersection = <T>(sourceArray: T[], orderArray?: T[]): T[] => {
-  if (!orderArray || sourceArray.length !== orderArray.length) {
-    return sourceArray
-  }
-
-  const result: T[] = []
-  const sourceUniqueElements: T[] = []
-
-  sourceArray.forEach((sourceItem) => {
-    const orderIndex = orderArray.findIndex((item) => item === sourceItem)
-    if (orderIndex === -1) {
-      sourceUniqueElements.push(sourceItem)
-    } else {
-      result[orderIndex] = sourceItem
-    }
-  })
-
-  for (let i = 0; i < sourceArray.length; i++) {
-    if (!result[i]) {
-      result[i] = sourceUniqueElements.shift() as T
-    }
-  }
-
-  return result
 }
 
 export const truncate = (str: string, length: number) => {

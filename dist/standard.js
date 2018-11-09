@@ -9,14 +9,6 @@ exports.range = (start, limit) => {
         return index + start;
     });
 };
-exports.chunk = (chunkSize, array) => {
-    const groups = [];
-    let i = 0;
-    for (i = 0; i < array.length; i += chunkSize) {
-        groups.push(array.slice(i, i + chunkSize));
-    }
-    return groups;
-};
 exports.toMMSS = (time) => {
     if (!time) {
         return '0:00';
@@ -45,57 +37,6 @@ exports.omit = (key, object) => {
     const newObject = Object.assign({}, object);
     delete newObject[key];
     return newObject;
-};
-exports.flattenArray = (arrays) => {
-    return [].concat(...arrays);
-};
-/*
-    Array-aware equality checker:
-    Returns whether arguments a and b are == to each other;
-    however if they are equal-lengthed arrays, returns whether their
-    elements are pairwise === to each other recursively under this
-    definition.
-*/
-exports.arraysEqual = (lhs, rhs) => {
-    if (lhs instanceof Array && rhs instanceof Array) {
-        if (lhs.length !== rhs.length) {
-            return false;
-        }
-        for (let i = 0; i < lhs.length; i++) {
-            if (!exports.arraysEqual(lhs[i], rhs[i])) {
-                return false;
-            }
-        }
-        return true;
-    }
-    else {
-        return lhs === rhs; // if not both arrays, should be the same
-    }
-};
-/*
-    It leave elements of source array that also are contained in order array at the same indexes
-*/
-exports.sortIntersection = (sourceArray, orderArray) => {
-    if (!orderArray || sourceArray.length !== orderArray.length) {
-        return sourceArray;
-    }
-    const result = [];
-    const sourceUniqueElements = [];
-    sourceArray.forEach((sourceItem) => {
-        const orderIndex = orderArray.findIndex((item) => item === sourceItem);
-        if (orderIndex === -1) {
-            sourceUniqueElements.push(sourceItem);
-        }
-        else {
-            result[orderIndex] = sourceItem;
-        }
-    });
-    for (let i = 0; i < sourceArray.length; i++) {
-        if (!result[i]) {
-            result[i] = sourceUniqueElements.shift();
-        }
-    }
-    return result;
 };
 exports.truncate = (str, length) => {
     if (str.length > length) {
