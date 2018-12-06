@@ -22,3 +22,4 @@ export declare const filterDictionary: <T>(dict: {
     [key: string]: T;
 };
 export declare const getHash: (inputString: string) => number;
+export declare const normalize: (inputRange: [number, number], outputRange: [number, number], value: number) => number;

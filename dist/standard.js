@@ -88,3 +88,10 @@ exports.getHash = (inputString) => {
         return accum + inputString.charCodeAt(index);
     }, 0);
 };
+exports.normalize = (inputRange, outputRange, value) => {
+    const minNew = outputRange[0];
+    const maxNew = outputRange[1];
+    const minOld = inputRange[0];
+    const maxOld = inputRange[1];
+    return ((maxNew - minNew) / (maxOld - minOld)) * (value - maxOld) + maxNew;
+};
