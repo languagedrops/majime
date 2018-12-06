@@ -111,3 +111,13 @@ export const getHash = (inputString: string): number => {
     return accum + inputString.charCodeAt(index)
   }, 0)
 }
+
+export const normalize = (inputRange: [number, number], outputRange: [number, number], value: number): number => {
+  const minNew = outputRange[0]
+  const maxNew = outputRange[1]
+
+  const minOld = inputRange[0]
+  const maxOld = inputRange[1]
+
+  return ((maxNew - minNew) / (maxOld - minOld)) * (value - maxOld) + maxNew
+}
