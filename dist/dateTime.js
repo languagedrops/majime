@@ -87,3 +87,12 @@ if (!Date.prototype.oneMinuteValue) {
 exports.getTimeStamp = (year, month, day, hours = 0) => {
     return new Date(Date.UTC(year, month, day, hours)).getTime();
 };
+exports.getFirstDayOfTheWeek = (date) => {
+    const copyDate = new Date(date);
+    const firstDay = copyDate.getDate() - copyDate.getDay() + (copyDate.getDay() === 0 ? -6 : 1);
+    return new Date(copyDate.setDate(firstDay));
+};
+exports.getStartOfTheWeek = (date) => {
+    const firstDay = exports.getFirstDayOfTheWeek(date);
+    return new Date(firstDay.setUTCHours(0, 0, 0, 0));
+};
