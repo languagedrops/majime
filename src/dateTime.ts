@@ -141,3 +141,8 @@ export const getStartOfTheWeek = (date: Date): Date => {
 
   return getMidnightFromDate(firstDay)
 }
+
+export const getPreviousDay = (date: Date): Date => {
+  const copyDate = new Date(date)
+  return new Date(copyDate.setDate(copyDate.getDate() - 1))
+}

@@ -1,4 +1,4 @@
-import { getFirstDayOfTheWeek, getStartOfTheWeek } from '../dateTime'
+import { getFirstDayOfTheWeek, getStartOfTheWeek, getPreviousDay } from '../dateTime'
 
 describe('Datetime functions', () => {
   it('getFirstDayOfTheWeek should return Monday for Tuesday', () => {
@@ -27,8 +27,13 @@ describe('Datetime functions', () => {
   })
 
   it('getStartOfTheWeek should return Monday 00:00 for Sunday', () => {
-    const monday = new Date(2018, 11, 16, 18, 49, 50)
-    expect(getStartOfTheWeek(monday)).toEqual(new Date('2018-12-10T00:00:00.000Z'))
+    const sunday = new Date(2018, 11, 16, 18, 49, 50)
+    expect(getStartOfTheWeek(sunday)).toEqual(new Date('2018-12-10T00:00:00.000Z'))
+  })
+
+  it('getPreviousDay returns the previous day 1st day of month', () => {
+    const firsdDayOfTheMonth = new Date(2018, 11, 1, 18, 49, 50)
+    expect(getPreviousDay(firsdDayOfTheMonth)).toEqual(new Date('2018-11-30T17:49:50.000Z'))
   })
 
 })
