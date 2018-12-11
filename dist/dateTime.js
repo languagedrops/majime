@@ -92,7 +92,11 @@ exports.getFirstDayOfTheWeek = (date) => {
     const firstDay = copyDate.getDate() - copyDate.getDay() + (copyDate.getDay() === 0 ? -6 : 1);
     return new Date(copyDate.setDate(firstDay));
 };
+exports.getMidnightFromDate = (date) => {
+    const copyDate = new Date(date);
+    return new Date(copyDate.setUTCHours(0, 0, 0, 0));
+};
 exports.getStartOfTheWeek = (date) => {
     const firstDay = exports.getFirstDayOfTheWeek(date);
-    return new Date(firstDay.setUTCHours(0, 0, 0, 0));
+    return exports.getMidnightFromDate(firstDay);
 };
