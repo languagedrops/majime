@@ -30,3 +30,4 @@ export declare const getTimeStamp: (year: number, month: 0 | 2 | 10 | 9 | 8 | 7 
 export declare const getFirstDayOfTheWeek: (date: Date) => Date;
 export declare const getMidnightFromDate: (date: Date) => Date;
 export declare const getStartOfTheWeek: (date: Date) => Date;
+export declare const getPreviousDay: (date: Date) => Date;

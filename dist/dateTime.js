@@ -100,3 +100,7 @@ exports.getStartOfTheWeek = (date) => {
     const firstDay = exports.getFirstDayOfTheWeek(date);
     return exports.getMidnightFromDate(firstDay);
 };
+exports.getPreviousDay = (date) => {
+    const copyDate = new Date(date);
+    return new Date(copyDate.setDate(copyDate.getDate() - 1));
+};
