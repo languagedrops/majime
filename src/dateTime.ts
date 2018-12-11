@@ -131,8 +131,13 @@ export const getFirstDayOfTheWeek = (date: Date): Date => {
   return new Date(copyDate.setDate(firstDay))
 }
 
+export const getMidnightFromDate = (date: Date): Date => {
+  const copyDate = new Date(date)
+  return new Date(copyDate.setUTCHours(0, 0, 0, 0))
+}
+
 export const getStartOfTheWeek = (date: Date): Date => {
   const firstDay = getFirstDayOfTheWeek(date)
 
-  return new Date(firstDay.setUTCHours(0, 0, 0, 0))
+  return getMidnightFromDate(firstDay)
 }
