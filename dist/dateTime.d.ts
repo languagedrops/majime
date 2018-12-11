@@ -27,3 +27,5 @@ export declare const formatDate: (date: Date, addSeconds?: boolean) => string;
 export declare const oneHourValue: number;
 export declare const oneMinuteValue: number;
 export declare const getTimeStamp: (year: number, month: 0 | 2 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 1 | 11, day: number, hours?: number) => number;
+export declare const getFirstDayOfTheWeek: (date: Date) => Date;
+export declare const getStartOfTheWeek: (date: Date) => Date;
