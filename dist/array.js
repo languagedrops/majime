@@ -290,7 +290,7 @@ if (!Array.prototype.takeWhile) {
 }
 exports.takeWhile = (inputArray, filterFunction, reverse) => {
     const array = reverse ? inputArray.slice().reverse() : inputArray.slice();
-    const findIndex = array.findIndex((element) => !filterFunction(element));
+    const findIndex = array.findIndex((element, index) => !filterFunction(element, index));
     const endIndex = findIndex === -1 ? undefined : findIndex;
     return array.slice(0, endIndex);
 };

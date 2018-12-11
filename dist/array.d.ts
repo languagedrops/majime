@@ -31,7 +31,7 @@ declare global  {
         filterNull(): Array<Exclude<T, null | undefined>>;
         sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean): T[];
         chunk(chunkSize: number): T[][];
-        takeWhile(filterFunction: (element: T) => boolean, reverse?: boolean): T[];
+        takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[];
     }
 }
 export declare const flattenArray: <T>(arrays: T[][]) => T[];
@@ -64,4 +64,4 @@ export declare const lastElements: <T>(array: T[], numberOfElements: number) => 
 export declare const filterNull: <T>(array: T[]) => Exclude<T, null | undefined>[];
 export declare const sortedByProperty: <T>(sourceArray: T[], compareFunction: (element: T) => string | number | Date, reverse?: boolean | undefined) => T[];
 export declare const chunk: <T>(chunkSize: number, array: T[]) => T[][];
-export declare const takeWhile: <T>(inputArray: T[], filterFunction: (element: T) => boolean, reverse?: boolean | undefined) => T[];
+export declare const takeWhile: <T>(inputArray: T[], filterFunction: (element: T, index: number) => boolean, reverse?: boolean | undefined) => T[];

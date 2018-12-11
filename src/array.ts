@@ -26,7 +26,7 @@ declare global {
     filterNull(): Array<Exclude<T, null | undefined>>
     sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[]
     chunk(chunkSize: number): T[][]
-    takeWhile(filterFunction: (element: T) => boolean, reverse?: boolean): T[]
+    takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
   }
 }
 
@@ -373,15 +373,15 @@ export const chunk = <T>(chunkSize: number, array: T[]): T[][] => {
 }
 
 if (!Array.prototype.takeWhile) {
-  Array.prototype.takeWhile = function<T>(filterFunction: (element: T) => boolean, reverse?: boolean): T[] {
+  Array.prototype.takeWhile = function<T>(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[] {
     return takeWhile(this, filterFunction, reverse)
   }
 }
 
-export const takeWhile = <T>(inputArray: T[], filterFunction: (element: T) => boolean, reverse?: boolean): T[] => {
+export const takeWhile = <T>(inputArray: T[], filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[] => {
   const array = reverse ? inputArray.slice().reverse() : inputArray.slice()
 
-  const findIndex = array.findIndex((element) => !filterFunction(element))
+  const findIndex = array.findIndex((element, index) => !filterFunction(element, index))
   const endIndex = findIndex === -1 ? undefined : findIndex
 
   return array.slice(0, endIndex)
