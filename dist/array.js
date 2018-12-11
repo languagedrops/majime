@@ -283,3 +283,14 @@ exports.chunk = (chunkSize, array) => {
     }
     return groups;
 };
+if (!Array.prototype.takeWhile) {
+    Array.prototype.takeWhile = function (filterFunction, reverse) {
+        return exports.takeWhile(this, filterFunction, reverse);
+    };
+}
+exports.takeWhile = (inputArray, filterFunction, reverse) => {
+    const array = reverse ? inputArray.slice().reverse() : inputArray.slice();
+    const findIndex = array.findIndex((element) => !filterFunction(element));
+    const endIndex = findIndex === -1 ? undefined : findIndex;
+    return array.slice(0, endIndex);
+};

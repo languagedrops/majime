@@ -123,26 +123,3 @@ if (!Date.prototype.oneMinuteValue) {
 export const getTimeStamp = (year: number, month: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11, day: number, hours = 0): number => {
   return new Date(Date.UTC(year, month, day, hours)).getTime()
 }
-
-export const getFirstDayOfTheWeek = (date: Date): Date => {
-  const copyDate = new Date(date)
-  const firstDay = copyDate.getDate() - copyDate.getDay() + (copyDate.getDay() === 0 ? -6 : 1)
-
-  return new Date(copyDate.setDate(firstDay))
-}
-
-export const getMidnightFromDate = (date: Date): Date => {
-  const copyDate = new Date(date)
-  return new Date(copyDate.setUTCHours(0, 0, 0, 0))
-}
-
-export const getStartOfTheWeek = (date: Date): Date => {
-  const firstDay = getFirstDayOfTheWeek(date)
-
-  return getMidnightFromDate(firstDay)
-}
-
-export const getPreviousDay = (date: Date): Date => {
-  const copyDate = new Date(date)
-  return new Date(copyDate.setDate(copyDate.getDate() - 1))
-}

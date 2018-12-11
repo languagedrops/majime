@@ -96,4 +96,22 @@ describe('Array function', () => {
     })
   })
 
+  describe('takeWhile', () => {
+    it('Should correctly return the elements while they are matching the condition', () => {
+      expect([1, 2, 3, 2, 3, 4, 5, 2].takeWhile((element) => element < 3)).toEqual([1, 2])
+      expect([1, 2].takeWhile((element) => element < 3)).toEqual([1, 2])
+      expect([1].takeWhile((element) => element < 3)).toEqual([1])
+      expect([].takeWhile((element) => element < 3)).toEqual([])
+      expect([1, 2].takeWhile((element) => element > 3)).toEqual([])
+    })
+
+    it('Should correctly return the elements while they are matching the condition with reverse', () => {
+      expect([1, 2, 3, 2, 3, 4, 5, 2].takeWhile((element) => element < 3, true)).toEqual([2])
+      expect([1, 2].takeWhile((element) => element < 3, true)).toEqual([2, 1])
+      expect([1].takeWhile((element) => element < 3, true)).toEqual([1])
+      expect([].takeWhile((element) => element < 3, true)).toEqual([])
+      expect([1, 2].takeWhile((element) => element > 3, true)).toEqual([])
+    })
+
+  })
 })
