@@ -6,6 +6,11 @@ export declare const probablity: (likelihood: number) => boolean;
 export declare const makeUnique: <T>(array: T[]) => T[];
 export declare const delay: <T>(millis: number, value?: T | undefined) => Promise<T>;
 export declare const omit: <T, K extends keyof T>(key: K, object: T) => Pick<T, Exclude<keyof T, K>>;
+export declare const filterObject: <T>(input: {
+    [keys: string]: T;
+}, filter: (key: string, value: T) => boolean) => {
+    [keys: string]: T;
+};
 export declare const truncate: (str: string, length: number) => string;
 export declare const capitalizeFirstLetter: (str: string) => string;
 export declare const generateUUID: () => string;

@@ -50,6 +50,17 @@ export const omit = <T, K extends keyof T>(key: K, object: T): Omit<T, K> => {
   return newObject
 }
 
+export const filterObject = <T>(input: { [keys: string]: T}, filter: (key: string, value: T) => boolean): {[keys: string]: T} => {
+  const newMap: {[keys: string]: T} = {}
+  Object.keys(input)
+    .forEach( (key) => {
+      if (filter(key, input[key])) {
+        newMap[key] = input[key]
+      }
+    })
+  return newMap
+}
+
 export const truncate = (str: string, length: number) => {
   if (str.length > length) {
     return str.slice(0, length - 3) + '...'
