@@ -4,25 +4,33 @@ export const mapKeys = <T>(input: { [keys: string]: T}, keyTransformer: (key: st
   Object.keys(input)
     .forEach( (key) => {
       const newKey = keyTransformer(key)
-      newMap[newKey] = input[key]
+      if (!!newKey) {
+        newMap[newKey] = input[key]
+      }
     })
   return newMap
 }
 
-export const mapValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (value: T) => U): {[keys: string]: U} => {
+export const mapValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (value: T) => U, filterValues?: true): {[keys: string]: U} => {
   const newMap: {[keys: string]: U} = {}
   Object.keys(input)
     .forEach( (key) => {
-      newMap[key] = valueTransformer(input[key])
+      const newValue = valueTransformer(input[key])
+      if (!!newValue || !filterValues) {
+        newMap[key] = newValue
+      }
     })
   return newMap
 }
 
-export const mapKeysAndValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (key: string, value: T) => U): {[keys: string]: U} => {
+export const mapKeysAndValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (key: string, value: T) => U, filterValues?: true): {[keys: string]: U} => {
   const newMap: {[keys: string]: U} = {}
   Object.keys(input)
     .forEach( (key) => {
-      newMap[key] = valueTransformer(key, input[key])
+      const newValue = valueTransformer(key, input[key])
+      if (!!newValue || !filterValues) {
+        newMap[key] = newValue
+      }
     })
   return newMap
 }
