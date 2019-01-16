@@ -5,9 +5,7 @@ exports.mapKeys = (input, keyTransformer) => {
     Object.keys(input)
         .forEach((key) => {
         const newKey = keyTransformer(key);
-        if (!!newKey) {
-            newMap[newKey] = input[key];
-        }
+        newMap[newKey] = input[key];
     });
     return newMap;
 };

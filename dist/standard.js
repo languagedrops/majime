@@ -41,6 +41,16 @@ exports.omit = (key, object) => {
     delete newObject[key];
     return newObject;
 };
+exports.filterObject = (input, filter) => {
+    const newMap = {};
+    Object.keys(input)
+        .forEach((key) => {
+        if (filter(key, input[key])) {
+            newMap[key] = input[key];
+        }
+    });
+    return newMap;
+};
 exports.truncate = (str, length) => {
     if (str.length > length) {
         return str.slice(0, length - 3) + '...';

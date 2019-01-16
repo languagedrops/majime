@@ -19,25 +19,6 @@ describe('Map keys/values', () => {
 
       expect(mapKeys(testObject, (key: string) => key.replace('test', 'key'))).toEqual(expectedObject)
     })
-
-    it('Should filter object if new key is undefined', () => {
-      const testObject = {
-        test1: 123,
-        test2: [123, 124],
-        test3: { key1: 'test', key2: 123 },
-        test4: 'test value',
-      }
-
-      const expectedObject = {
-        key1: 123,
-        key3: { key1: 'test', key2: 123 },
-        key4: 'test value',
-      }
-
-      const keyMapper = (key: string) => key === 'test2' ? undefined : key.replace('test', 'key')
-
-      expect(mapKeys(testObject, keyMapper)).toEqual(expectedObject)
-    })
   })
 
   describe('mapValues', () => {
