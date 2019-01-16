@@ -4,6 +4,9 @@ exports.isNull = (item) => {
     return item === null || item === undefined;
 };
 exports.range = (start, limit) => {
+    if (Number.isNaN(limit) || limit < 0) {
+        return [];
+    }
     return Array.apply(null, { length: limit })
         .map((_, index) => {
         return index + start;

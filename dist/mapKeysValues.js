@@ -5,23 +5,31 @@ exports.mapKeys = (input, keyTransformer) => {
     Object.keys(input)
         .forEach((key) => {
         const newKey = keyTransformer(key);
-        newMap[newKey] = input[key];
+        if (!!newKey) {
+            newMap[newKey] = input[key];
+        }
     });
     return newMap;
 };
-exports.mapValues = (input, valueTransformer) => {
+exports.mapValues = (input, valueTransformer, filterValues) => {
     const newMap = {};
     Object.keys(input)
         .forEach((key) => {
-        newMap[key] = valueTransformer(input[key]);
+        const newValue = valueTransformer(input[key]);
+        if (!!newValue || !filterValues) {
+            newMap[key] = newValue;
+        }
     });
     return newMap;
 };
-exports.mapKeysAndValues = (input, valueTransformer) => {
+exports.mapKeysAndValues = (input, valueTransformer, filterValues) => {
     const newMap = {};
     Object.keys(input)
         .forEach((key) => {
-        newMap[key] = valueTransformer(key, input[key]);
+        const newValue = valueTransformer(key, input[key]);
+        if (!!newValue || !filterValues) {
+            newMap[key] = newValue;
+        }
     });
     return newMap;
 };
