@@ -4,6 +4,9 @@ export const isNull = (item: any): boolean => {
 }
 
 export const range = (start: number, limit: number): number[] => {
+  if (Number.isNaN(limit) || limit < 0) {
+    return []
+  }
   return Array.apply(null, { length: limit })
     .map((_: any, index: number) => {
       return index + start

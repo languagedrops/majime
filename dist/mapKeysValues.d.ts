@@ -5,11 +5,11 @@ export declare const mapKeys: <T>(input: {
 };
 export declare const mapValues: <T, U>(input: {
     [keys: string]: T;
-}, valueTransformer: (value: T) => U) => {
+}, valueTransformer: (value: T) => U, filterValues?: true | undefined) => {
     [keys: string]: U;
 };
 export declare const mapKeysAndValues: <T, U>(input: {
     [keys: string]: T;
-}, valueTransformer: (key: string, value: T) => U) => {
+}, valueTransformer: (key: string, value: T) => U, filterValues?: true | undefined) => {
     [keys: string]: U;
 };
