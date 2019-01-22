@@ -1,13 +1,13 @@
+import { range } from './standard'
+
 export const getRandom = (floor: number, ceiling: number): number => {
   return Math.floor(Math.random() * (ceiling - floor + 1)) + floor
 }
 
 export const getRandomWithExceptions = (floor: number, ceiling: number, exceptions: number[]): number => {
-  const random = getRandom(floor, ceiling)
-  if (exceptions.includes(random)) {
-    return getRandomWithExceptions(floor, ceiling, exceptions)
-  }
-  return random
+  const potentialResults = range(floor, ceiling)
+  const filteredResults = potentialResults.filter((result) => !exceptions.includes(result))
+  return filteredResults.randomElement()
 }
 
 // expects a number between 0-1
