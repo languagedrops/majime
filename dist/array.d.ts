@@ -8,7 +8,7 @@ declare global  {
         reversed(): T[];
         insert(elem: T, index: number): T[];
         isUnique(): boolean;
-        uniqueByProperty<T>(compareFunction: <T>(lhs: T, rhs: T) => boolean): T[];
+        uniqueByProperty<T>(compareFunction: (lhs: T, rhs: T) => boolean): T[];
         substract(otherArray: T[]): T[];
         groupBy(keyExtractor: (item: T, index: number) => string): {
             [key: string]: T;
