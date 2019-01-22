@@ -1,13 +1,18 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const standard_1 = require("./standard");
 exports.getRandom = (floor, ceiling) => {
     return Math.floor(Math.random() * (ceiling - floor + 1)) + floor;
 };
 exports.getRandomWithExceptions = (floor, ceiling, exceptions) => {
-    const potentialResults = standard_1.range(floor, ceiling);
-    const filteredResults = potentialResults.filter((result) => !exceptions.includes(result));
-    return filteredResults.randomElement();
+    const potentialExceptions = exceptions.filter((exception) => floor <= exception && exception <= ceiling);
+    if (ceiling - floor <= potentialExceptions.length) {
+        return undefined;
+    }
+    const random = exports.getRandom(floor, ceiling);
+    if (exceptions.includes(random)) {
+        return exports.getRandomWithExceptions(floor, ceiling, exceptions);
+    }
+    return random;
 };
 // expects a number between 0-1
 exports.getRandomBoolean = (weight) => {
