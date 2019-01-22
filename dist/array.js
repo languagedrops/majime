@@ -78,6 +78,20 @@ if (!Array.prototype.unique) {
         return [...new Set(this)];
     };
 }
+if (!Array.prototype.uniqueByProperty) {
+    Array.prototype.uniqueByProperty = function (compareFunction) {
+        return exports.uniqueByProperty(this, compareFunction);
+    };
+}
+exports.uniqueByProperty = (fromArray, compareFunction) => {
+    const result = [];
+    fromArray.forEach((element) => {
+        if (!result.some((uniqueElement) => compareFunction(uniqueElement, element))) {
+            result.push(element);
+        }
+    });
+    return result;
+};
 if (!Array.prototype.toSet) {
     Array.prototype.toSet = function () {
         return new Set(this);

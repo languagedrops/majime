@@ -8,6 +8,7 @@ declare global  {
         reversed(): T[];
         insert(elem: T, index: number): T[];
         isUnique(): boolean;
+        uniqueByProperty<T>(compareFunction: (lhs: T, rhs: T) => boolean): T[];
         substract(otherArray: T[]): T[];
         groupBy(keyExtractor: (item: T, index: number) => string): {
             [key: string]: T;
@@ -38,6 +39,7 @@ export declare const flattenArray: <T>(arrays: T[][]) => T[];
 export declare const arraysEqual: <T>(lhs: T[], rhs: T[]) => boolean;
 export declare const sortIntersection: <T>(sourceArray: T[], orderArray?: T[] | undefined) => T[];
 export declare const removeLastElement: <T>(fromArray: T[]) => T[];
+export declare const uniqueByProperty: <T>(fromArray: T[], compareFunction: (lhs: T, rhs: T) => boolean) => T[];
 export declare const reverseArray: <T>(array: T[]) => T[];
 export declare const insert: <T>(array: T[], index: number, newItem: T) => T[];
 export declare const isArrayUnique: <T>(array: T[]) => boolean;
