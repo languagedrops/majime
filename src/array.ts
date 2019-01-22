@@ -11,7 +11,7 @@ declare global {
     reversed(): T[]
     insert(elem: T, index: number): T[]
     isUnique(): boolean
-    uniqueByProperty<T>(compareFunction: <T>(lhs: T, rhs: T) => boolean): T[]
+    uniqueByProperty<T>(compareFunction: (lhs: T, rhs: T) => boolean): T[]
     substract(otherArray: T[]): T[]
     groupBy(keyExtractor: (item: T, index: number) => string): {[key: string]: T }
     groupByMultipleKeys(multipleKeysExtractor: (item: T, index: number) => string[]): {[key: string]: T }
@@ -121,7 +121,7 @@ if (!Array.prototype.unique) {
 }
 
 if (!Array.prototype.uniqueByProperty) {
-  Array.prototype.uniqueByProperty = function<T>(compareFunction: <T>(lhs: T, rhs: T) => boolean): T[] {
+  Array.prototype.uniqueByProperty = function<T>(compareFunction: (lhs: T, rhs: T) => boolean): T[] {
     return uniqueByProperty(this, compareFunction)
   }
 }
