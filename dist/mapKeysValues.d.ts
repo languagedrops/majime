@@ -13,3 +13,9 @@ export declare const mapKeysAndValues: <T, U>(input: {
 }, valueTransformer: (key: string, value: T) => U, filterValues?: true | undefined) => {
     [keys: string]: U;
 };
+export declare const extractKeysAndValues: <T extends {
+    readonly [key: string]: any;
+}, K extends keyof T>(input: T) => {
+    readonly key: K;
+    readonly value: T;
+}[];
