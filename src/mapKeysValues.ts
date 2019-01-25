@@ -32,3 +32,8 @@ export const mapKeysAndValues = <T, U>(input: { [keys: string]: T}, valueTransfo
     })
   return newMap
 }
+
+export const extractKeysAndValues = <T extends { readonly [key: string]: any }, K extends keyof T>(input: T): Array<{ readonly key: K, readonly value: T }> => {
+  return Object.keys(input)
+    .map( (key) => ({ key: key as K, value: input[key] }))
+}

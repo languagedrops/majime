@@ -31,3 +31,7 @@ exports.mapKeysAndValues = (input, valueTransformer, filterValues) => {
     });
     return newMap;
 };
+exports.extractKeysAndValues = (input) => {
+    return Object.keys(input)
+        .map((key) => ({ key: key, value: input[key] }));
+};
