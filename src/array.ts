@@ -18,14 +18,15 @@ declare global {
     groupByAndMap<U>(keyExtractor: (item: T, index: number) => string, transform: (item: T, index: number) => U): {[key: string]: U }
     groupByMultipleValues(keyExtractor: (item: T, index: number) => string): {[key: string]: T[] }
     shuffle(): T[]
-    randomElement(): T
-    randomElementWithExceptions(except: T[]): T
+    randomElement(): T | null
+    randomElementWithExceptions(except: T[]): T | null
     randomElements(count: number): T[]
-    firstElement(): T
-    lastElement(): T
+    firstElement(): T | null
+    lastElement(): T | null
     lastElements(numberOfElements: number): T[]
     filterNull(): Array<Exclude<T, null | undefined>>
     sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[]
+    sorted(compareFunction: (lhs: T, rhs: T) => number): T[]
     chunk(chunkSize: number): T[][]
     takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
   }
@@ -279,23 +280,23 @@ export const shuffle = <T>(array: T[]): T[] => {
 }
 
 if (!Array.prototype.randomElement) {
-  Array.prototype.randomElement = function<T>(): T {
+  Array.prototype.randomElement = function<T>(): T | null {
     return randomElement(this)
   }
 }
 
-export const randomElement = <T>(fromArray: T[]): T => {
+export const randomElement = <T>(fromArray: T[]): T | null => {
   return fromArray[Math.floor(Math.random() * fromArray.length)]
 }
 
 
 if (!Array.prototype.randomElementWithExceptions) {
-  Array.prototype.randomElementWithExceptions = function<T>(except: T[]): T {
+  Array.prototype.randomElementWithExceptions = function<T>(except: T[]): T | null {
     return randomElementWithExceptions(this, except)
   }
 }
 
-export const randomElementWithExceptions = <T>(fromArray: T[], excludeArray: T[]) => {
+export const randomElementWithExceptions = <T>(fromArray: T[], excludeArray: T[]): T | null => {
   const filteredArray = substractArrays(fromArray, excludeArray)
   return randomElement(filteredArray)
 }
@@ -314,23 +315,23 @@ export const randomElements = <T>(fromArray: T[], count: number): T[] => {
 
 
 if (!Array.prototype.firstElement) {
-  Array.prototype.firstElement = function<T>(): T {
+  Array.prototype.firstElement = function<T>(): T | null {
     return firstElement(this)
   }
 }
 
-export const firstElement = <T>(fromArray: T[]): T => {
+export const firstElement = <T>(fromArray: T[]): T | null => {
   return fromArray[0]
 }
 
 
 if (!Array.prototype.lastElement) {
-  Array.prototype.lastElement = function<T>(): T {
+  Array.prototype.lastElement = function<T>(): T | null {
     return lastElement(this)
   }
 }
 
-export const lastElement = <T>(array: T[]): T => {
+export const lastElement = <T>(array: T[]): T | null => {
   return array[array.length - 1]
 }
 
@@ -374,6 +375,16 @@ export const sortedByProperty = <T>(sourceArray: T[], compareFunction: (element:
       return 0
     }
   })
+}
+
+if (!Array.prototype.sorted) {
+  Array.prototype.sorted = function<T>(compareFunction: (lhs: T, rhs: T) => number): T[] {
+    return sorted(this, compareFunction)
+  }
+}
+
+export const sorted = <T>(sourceArray: T[], compareFunction: (lhs: T, rhs: T) => number): T[] => {
+  return sourceArray.slice().sort(compareFunction)
 }
 
 if (!Array.prototype.chunk) {
