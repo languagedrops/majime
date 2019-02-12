@@ -23,14 +23,15 @@ declare global  {
             [key: string]: T[];
         };
         shuffle(): T[];
-        randomElement(): T;
-        randomElementWithExceptions(except: T[]): T;
+        randomElement(): T | null;
+        randomElementWithExceptions(except: T[]): T | null;
         randomElements(count: number): T[];
-        firstElement(): T;
-        lastElement(): T;
+        firstElement(): T | null;
+        lastElement(): T | null;
         lastElements(numberOfElements: number): T[];
         filterNull(): Array<Exclude<T, null | undefined>>;
         sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean): T[];
+        sorted(compareFunction: (lhs: T, rhs: T) => number): T[];
         chunk(chunkSize: number): T[][];
         takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[];
     }
@@ -57,13 +58,14 @@ export declare const groupByMultipleValues: <T>(fromArray: T[], keyExtractor: (i
     [key: string]: T[];
 };
 export declare const shuffle: <T>(array: T[]) => T[];
-export declare const randomElement: <T>(fromArray: T[]) => T;
-export declare const randomElementWithExceptions: <T>(fromArray: T[], excludeArray: T[]) => T;
+export declare const randomElement: <T>(fromArray: T[]) => T | null;
+export declare const randomElementWithExceptions: <T>(fromArray: T[], excludeArray: T[]) => T | null;
 export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
-export declare const firstElement: <T>(fromArray: T[]) => T;
-export declare const lastElement: <T>(array: T[]) => T;
+export declare const firstElement: <T>(fromArray: T[]) => T | null;
+export declare const lastElement: <T>(array: T[]) => T | null;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];
 export declare const filterNull: <T>(array: T[]) => Exclude<T, null | undefined>[];
 export declare const sortedByProperty: <T>(sourceArray: T[], compareFunction: (element: T) => string | number | Date, reverse?: boolean | undefined) => T[];
+export declare const sorted: <T>(sourceArray: T[], compareFunction: (lhs: T, rhs: T) => number) => T[];
 export declare const chunk: <T>(chunkSize: number, array: T[]) => T[][];
 export declare const takeWhile: <T>(inputArray: T[], filterFunction: (element: T, index: number) => boolean, reverse?: boolean | undefined) => T[];

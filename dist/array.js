@@ -284,6 +284,14 @@ exports.sortedByProperty = (sourceArray, compareFunction, reverse) => {
         }
     });
 };
+if (!Array.prototype.sorted) {
+    Array.prototype.sorted = function (compareFunction) {
+        return exports.sorted(this, compareFunction);
+    };
+}
+exports.sorted = (sourceArray, compareFunction) => {
+    return sourceArray.slice().sort(compareFunction);
+};
 if (!Array.prototype.chunk) {
     Array.prototype.chunk = function (chunkSize) {
         return exports.chunk(chunkSize, this);
