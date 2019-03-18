@@ -26,7 +26,7 @@ declare global {
     lastElements(numberOfElements: number): T[]
     filterNull(): Array<Exclude<T, null | undefined>>
     sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[]
-    sorted(compareFunction: (lhs: T, rhs: T) => number): T[]
+    sorted(compareFunction?: (lhs: T, rhs: T) => number): T[]
     chunk(chunkSize: number): T[][]
     takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
   }
@@ -378,12 +378,12 @@ export const sortedByProperty = <T>(sourceArray: T[], compareFunction: (element:
 }
 
 if (!Array.prototype.sorted) {
-  Array.prototype.sorted = function<T>(compareFunction: (lhs: T, rhs: T) => number): T[] {
+  Array.prototype.sorted = function<T>(compareFunction?: (lhs: T, rhs: T) => number): T[] {
     return sorted(this, compareFunction)
   }
 }
 
-export const sorted = <T>(sourceArray: T[], compareFunction: (lhs: T, rhs: T) => number): T[] => {
+export const sorted = <T>(sourceArray: T[], compareFunction?: (lhs: T, rhs: T) => number): T[] => {
   return sourceArray.slice().sort(compareFunction)
 }
 
