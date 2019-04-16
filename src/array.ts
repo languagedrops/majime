@@ -29,7 +29,6 @@ declare global {
     sorted(compareFunction?: (lhs: T, rhs: T) => number): T[]
     chunk(chunkSize: number): T[][]
     takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
-    asyncForEach(callback: (element: T, index: number, array: T[]) => Promise<any>): Promise<void>
   }
 }
 
@@ -416,16 +415,4 @@ export const takeWhile = <T>(inputArray: T[], filterFunction: (element: T, index
   const endIndex = findIndex === -1 ? undefined : findIndex
 
   return array.slice(0, endIndex)
-}
-
-if (!Array.prototype.asyncForEach) {
-  Array.prototype.asyncForEach = function<T>(callback: (element: T, index: number, array: T[]) => Promise<any>): Promise<void> {
-    return asyncForEach(this, callback)
-  }
-}
-
-export const asyncForEach = async <T> (inputArray: T[], callback: (element: T, index: number, array: T[]) => Promise<any>) => {
-  for (let i = 0; i < inputArray.length; i++) {
-    await callback(inputArray[i], i, inputArray)
-  }
 }

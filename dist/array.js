@@ -316,13 +316,3 @@ exports.takeWhile = (inputArray, filterFunction, reverse) => {
     const endIndex = findIndex === -1 ? undefined : findIndex;
     return array.slice(0, endIndex);
 };
-if (!Array.prototype.asyncForEach) {
-    Array.prototype.asyncForEach = function (callback) {
-        return exports.asyncForEach(this, callback);
-    };
-}
-exports.asyncForEach = async (inputArray, callback) => {
-    for (let i = 0; i < inputArray.length; i++) {
-        await callback(inputArray[i], i, inputArray);
-    }
-};
