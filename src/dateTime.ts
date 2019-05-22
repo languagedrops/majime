@@ -119,7 +119,21 @@ if (!Date.prototype.oneMinuteValue) {
   Date.prototype.oneMinuteValue = oneMinuteValue
 }
 
+export enum Month {
+  January = 0,
+  February = 1,
+  March = 2,
+  April = 3,
+  May = 4,
+  June = 5,
+  July = 6,
+  August = 7,
+  September = 8,
+  October = 9,
+  November = 10,
+  December = 11,
+}
 
-export const getTimeStamp = (year: number, month: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11, day: number, hours = 0): number => {
+export const getTimeStamp = (year: number, month: Month, day: number, hours = 0): number => {
   return new Date(Date.UTC(year, month, day, hours)).getTime()
 }
