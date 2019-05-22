@@ -26,4 +26,18 @@ export declare const getDaysSinceDate: (date: Date) => number;
 export declare const formatDate: (date: Date, addSeconds?: boolean) => string;
 export declare const oneHourValue: number;
 export declare const oneMinuteValue: number;
-export declare const getTimeStamp: (year: number, month: 0 | 2 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 1 | 11, day: number, hours?: number) => number;
+export declare enum Month {
+    January = 0,
+    February = 1,
+    March = 2,
+    April = 3,
+    May = 4,
+    June = 5,
+    July = 6,
+    August = 7,
+    September = 8,
+    October = 9,
+    November = 10,
+    December = 11,
+}
+export declare const getTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;

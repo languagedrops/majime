@@ -84,6 +84,21 @@ exports.oneMinuteValue = 60 * 1000; /* ms */
 if (!Date.prototype.oneMinuteValue) {
     Date.prototype.oneMinuteValue = exports.oneMinuteValue;
 }
+var Month;
+(function (Month) {
+    Month[Month["January"] = 0] = "January";
+    Month[Month["February"] = 1] = "February";
+    Month[Month["March"] = 2] = "March";
+    Month[Month["April"] = 3] = "April";
+    Month[Month["May"] = 4] = "May";
+    Month[Month["June"] = 5] = "June";
+    Month[Month["July"] = 6] = "July";
+    Month[Month["August"] = 7] = "August";
+    Month[Month["September"] = 8] = "September";
+    Month[Month["October"] = 9] = "October";
+    Month[Month["November"] = 10] = "November";
+    Month[Month["December"] = 11] = "December";
+})(Month = exports.Month || (exports.Month = {}));
 exports.getTimeStamp = (year, month, day, hours = 0) => {
     return new Date(Date.UTC(year, month, day, hours)).getTime();
 };
