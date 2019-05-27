@@ -7,6 +7,13 @@ exports.upperFirst = (source) => {
     const [first, ...rest] = source;
     return `${first.toUpperCase()}${rest.join('')}`;
 };
+exports.lowerFirst = (source) => {
+    if (!source) {
+        return source;
+    }
+    const [first, ...rest] = source;
+    return `${first.toLowerCase()}${rest.join('')}`;
+};
 exports.wordUpperFirst = (source) => exports.mapWords(source, exports.upperFirst);
 exports.mapWords = (source, mapper) => source
     .split(' ')
