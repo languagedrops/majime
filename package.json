@@ -1,6 +1,6 @@
 {
   "name": "majime",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Collection of TS utility functions",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
