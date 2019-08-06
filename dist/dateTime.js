@@ -99,6 +99,9 @@ var Month;
     Month[Month["November"] = 10] = "November";
     Month[Month["December"] = 11] = "December";
 })(Month = exports.Month || (exports.Month = {}));
-exports.getTimeStamp = (year, month, day, hours = 0) => {
+exports.getUTCTimeStamp = (year, month, day, hours = 0) => {
     return new Date(Date.UTC(year, month, day, hours)).getTime();
+};
+exports.getLocalTimeStamp = (year, month, day, hours = 0) => {
+    return new Date(year, month, day, hours).getTime();
 };

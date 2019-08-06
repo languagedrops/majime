@@ -40,4 +40,5 @@ export declare enum Month {
     November = 10,
     December = 11,
 }
-export declare const getTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;
+export declare const getUTCTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;
+export declare const getLocalTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;
