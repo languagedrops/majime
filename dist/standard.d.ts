@@ -5,6 +5,7 @@ export declare const clamp: (value: number, min: number, max: number) => number;
 export declare const probablity: (likelihood: number) => boolean;
 export declare const makeUnique: <T>(array: T[]) => T[];
 export declare const delay: <T>(millis: number, value?: T | undefined) => Promise<T>;
+export declare const delayRejected: <T>(millis: number, value?: T | undefined) => Promise<T>;
 export declare const omit: <T, K extends keyof T>(key: K, object: T) => Pick<T, Exclude<keyof T, K>>;
 export declare const filterObject: <T extends {
     readonly [key: string]: any;

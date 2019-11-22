@@ -14,17 +14,9 @@ exports.promiseSequenceMap = async (inputArray, transformer) => {
     return newArray;
 };
 exports.promiseWithTimeout = async (promise, returnValueOnTimeout, timeoutInMs = 1000, rejectPromise = false) => {
-    let timeout;
-    if (rejectPromise === true) {
-        timeout = new Promise(async (_, reject) => {
-            const returnValue = await standard_1.delay(timeoutInMs, returnValueOnTimeout);
-            reject();
-            return returnValue;
-        });
-    }
-    else {
-        timeout = standard_1.delay(timeoutInMs, returnValueOnTimeout);
-    }
+    const timeout = rejectPromise
+        ? standard_1.delayRejected(timeoutInMs, returnValueOnTimeout)
+        : standard_1.delay(timeoutInMs, returnValueOnTimeout);
     return Promise.race([
         promise,
         timeout,
