@@ -36,6 +36,9 @@ exports.makeUnique = (array) => {
 exports.delay = (millis, value) => {
     return new Promise((resolve) => setTimeout(() => resolve(value), millis));
 };
+exports.delayRejected = (millis, value) => {
+    return new Promise((_, reject) => setTimeout(() => reject(value), millis));
+};
 exports.omit = (key, object) => {
     const newObject = Object.assign({}, object);
     delete newObject[key];

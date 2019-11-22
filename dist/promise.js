@@ -13,8 +13,10 @@ exports.promiseSequenceMap = async (inputArray, transformer) => {
     }
     return newArray;
 };
-exports.promiseWithTimeoutResolved = async (promise, returnValueOnTimeout, timeoutInMs = 1000) => {
-    const timeout = standard_1.delay(timeoutInMs, returnValueOnTimeout);
+exports.promiseWithTimeout = async (promise, returnValueOnTimeout, timeoutInMs = 1000, rejectPromise = false) => {
+    const timeout = rejectPromise
+        ? standard_1.delayRejected(timeoutInMs, returnValueOnTimeout)
+        : standard_1.delay(timeoutInMs, returnValueOnTimeout);
     return Promise.race([
         promise,
         timeout,
