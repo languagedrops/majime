@@ -34,6 +34,7 @@ declare global  {
         sorted(compareFunction?: (lhs: T, rhs: T) => number): T[];
         chunk(chunkSize: number): T[][];
         takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[];
+        mergeWith(secondArray: T[]): T[];
     }
 }
 export declare const flattenArray: <T>(arrays: T[][]) => T[];
@@ -69,3 +70,4 @@ export declare const sortedByProperty: <T>(sourceArray: T[], compareFunction: (e
 export declare const sorted: <T>(sourceArray: T[], compareFunction?: ((lhs: T, rhs: T) => number) | undefined) => T[];
 export declare const chunk: <T>(chunkSize: number, array: T[]) => T[][];
 export declare const takeWhile: <T>(inputArray: T[], filterFunction: (element: T, index: number) => boolean, reverse?: boolean | undefined) => T[];
+export declare const mergeArrays: <T>(firstArray: T[], secondArray: T[]) => T[];

@@ -29,6 +29,7 @@ declare global {
     sorted(compareFunction?: (lhs: T, rhs: T) => number): T[]
     chunk(chunkSize: number): T[][]
     takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
+    mergeWith(secondArray: T[]): T[]
   }
 }
 
@@ -415,4 +416,32 @@ export const takeWhile = <T>(inputArray: T[], filterFunction: (element: T, index
   const endIndex = findIndex === -1 ? undefined : findIndex
 
   return array.slice(0, endIndex)
+}
+
+export const mergeArrays = <T>(firstArray: T[], secondArray: T[]): T[] => {
+  // it uses imperative code because in this case it's more appropriate. We have tests that cover functionality
+  const result: T[] = []
+  let firstArrayIndex = 0
+  let secondArrayIndex = 0
+  while (firstArrayIndex < firstArray.length || secondArrayIndex < secondArray.length) {
+    if (firstArray[firstArrayIndex] === secondArray[secondArrayIndex]) {
+      result.push(firstArray[firstArrayIndex])
+      firstArrayIndex++
+      secondArrayIndex++
+    } else if (firstArray[firstArrayIndex] != null && !secondArray.slice(secondArrayIndex).includes(firstArray[firstArrayIndex])) {
+      result.push(firstArray[firstArrayIndex])
+      firstArrayIndex++
+    } else if (secondArray[secondArrayIndex] != null) {
+      result.push(secondArray[secondArrayIndex])
+      secondArrayIndex++
+    }
+  }
+
+  return result.unique()
+}
+
+if (!Array.prototype.mergeWith) {
+  Array.prototype.mergeWith = function<T>(seccondArray: T[]): T[] {
+    return mergeArrays(this, seccondArray)
+  }
 }
