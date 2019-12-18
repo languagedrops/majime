@@ -1,4 +1,4 @@
-import { sortedByProperty, chunk, sortIntersection, mergeArrays } from '../array'
+import { sortedByProperty, chunk, sortIntersection, mergeArraysOfIds } from '../array'
 
 describe('Array function', () => {
 
@@ -115,13 +115,13 @@ describe('Array function', () => {
 
   })
 
-  describe('mergeArrays', () => {
+  describe('mergeArraysOfIds', () => {
     it('Should merge arrays without common values', () => {
       const array1 = ['test1', 'test2', 'test3']
       const array2 = ['test4', 'test5', 'test6']
       const resultArray = ['test1', 'test2', 'test3', 'test4', 'test5', 'test6']
 
-      expect(mergeArrays(array1, array2)).toEqual(resultArray)
+      expect(mergeArraysOfIds(array1, array2)).toEqual(resultArray)
     })
 
     it('Should return only one array for identical arrays', () => {
@@ -129,7 +129,7 @@ describe('Array function', () => {
       const array2 = ['test1', 'test2', 'test3']
       const resultArray = ['test1', 'test2', 'test3']
 
-      expect(mergeArrays(array1, array2)).toEqual(resultArray)
+      expect(mergeArraysOfIds(array1, array2)).toEqual(resultArray)
     })
 
     it('Should merge arrays with common values without duplicates 1', () => {
@@ -137,7 +137,7 @@ describe('Array function', () => {
       const array2 = ['test1', 'test4', 'test3']
       const resultArray = ['test1', 'test2', 'test4', 'test3']
 
-      expect(mergeArrays(array1, array2)).toEqual(resultArray)
+      expect(mergeArraysOfIds(array1, array2)).toEqual(resultArray)
     })
 
     it('Should merge arrays with common values without duplicates 2', () => {
@@ -145,7 +145,7 @@ describe('Array function', () => {
       const array2 = ['test1', 'test3']
       const resultArray = ['test1', 'test2', 'test3']
 
-      expect(mergeArrays(array1, array2)).toEqual(resultArray)
+      expect(mergeArraysOfIds(array1, array2)).toEqual(resultArray)
     })
 
     it('Should merge arrays with common values without duplicates 3', () => {
@@ -153,7 +153,7 @@ describe('Array function', () => {
       const array2 = ['test1', 'test3', 'test5']
       const resultArray = ['test1', 'test2', 'test3', 'test5']
 
-      expect(mergeArrays(array1, array2)).toEqual(resultArray)
+      expect(mergeArraysOfIds(array1, array2)).toEqual(resultArray)
     })
 
     it('Should merge arrays with common values without duplicates 4', () => {
@@ -161,7 +161,7 @@ describe('Array function', () => {
       const array2 = ['test1', 'test4', 'test3', 'test5']
       const resultArray = ['test1', 'test2', 'test4', 'test3', 'test5']
 
-      expect(mergeArrays(array1, array2)).toEqual(resultArray)
+      expect(mergeArraysOfIds(array1, array2)).toEqual(resultArray)
     })
   })
 })

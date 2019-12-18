@@ -316,7 +316,7 @@ exports.takeWhile = (inputArray, filterFunction, reverse) => {
     const endIndex = findIndex === -1 ? undefined : findIndex;
     return array.slice(0, endIndex);
 };
-exports.mergeArrays = (firstArray, secondArray) => {
+exports.mergeArraysOfIds = (firstArray, secondArray) => {
     // it uses imperative code because in this case it's more appropriate. We have tests that cover functionality
     const result = [];
     let firstArrayIndex = 0;
@@ -338,8 +338,3 @@ exports.mergeArrays = (firstArray, secondArray) => {
     }
     return result.unique();
 };
-if (!Array.prototype.mergeWith) {
-    Array.prototype.mergeWith = function (seccondArray) {
-        return exports.mergeArrays(this, seccondArray);
-    };
-}

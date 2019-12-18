@@ -418,7 +418,7 @@ export const takeWhile = <T>(inputArray: T[], filterFunction: (element: T, index
   return array.slice(0, endIndex)
 }
 
-export const mergeArrays = <T>(firstArray: T[], secondArray: T[]): T[] => {
+export const mergeArraysOfIds = <T extends number | string>(firstArray: T[], secondArray: T[]): T[] => {
   // it uses imperative code because in this case it's more appropriate. We have tests that cover functionality
   const result: T[] = []
   let firstArrayIndex = 0
@@ -438,10 +438,4 @@ export const mergeArrays = <T>(firstArray: T[], secondArray: T[]): T[] => {
   }
 
   return result.unique()
-}
-
-if (!Array.prototype.mergeWith) {
-  Array.prototype.mergeWith = function<T>(seccondArray: T[]): T[] {
-    return mergeArrays(this, seccondArray)
-  }
 }
