@@ -42,3 +42,4 @@ export declare enum Month {
 }
 export declare const getUTCTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;
 export declare const getLocalTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;
+export declare const getTimezoneAgnosticDayFromDate: (date: Date) => number;

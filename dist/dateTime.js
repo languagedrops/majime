@@ -105,3 +105,4 @@ exports.getUTCTimeStamp = (year, month, day, hours = 0) => {
 exports.getLocalTimeStamp = (year, month, day, hours = 0) => {
     return new Date(year, month, day, hours).getTime();
 };
+exports.getTimezoneAgnosticDayFromDate = (date) => date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate();
