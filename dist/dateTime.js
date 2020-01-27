@@ -105,3 +105,12 @@ exports.getUTCTimeStamp = (year, month, day, hours = 0) => {
 exports.getLocalTimeStamp = (year, month, day, hours = 0) => {
     return new Date(year, month, day, hours).getTime();
 };
+exports.getTimezoneAgnosticDayFromDate = (date) => date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate();
+exports.getLocalDateObjectFromTimezoneAgnostic = (input) => {
+    const year = Math.floor(input / 10000);
+    const inputWithoutYear = input % 10000;
+    const months = Math.floor(inputWithoutYear / 100);
+    const inputWithoutMonth = inputWithoutYear % 100;
+    const day = inputWithoutMonth;
+    return new Date(year, months, day);
+};
