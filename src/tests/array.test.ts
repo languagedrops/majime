@@ -164,4 +164,18 @@ describe('Array function', () => {
       expect(mergeArraysOfIds(array1, array2)).toEqual(resultArray)
     })
   })
+
+  describe('Unique', () => {
+    it('Shouldn\'t change order of array', () => {
+      const array1 = [1, 2, 3, 4, 5]
+      const array2 = [1, 1, 2, 3, 3, 1, 4, 3, 5]
+      const array3 = ['test1', 'test2', 'test3', 'test4', 'test5']
+      const array4 = ['test1', 'test1', 'test2', 'test1', 'test2', 'test3', 'test4', 'test1', 'test5']
+
+      expect(array1.unique()).toMatchSnapshot()
+      expect(array2.unique()).toMatchSnapshot()
+      expect(array3.unique()).toMatchSnapshot()
+      expect(array4.unique()).toMatchSnapshot()
+    })
+  })
 })
