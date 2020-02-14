@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Array function Unique Shouldn't change order of array 1`] = `
+Array [
+  1,
+  2,
+  3,
+  4,
+  5,
+]
+`;
+
+exports[`Array function Unique Shouldn't change order of array 2`] = `
+Array [
+  1,
+  2,
+  3,
+  4,
+  5,
+]
+`;
+
+exports[`Array function Unique Shouldn't change order of array 3`] = `
+Array [
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5",
+]
+`;
+
+exports[`Array function Unique Shouldn't change order of array 4`] = `
+Array [
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5",
+]
+`;
