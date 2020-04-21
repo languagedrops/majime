@@ -1,3 +1,5 @@
+import { range } from './standard'
+
 export {}
 
 declare global {
@@ -198,4 +200,13 @@ export const getPreviousTimeZoneAgnosticDay = (baseDate: number): number => {
 
 export const isTimezoneAgnosticPreviousDay = (baseDate: number, comparisonDate: number): boolean => {
   return baseDate === getFollowingTimeZoneAgnosticDay(comparisonDate)
+}
+
+export const getLastSevenTimeZoneAgnosticDays = (baseDate: number): number[] => {
+  return range(0, 6).reduce((accum) => {
+    return [
+      getPreviousTimeZoneAgnosticDay(accum[0]),
+      ...accum,
+    ]
+  }, [baseDate])
 }

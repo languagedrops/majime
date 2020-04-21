@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const standard_1 = require("./standard");
 if (!Date.prototype.addSeconds) {
     Date.prototype.addSeconds = function (seconds) {
         return exports.addSecondsToDate(this, seconds);
@@ -162,4 +163,12 @@ exports.getPreviousTimeZoneAgnosticDay = (baseDate) => {
 };
 exports.isTimezoneAgnosticPreviousDay = (baseDate, comparisonDate) => {
     return baseDate === exports.getFollowingTimeZoneAgnosticDay(comparisonDate);
+};
+exports.getLastSevenTimeZoneAgnosticDays = (baseDate) => {
+    return standard_1.range(0, 6).reduce((accum) => {
+        return [
+            exports.getPreviousTimeZoneAgnosticDay(accum[0]),
+            ...accum,
+        ];
+    }, [baseDate]);
 };
