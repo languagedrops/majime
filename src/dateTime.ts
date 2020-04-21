@@ -144,11 +144,58 @@ export const getLocalTimeStamp = (year: number, month: Month, day: number, hours
 
 export const getTimezoneAgnosticDayFromDate = (date: Date): number => date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate()
 
+export const getDayFromTimezoneAgnosticDate = (date: number): number => date % 100
+export const getYearFromTimezoneAgnosticDate = (date: number): number => Math.trunc(date / 10000)
+export const getMonthFromTimezoneAgnosticDate = (date: number): number => Math.trunc(date / 100) % 100
 export const getLocalDateObjectFromTimezoneAgnostic = (input: number): Date => {
-  const year = Math.floor(input / 10000)
-  const inputWithoutYear = input % 10000
-  const months = Math.floor(inputWithoutYear / 100)
-  const inputWithoutMonth = inputWithoutYear % 100
-  const day = inputWithoutMonth
+  const year = getYearFromTimezoneAgnosticDate(input)
+  const months = getMonthFromTimezoneAgnosticDate(input)
+  const day = getDayFromTimezoneAgnosticDate(input)
   return new Date(year, months, day)
+}
+
+const knownMonthEndDates = new Set([31, 129, 231, 330, 431, 530, 631, 731, 830, 931, 1030])
+export const isLeapYear = (year: number): boolean => year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)
+export const getFollowingTimeZoneAgnosticDay = (baseDate: number): number => {
+  const dateWithoutYear = baseDate % 10000
+  const year = getYearFromTimezoneAgnosticDate(baseDate)
+  if (dateWithoutYear === 1131) {
+    return (year + 1) * 10000 + 1
+  } else if (knownMonthEndDates.has(dateWithoutYear) || (dateWithoutYear === 128 && !isLeapYear(year))) {
+    const month = getMonthFromTimezoneAgnosticDate(baseDate)
+    return year * 10000 + (month + 1) * 100 + 1
+  } else {
+    return baseDate + 1
+  }
+}
+
+const knownMonthEndDatesForStartDates: { readonly [key: number]: number } = {
+  101: 31,
+  301: 231,
+  401: 330,
+  501: 431,
+  601: 530,
+  701: 631,
+  801: 731,
+  901: 830,
+  1001: 931,
+  1101: 1030,
+}
+export const getPreviousTimeZoneAgnosticDay = (baseDate: number): number => {
+  const dateWithoutYear = baseDate % 10000
+  const year = getYearFromTimezoneAgnosticDate(baseDate)
+  if (dateWithoutYear === 1) {
+    return (year - 1) * 10000 + 1131
+  } else if (knownMonthEndDatesForStartDates[dateWithoutYear] != null) {
+    return year * 10000 + knownMonthEndDatesForStartDates[dateWithoutYear]
+  } else if (dateWithoutYear === 201) {
+    const februaryEnd = isLeapYear(year) ? 129 : 128
+    return year * 10000 + februaryEnd
+  } else {
+    return baseDate - 1
+  }
+}
+
+export const isTimezoneAgnosticPreviousDay = (baseDate: number, comparisonDate: number): boolean => {
+  return baseDate === getFollowingTimeZoneAgnosticDay(comparisonDate)
 }
