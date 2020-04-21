@@ -154,36 +154,48 @@ export const getLocalDateObjectFromTimezoneAgnostic = (input: number): Date => {
   return new Date(year, months, day)
 }
 
-const knownMonthEndDates = new Set([31, 231, 330, 431, 530, 631, 731, 830, 931, 1030, 1131])
-export const isTimezoneAgnosticPreviousDay = (baseDate: number, comparisionDate: number): boolean => {
-  if (baseDate === comparisionDate) { return false }
-  const baseDateYearMonth = Math.trunc(baseDate / 100)
-  const comparisionDateYearMonth = Math.trunc(comparisionDate / 100)
-
-
-  if (baseDateYearMonth === comparisionDateYearMonth) {
-    return getDayFromTimezoneAgnosticDate(baseDate) - getDayFromTimezoneAgnosticDate(comparisionDate) === 1
+const knownMonthEndDates = new Set([31, 129, 231, 330, 431, 530, 631, 731, 830, 931, 1030])
+export const isLeapYear = (year: number): boolean => year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)
+export const getFollowingTimeZoneAgnosticDay = (baseDate: number): number => {
+  const dateWithoutYear = baseDate % 10000
+  const year = getYearFromTimezoneAgnosticDate(baseDate)
+  if (dateWithoutYear === 1131) {
+    return (year + 1) * 10000 + 1
+  } else if (knownMonthEndDates.has(dateWithoutYear) || (dateWithoutYear === 128 && !isLeapYear(year))) {
+    const month = getMonthFromTimezoneAgnosticDate(baseDate)
+    return year * 10000 + (month + 1) * 100 + 1
+  } else {
+    return baseDate + 1
   }
+}
 
-  const baseDateDay = getDayFromTimezoneAgnosticDate(baseDate)
-  const baseDateMonth = getMonthFromTimezoneAgnosticDate(baseDate)
-  const baseDateYear = getYearFromTimezoneAgnosticDate(baseDate)
-  const comparisionDateMonth = getMonthFromTimezoneAgnosticDate(comparisionDate)
-  const comparisionDateYear = getYearFromTimezoneAgnosticDate(comparisionDate)
-  if (baseDateYear === comparisionDateYear && baseDateMonth - comparisionDateMonth === 1 && baseDateDay === 1 && knownMonthEndDates.has(comparisionDate % 1000)) {
-    // end of ordinal month
-    return true
-  } else if (baseDateYear - comparisionDateYear === 1 && baseDateMonth === 0 && comparisionDateMonth === 11 && baseDateDay === 1 && getDayFromTimezoneAgnosticDate(comparisionDate) === 31) {
-    // end of year
-    return true
-  } else if (baseDateYear === comparisionDateYear && baseDateMonth === 2 && comparisionDateMonth === 1 && baseDateDay === 1) {
-    // end of february
-    const baseDateObject = getLocalDateObjectFromTimezoneAgnostic(baseDate)
-    const comparisionDateObject = getLocalDateObjectFromTimezoneAgnostic(comparisionDate)
-    comparisionDateObject.setDate(getDayFromTimezoneAgnosticDate(comparisionDate) + 1)
-
-    return baseDateObject.getTime() === comparisionDateObject.getTime()
+const knownMonthEndDatesForStartDates: { readonly [key: number]: number } = {
+  101: 31,
+  301: 231,
+  401: 330,
+  501: 431,
+  601: 530,
+  701: 631,
+  801: 731,
+  901: 830,
+  1001: 931,
+  1101: 1030,
+}
+export const getPreviousTimeZoneAgnosticDay = (baseDate: number): number => {
+  const dateWithoutYear = baseDate % 10000
+  const year = getYearFromTimezoneAgnosticDate(baseDate)
+  if (dateWithoutYear === 1) {
+    return (year - 1) * 10000 + 1131
+  } else if (knownMonthEndDatesForStartDates[dateWithoutYear] != null) {
+    return year * 10000 + knownMonthEndDatesForStartDates[dateWithoutYear]
+  } else if (dateWithoutYear === 201) {
+    const februaryEnd = isLeapYear(year) ? 129 : 128
+    return year * 10000 + februaryEnd
+  } else {
+    return baseDate - 1
   }
+}
 
-  return false
+export const isTimezoneAgnosticPreviousDay = (baseDate: number, comparisonDate: number): boolean => {
+  return baseDate === getFollowingTimeZoneAgnosticDay(comparisonDate)
 }
