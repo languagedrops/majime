@@ -210,3 +210,12 @@ export const getLastSevenTimeZoneAgnosticDays = (baseDate: number): number[] =>�
     ]
   }, [baseDate])
 }
+
+export const getFollowingSevenTimeZoneAgnosticDays = (baseDate: number): number[] => {
+  return range(0, 6).reduce((accum) => {
+    return [
+      ...accum,
+      getFollowingTimeZoneAgnosticDay(accum[accum.length - 1]),
+    ]
+  }, [baseDate])
+}

@@ -172,3 +172,11 @@ exports.getLastSevenTimeZoneAgnosticDays = (baseDate) => {
         ];
     }, [baseDate]);
 };
+exports.getFollowingSevenTimeZoneAgnosticDays = (baseDate) => {
+    return standard_1.range(0, 6).reduce((accum) => {
+        return [
+            ...accum,
+            exports.getFollowingTimeZoneAgnosticDay(accum[accum.length - 1]),
+        ];
+    }, [baseDate]);
+};
