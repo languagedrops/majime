@@ -180,3 +180,25 @@ exports.getFollowingSevenTimeZoneAgnosticDays = (baseDate) => {
         ];
     }, [baseDate]);
 };
+exports.getTimeZoneAgnosticDatesBetweenDates = (smallerDate, higherDate) => {
+    if (smallerDate >= higherDate) {
+        return [];
+    }
+    const result = [smallerDate];
+    const maximumDate = exports.getPreviousTimeZoneAgnosticDay(higherDate);
+    while (result[result.length - 1] < maximumDate) {
+        result.push(exports.getFollowingTimeZoneAgnosticDay(result[result.length - 1]));
+    }
+    return result;
+};
+exports.getTimeZoneAgnosticDaysDifference = (smallerDate, higherDate) => {
+    if (smallerDate === higherDate) {
+        return 0;
+    }
+    if (smallerDate > higherDate) {
+        return exports.getTimeZoneAgnosticDatesBetweenDates(higherDate, smallerDate).length * -1;
+    }
+    else {
+        return exports.getTimeZoneAgnosticDatesBetweenDates(smallerDate, higherDate).length;
+    }
+};

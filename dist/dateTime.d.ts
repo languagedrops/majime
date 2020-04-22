@@ -53,3 +53,5 @@ export declare const getPreviousTimeZoneAgnosticDay: (baseDate: number) => numbe
 export declare const isTimezoneAgnosticPreviousDay: (baseDate: number, comparisonDate: number) => boolean;
 export declare const getLastSevenTimeZoneAgnosticDays: (baseDate: number) => number[];
 export declare const getFollowingSevenTimeZoneAgnosticDays: (baseDate: number) => number[];
+export declare const getTimeZoneAgnosticDatesBetweenDates: (smallerDate: number, higherDate: number) => number[];
+export declare const getTimeZoneAgnosticDaysDifference: (smallerDate: number, higherDate: number) => number;
