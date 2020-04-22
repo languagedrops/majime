@@ -219,3 +219,31 @@ export const getFollowingSevenTimeZoneAgnosticDays = (baseDate: number): number[
     ]
   }, [baseDate])
 }
+
+export const getTimeZoneAgnosticDatesBetweenDates = (smallerDate: number, higherDate: number): number[] => {
+  if (smallerDate >= higherDate) {
+    return []
+  }
+
+  const result = [smallerDate]
+
+  const maximumDate = getPreviousTimeZoneAgnosticDay(higherDate)
+  while (result[result.length - 1] < maximumDate) {
+    result.push(getFollowingTimeZoneAgnosticDay(result[result.length - 1]))
+  }
+
+  return result
+}
+
+export const getTimeZoneAgnosticDaysDifference = (smallerDate: number, higherDate: number): number => {
+  if (smallerDate === higherDate) {
+    return 0
+  }
+
+  if (smallerDate > higherDate) {
+    return getTimeZoneAgnosticDatesBetweenDates(higherDate, smallerDate).length * -1
+  } else {
+    return getTimeZoneAgnosticDatesBetweenDates(smallerDate, higherDate).length
+  }
+
+}

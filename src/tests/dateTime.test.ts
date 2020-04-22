@@ -1,4 +1,4 @@
-import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay, getLastSevenTimeZoneAgnosticDays, getFollowingSevenTimeZoneAgnosticDays } from '../dateTime'
+import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay, getLastSevenTimeZoneAgnosticDays, getFollowingSevenTimeZoneAgnosticDays, getTimeZoneAgnosticDatesBetweenDates, getTimeZoneAgnosticDaysDifference } from '../dateTime'
 import { range } from '../standard'
 import { getRandom, getRandomBoolean } from '../random'
 
@@ -162,4 +162,78 @@ describe('date utils', () => {
       ])
     })
   })
+
+  describe('getFollowingSevenTimeZoneAgnosticDays', () => {
+    it('Should return the days between two days', () => {
+      const smallerDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      const higherDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 3))
+      expect(getTimeZoneAgnosticDatesBetweenDates(smallerDate, higherDate)).toEqual([
+        20200125,
+        20200126,
+        20200127,
+        20200128,
+        20200129,
+        20200201,
+        20200202,
+      ])
+    })
+
+    it('Should return the first date if the dates are following eachother', () => {
+      const smallerDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      const higherDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 26))
+      expect(getTimeZoneAgnosticDatesBetweenDates(smallerDate, higherDate)).toEqual([
+        20200125,
+      ])
+    })
+
+    it('Should return empty array if the dates are the same', () => {
+      const date = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+
+      expect(getTimeZoneAgnosticDatesBetweenDates(date, date)).toEqual([])
+    })
+
+    it('Should return empty array if higher date is a lower number', () => {
+      const smallerDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 3))
+      const higherDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+
+      expect(getTimeZoneAgnosticDatesBetweenDates(smallerDate, higherDate)).toEqual([])
+    })
+  })
+
+  describe('getTimeZoneAgnosticDaysDifference', () => {
+    it('Should return the number of dates between two dates', () => {
+      const smallerDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      const higherDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 3))
+
+      expect(getTimeZoneAgnosticDaysDifference(smallerDate, higherDate)).toBe(7)
+    })
+
+    it('Should return 1 if the dates are following each other', () => {
+      const smallerDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      const higherDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 26))
+
+      expect(getTimeZoneAgnosticDaysDifference(smallerDate, higherDate)).toBe(1)
+    })
+
+    it('Should return 0 if the dates are the same', () => {
+      const date = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+
+      expect(getTimeZoneAgnosticDaysDifference(date, date)).toBe(0)
+    })
+
+    it('Should return -1 if the dates are following each other', () => {
+      const smallerDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      const higherDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 26))
+
+      expect(getTimeZoneAgnosticDaysDifference(higherDate, smallerDate)).toBe(-1)
+    })
+
+    it('Should return negative number if the second date is smaller', () => {
+      const smallerDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      const higherDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 3))
+
+      expect(getTimeZoneAgnosticDaysDifference(higherDate, smallerDate)).toBe(-7)
+    })
+  })
+
 })
