@@ -1,4 +1,4 @@
-import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay } from '../dateTime'
+import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay, getLastSevenTimeZoneAgnosticDays } from '../dateTime'
 import { range } from '../standard'
 import { getRandom, getRandomBoolean } from '../random'
 
@@ -132,4 +132,20 @@ describe('date utils', () => {
       })
     })
   })
+
+  describe('getLastSevenTimeZoneAgnosticDays', () => {
+    it('Should return the last seven days counint from the input date', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 2))
+      expect(getLastSevenTimeZoneAgnosticDays(baseDate)).toEqual([
+        20200125,
+        20200126,
+        20200127,
+        20200128,
+        20200129,
+        20200201,
+        20200202,
+      ])
+    })
+  })
+
 })
