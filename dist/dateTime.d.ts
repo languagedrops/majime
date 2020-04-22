@@ -52,3 +52,4 @@ export declare const getFollowingTimeZoneAgnosticDay: (baseDate: number) => numb
 export declare const getPreviousTimeZoneAgnosticDay: (baseDate: number) => number;
 export declare const isTimezoneAgnosticPreviousDay: (baseDate: number, comparisonDate: number) => boolean;
 export declare const getLastSevenTimeZoneAgnosticDays: (baseDate: number) => number[];
+export declare const getFollowingSevenTimeZoneAgnosticDays: (baseDate: number) => number[];
