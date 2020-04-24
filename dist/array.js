@@ -314,7 +314,22 @@ exports.takeWhile = (inputArray, filterFunction, reverse) => {
     const array = reverse ? inputArray.slice().reverse() : inputArray.slice();
     const findIndex = array.findIndex((element, index) => !filterFunction(element, index));
     const endIndex = findIndex === -1 ? undefined : findIndex;
-    return array.slice(0, endIndex);
+    const result = array.slice(0, endIndex);
+    return reverse ? result.reverse() : result;
+};
+if (!Array.prototype.skipWhile) {
+    Array.prototype.skipWhile = function (filterFunction, reverse) {
+        return exports.skipWhile(this, filterFunction, reverse);
+    };
+}
+exports.skipWhile = (inputArray, filterFunction, reverse) => {
+    const array = reverse ? inputArray.slice().reverse() : inputArray.slice();
+    const findIndex = array.findIndex((element, index) => !filterFunction(element, index));
+    if (findIndex === -1) {
+        return [];
+    }
+    const result = array.slice(findIndex);
+    return reverse ? result.reverse() : result;
 };
 exports.mergeArraysOfIds = (firstArray, secondArray) => {
     // it uses imperative code because in this case it's more appropriate. We have tests that cover functionality
