@@ -107,10 +107,33 @@ describe('Array function', () => {
 
     it('Should correctly return the elements while they are matching the condition with reverse', () => {
       expect([1, 2, 3, 2, 3, 4, 5, 2].takeWhile((element) => element < 3, true)).toEqual([2])
-      expect([1, 2].takeWhile((element) => element < 3, true)).toEqual([2, 1])
+      expect([1, 2].takeWhile((element) => element < 3, true)).toEqual([1, 2])
       expect([1].takeWhile((element) => element < 3, true)).toEqual([1])
       expect([].takeWhile((element) => element < 3, true)).toEqual([])
       expect([1, 2].takeWhile((element) => element > 3, true)).toEqual([])
+    })
+
+  })
+
+  describe('skipWhile', () => {
+    it('Should correctly return the elements while they are matching the condition', () => {
+      expect([1, 2, 3, 2, 3, 4, 5, 2].skipWhile((element) => element < 3)).toEqual([3, 2, 3, 4, 5, 2])
+      expect([4, 5].skipWhile((element) => element < 3)).toEqual([4, 5])
+      expect([1, 2].skipWhile((element) => element < 3)).toEqual([])
+      expect([4].skipWhile((element) => element < 3)).toEqual([4])
+      expect([1].skipWhile((element) => element < 3)).toEqual([])
+      expect([].skipWhile((element) => element < 3)).toEqual([])
+      expect([4, 5, 3, 2].skipWhile((element) => element < 3)).toEqual([4, 5, 3, 2])
+    })
+
+    it('Should correctly return the elements while they are matching the condition with reverse', () => {
+      expect([1, 2, 3, 2, 3, 4, 5, 2].skipWhile((element) => element < 3, true)).toEqual([1, 2, 3, 2, 3, 4, 5])
+      expect([4, 5].skipWhile((element) => element < 3, true)).toEqual([4, 5])
+      expect([1, 2].skipWhile((element) => element < 3, true)).toEqual([])
+      expect([4].skipWhile((element) => element < 3, true)).toEqual([4])
+      expect([1].skipWhile((element) => element < 3, true)).toEqual([])
+      expect([].skipWhile((element) => element < 3, true)).toEqual([])
+      expect([2, 3, 5, 4].skipWhile((element) => element < 3, true)).toEqual([2, 3, 5, 4])
     })
 
   })

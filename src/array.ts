@@ -29,6 +29,7 @@ declare global {
     sorted(compareFunction?: (lhs: T, rhs: T) => number): T[]
     chunk(chunkSize: number): T[][]
     takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
+    skipWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
     mergeWith(secondArray: T[]): T[]
   }
 }
@@ -415,7 +416,29 @@ export const takeWhile = <T>(inputArray: T[], filterFunction: (element: T, index
   const findIndex = array.findIndex((element, index) => !filterFunction(element, index))
   const endIndex = findIndex === -1 ? undefined : findIndex
 
-  return array.slice(0, endIndex)
+  const result = array.slice(0, endIndex)
+
+  return reverse ? result.reverse() : result
+}
+
+if (!Array.prototype.skipWhile) {
+  Array.prototype.skipWhile = function<T>(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[] {
+    return skipWhile(this, filterFunction, reverse)
+  }
+}
+
+export const skipWhile = <T>(inputArray: T[], filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[] => {
+  const array = reverse ? inputArray.slice().reverse() : inputArray.slice()
+
+  const findIndex = array.findIndex((element, index) => !filterFunction(element, index))
+
+  if (findIndex === -1) {
+    return []
+  }
+
+  const result = array.slice(findIndex)
+
+  return reverse ? result.reverse() : result
 }
 
 export const mergeArraysOfIds = <T extends number | string>(firstArray: T[], secondArray: T[]): T[] => {
