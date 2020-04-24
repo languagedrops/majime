@@ -202,8 +202,11 @@ export const isTimezoneAgnosticPreviousDay = (baseDate: number, comparisonDate: 
   return baseDate === getFollowingTimeZoneAgnosticDay(comparisonDate)
 }
 
-export const getLastSevenTimeZoneAgnosticDays = (baseDate: number): number[] => {
-  return range(0, 6).reduce((accum) => {
+export const getLastNTimeZoneAgnosticDays = (baseDate: number, numberOfDays: number): number[] => {
+  if (numberOfDays < 1) {
+    return []
+  }
+  return range(0, numberOfDays - 1).reduce((accum) => {
     return [
       getPreviousTimeZoneAgnosticDay(accum[0]),
       ...accum,
@@ -211,8 +214,11 @@ export const getLastSevenTimeZoneAgnosticDays = (baseDate: number): number[] =>�
   }, [baseDate])
 }
 
-export const getFollowingSevenTimeZoneAgnosticDays = (baseDate: number): number[] => {
-  return range(0, 6).reduce((accum) => {
+export const getFollowingNTimeZoneAgnosticDays = (baseDate: number, numberOfDays: number): number[] => {
+  if (numberOfDays < 1) {
+    return []
+  }
+  return range(0, numberOfDays - 1).reduce((accum) => {
     return [
       ...accum,
       getFollowingTimeZoneAgnosticDay(accum[accum.length - 1]),

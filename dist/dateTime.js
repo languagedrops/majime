@@ -164,16 +164,22 @@ exports.getPreviousTimeZoneAgnosticDay = (baseDate) => {
 exports.isTimezoneAgnosticPreviousDay = (baseDate, comparisonDate) => {
     return baseDate === exports.getFollowingTimeZoneAgnosticDay(comparisonDate);
 };
-exports.getLastSevenTimeZoneAgnosticDays = (baseDate) => {
-    return standard_1.range(0, 6).reduce((accum) => {
+exports.getLastNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
+    if (numberOfDays < 1) {
+        return [];
+    }
+    return standard_1.range(0, numberOfDays - 1).reduce((accum) => {
         return [
             exports.getPreviousTimeZoneAgnosticDay(accum[0]),
             ...accum,
         ];
     }, [baseDate]);
 };
-exports.getFollowingSevenTimeZoneAgnosticDays = (baseDate) => {
-    return standard_1.range(0, 6).reduce((accum) => {
+exports.getFollowingNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
+    if (numberOfDays < 1) {
+        return [];
+    }
+    return standard_1.range(0, numberOfDays - 1).reduce((accum) => {
         return [
             ...accum,
             exports.getFollowingTimeZoneAgnosticDay(accum[accum.length - 1]),
