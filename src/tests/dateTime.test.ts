@@ -1,4 +1,4 @@
-import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay, getLastSevenTimeZoneAgnosticDays, getFollowingSevenTimeZoneAgnosticDays, getTimeZoneAgnosticDatesBetweenDates, getTimeZoneAgnosticDaysDifference } from '../dateTime'
+import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay, getLastNTimeZoneAgnosticDays, getFollowingNTimeZoneAgnosticDays, getTimeZoneAgnosticDatesBetweenDates, getTimeZoneAgnosticDaysDifference } from '../dateTime'
 import { range } from '../standard'
 import { getRandom, getRandomBoolean } from '../random'
 
@@ -134,9 +134,29 @@ describe('date utils', () => {
   })
 
   describe('getLastSevenTimeZoneAgnosticDays', () => {
+    it('Should return 0 days', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 2))
+      expect(getLastNTimeZoneAgnosticDays(baseDate, 0)).toEqual([])
+    })
+
+    it('Should return the same day as the input date', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 2))
+      expect(getLastNTimeZoneAgnosticDays(baseDate, 1)).toEqual([
+        20200202,
+      ])
+    })
+
+    it('Should return the last 2 days couning from the input date', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 2))
+      expect(getLastNTimeZoneAgnosticDays(baseDate, 2)).toEqual([
+        20200201,
+        20200202,
+      ])
+    })
+
     it('Should return the last seven days couning from the input date', () => {
       const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 2, 2))
-      expect(getLastSevenTimeZoneAgnosticDays(baseDate)).toEqual([
+      expect(getLastNTimeZoneAgnosticDays(baseDate, 7)).toEqual([
         20200125,
         20200126,
         20200127,
@@ -149,9 +169,29 @@ describe('date utils', () => {
   })
 
   describe('getFollowingSevenTimeZoneAgnosticDays', () => {
+    it('Should return 0 days', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      expect(getFollowingNTimeZoneAgnosticDays(baseDate, 0)).toEqual([])
+    })
+
+    it('Should return the input date', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      expect(getFollowingNTimeZoneAgnosticDays(baseDate, 1)).toEqual([
+        20200125,
+      ])
+    })
+
+    it('Should return the following 2 days couning from the input date', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
+      expect(getFollowingNTimeZoneAgnosticDays(baseDate, 2)).toEqual([
+        20200125,
+        20200126,
+      ])
+    })
+
     it('Should return the following seven days couning from the input date', () => {
       const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 25))
-      expect(getFollowingSevenTimeZoneAgnosticDays(baseDate)).toEqual([
+      expect(getFollowingNTimeZoneAgnosticDays(baseDate, 7)).toEqual([
         20200125,
         20200126,
         20200127,
