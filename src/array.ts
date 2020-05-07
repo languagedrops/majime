@@ -1,5 +1,9 @@
 import { getRandom } from './random'
 
+export interface CompareFuctionWithOptionalRevese<T> {
+  readonly compareFunction: (element: T) => number | string | Date
+  readonly reverse?: boolean
+}
 
 declare global {
   interface Array<T> {
@@ -26,6 +30,7 @@ declare global {
     lastElements(numberOfElements: number): T[]
     filterNull(): Array<Exclude<T, null | undefined>>
     sortedByProperty(compareFunction: (element: T) => number | string | Date, reverse?: boolean ): T[]
+    sortedByProperties(...args: Array<CompareFuctionWithOptionalRevese<T>>): T[]
     sorted(compareFunction?: (lhs: T, rhs: T) => number): T[]
     chunk(chunkSize: number): T[][]
     takeWhile(filterFunction: (element: T, index: number) => boolean, reverse?: boolean): T[]
@@ -376,6 +381,34 @@ export const sortedByProperty = <T>(sourceArray: T[], compareFunction: (element:
     } else {
       return 0
     }
+  })
+}
+
+if (!Array.prototype.sortedByProperties) {
+  Array.prototype.sortedByProperties = function<T>(...args: Array<CompareFuctionWithOptionalRevese<T>> ): T[] {
+    return sortedByProperties(this, ...args)
+  }
+}
+
+const compareTwoElemntsWithDepth = <T>(depth: number, compareFunctionList: Array<CompareFuctionWithOptionalRevese<T>>, elementA: T, elementB: T): number => {
+  if (depth === compareFunctionList.length) {
+    return 0
+  }
+  const { compareFunction, reverse } = compareFunctionList[depth]
+  const comparableA = compareFunction(elementA)
+  const comparableB = compareFunction(elementB)
+  if (comparableA < comparableB) {
+    return reverse ? 1 : -1
+  } else if (comparableA > comparableB) {
+    return reverse ? -1 : 1
+  } else {
+    return compareTwoElemntsWithDepth(depth + 1, compareFunctionList, elementA, elementB)
+  }
+}
+
+export const sortedByProperties = <T>(sourceArray: T[], ...args: Array<CompareFuctionWithOptionalRevese<T>> ) => {
+  return sourceArray.slice().sort((a, b) => {
+    return compareTwoElemntsWithDepth(0, args, a, b)
   })
 }
 
