@@ -201,4 +201,213 @@ describe('Array function', () => {
       expect(array4.unique()).toMatchSnapshot()
     })
   })
+
+  describe('SortedByProperties', () => {
+    it('Should keep everything the same if there is no compare function given', () => {
+      const array = [
+        { name: 'Carol', id: 1 },
+        { name: 'Bob', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      expect(array.sortedByProperties()).toEqual(array)
+    })
+
+    it('Should sort everything by the compare function', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Bob', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Alice', id: 3 },
+        { name: 'Bob', id: 4 },
+        { name: 'Carol', id: 1 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const compareFunction = (element: any) => element.name
+      expect(sourceArray.sortedByProperties({ compareFunction })).toEqual(orderedArray)
+    })
+
+    it('Should sort everything by the compare function in reverse order', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Bob', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Dave', id: 2 },
+        { name: 'Carol', id: 1 },
+        { name: 'Bob', id: 4 },
+        { name: 'Alice', id: 3 },
+      ]
+
+      const compareFunction = (element: any) => element.name
+      expect(sourceArray.sortedByProperties({ compareFunction, reverse: true })).toEqual(orderedArray)
+    })
+
+    it('Should should keep the same in place', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Alice', id: 3 },
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const compareFunction = (element: any) => element.name
+      expect(sourceArray.sortedByProperties({ compareFunction })).toEqual(orderedArray)
+    })
+
+    it('Should should keep the same in place in reverse order', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Dave', id: 2 },
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+      ]
+
+      const compareFunction = (element: any) => element.name
+      expect(sourceArray.sortedByProperties({ compareFunction, reverse: true })).toEqual(orderedArray)
+    })
+
+    it('Should order the same values by the second compare function', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Alice', id: 3 },
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const compareFunction1 = (element: any) => element.name
+      const compareFunction2 = (element: any) => element.id
+      expect(sourceArray.sortedByProperties({ compareFunction: compareFunction1 }, { compareFunction: compareFunction2 })).toEqual(orderedArray)
+    })
+
+    it('Should order the same values by the second (reversed) compare function', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Alice', id: 3 },
+        { name: 'Carol', id: 4 },
+        { name: 'Carol', id: 1 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const compareFunction1 = (element: any) => element.name
+      const compareFunction2 = (element: any) => element.id
+      expect(sourceArray.sortedByProperties({ compareFunction: compareFunction1 }, { compareFunction: compareFunction2, reverse: true })).toEqual(orderedArray)
+    })
+
+    it('Should order the same values by the second compare function with reversed first compare function', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Dave', id: 2 },
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+      ]
+
+      const compareFunction1 = (element: any) => element.name
+      const compareFunction2 = (element: any) => element.id
+      expect(sourceArray.sortedByProperties({ compareFunction: compareFunction1, reverse: true }, { compareFunction: compareFunction2 })).toEqual(orderedArray)
+    })
+
+    it('Should order the same values by the second (reversed) compare function with reversed first compare function', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Dave', id: 2 },
+        { name: 'Carol', id: 4 },
+        { name: 'Carol', id: 1 },
+        { name: 'Alice', id: 3 },
+      ]
+
+      const compareFunction1 = (element: any) => element.name
+      const compareFunction2 = (element: any) => element.id
+      expect(sourceArray.sortedByProperties({ compareFunction: compareFunction1, reverse: true }, { compareFunction: compareFunction2, reverse: true })).toEqual(orderedArray)
+    })
+
+    it('Should ignore the second compare function if the first one has ordered everything', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Dave', id: 2 },
+        { name: 'Alice', id: 3 },
+        { name: 'Carol', id: 4 },
+      ]
+
+      const compareFunction1 = (element: any) => element.id
+      const compareFunction2 = (element: any) => element.element
+      expect(sourceArray.sortedByProperties({ compareFunction: compareFunction1 }, { compareFunction: compareFunction2 })).toEqual(orderedArray)
+    })
+
+    it('Should ignore the second compare function if the first one has reverse ordered everything', () => {
+      const sourceArray = [
+        { name: 'Carol', id: 1 },
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+      ]
+
+      const orderedArray = [
+        { name: 'Carol', id: 4 },
+        { name: 'Alice', id: 3 },
+        { name: 'Dave', id: 2 },
+        { name: 'Carol', id: 1 },
+      ]
+
+      const compareFunction1 = (element: any) => element.id
+      const compareFunction2 = (element: any) => element.element
+      expect(sourceArray.sortedByProperties({ compareFunction: compareFunction1, reverse: true }, { compareFunction: compareFunction2 })).toEqual(orderedArray)
+    })
+  })
 })

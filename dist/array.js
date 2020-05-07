@@ -284,6 +284,33 @@ exports.sortedByProperty = (sourceArray, compareFunction, reverse) => {
         }
     });
 };
+if (!Array.prototype.sortedByProperties) {
+    Array.prototype.sortedByProperties = function (...args) {
+        return exports.sortedByProperties(this, ...args);
+    };
+}
+const compareTwoElemntsWithDepth = (depth, compareFunctionList, elementA, elementB) => {
+    if (depth === compareFunctionList.length) {
+        return 0;
+    }
+    const { compareFunction, reverse } = compareFunctionList[depth];
+    const comparableA = compareFunction(elementA);
+    const comparableB = compareFunction(elementB);
+    if (comparableA < comparableB) {
+        return reverse ? 1 : -1;
+    }
+    else if (comparableA > comparableB) {
+        return reverse ? -1 : 1;
+    }
+    else {
+        return compareTwoElemntsWithDepth(depth + 1, compareFunctionList, elementA, elementB);
+    }
+};
+exports.sortedByProperties = (sourceArray, ...args) => {
+    return sourceArray.slice().sort((a, b) => {
+        return compareTwoElemntsWithDepth(0, args, a, b);
+    });
+};
 if (!Array.prototype.sorted) {
     Array.prototype.sorted = function (compareFunction) {
         return exports.sorted(this, compareFunction);
