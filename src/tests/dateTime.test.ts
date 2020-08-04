@@ -1,4 +1,4 @@
-import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay, getLastNTimeZoneAgnosticDays, getFollowingNTimeZoneAgnosticDays, getTimeZoneAgnosticDatesBetweenDates, getTimeZoneAgnosticDaysDifference } from '../dateTime'
+import { getTimezoneAgnosticDayFromDate, isTimezoneAgnosticPreviousDay, getLocalDateObjectFromTimezoneAgnostic, getFollowingTimeZoneAgnosticDay, getPreviousTimeZoneAgnosticDay, getLastNTimeZoneAgnosticDays, getFollowingNTimeZoneAgnosticDays, getTimeZoneAgnosticDatesBetweenDates, getTimeZoneAgnosticDaysDifference, getCurrentDayOrDaysTillPreviousMonday, getCurrentDayOrDaysTillNextSunday, getLastDayOfMonth } from '../dateTime'
 import { range } from '../standard'
 import { getRandom, getRandomBoolean } from '../random'
 
@@ -276,4 +276,192 @@ describe('date utils', () => {
     })
   })
 
+  describe('getCurrentDayOrDaysTillPreviousMonday', () => {
+    it('Should return Monday on Monday', () => {
+      const monday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 3))
+      const result = getCurrentDayOrDaysTillPreviousMonday(monday)
+
+      expect(result).toEqual([20200703])
+    })
+
+    it('Should return Monday and Tuesday on Tuesday', () => {
+      const tuesday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 4))
+      const result = getCurrentDayOrDaysTillPreviousMonday(tuesday)
+
+      expect(result).toEqual([20200703, 20200704])
+    })
+
+    it('Should return Monday, Tuesday, and Wednesday on Wednesday', () => {
+      const wednesday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 5))
+      const result = getCurrentDayOrDaysTillPreviousMonday(wednesday)
+
+      expect(result).toEqual([20200703, 20200704, 20200705])
+    })
+
+    it('Should return Monday, Tuesday, Wednesday, and Thursday on Thursday', () => {
+      const thursday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 6))
+      const result = getCurrentDayOrDaysTillPreviousMonday(thursday)
+
+      expect(result).toEqual([20200703, 20200704, 20200705, 20200706])
+    })
+
+    it('Should return Monday, Tuesday, Wednesday, Thursday, Friday on Friday', () => {
+      const friday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 7))
+      const result = getCurrentDayOrDaysTillPreviousMonday(friday)
+
+      expect(result).toEqual([20200703, 20200704, 20200705, 20200706, 20200707])
+    })
+
+    it('Should return Monday, Tuesday, Wednesday, Thursday, Friday, Saturday on Saturday', () => {
+      const saturday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 8))
+      const result = getCurrentDayOrDaysTillPreviousMonday(saturday)
+
+      expect(result).toEqual([20200703, 20200704, 20200705, 20200706, 20200707, 20200708])
+    })
+
+    it('Should return Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday on Sunday', () => {
+      const sunday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 9))
+      const result = getCurrentDayOrDaysTillPreviousMonday(sunday)
+
+      expect(result).toEqual([20200703, 20200704, 20200705, 20200706, 20200707, 20200708, 20200709])
+    })
+  })
+
+  describe('getCurrentDayOrDaysTillNextSunday', () => {
+    it('Should return Sunday on Sunday', () => {
+      const sunday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 9))
+      const result = getCurrentDayOrDaysTillNextSunday(sunday)
+
+      expect(result).toEqual([20200709])
+    })
+    it('Should return Saturday, Sunday on Saturday', () => {
+      const saturday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 8))
+      const result = getCurrentDayOrDaysTillNextSunday(saturday)
+
+      expect(result).toEqual([20200708, 20200709])
+    })
+    it('Should return Friday, Saturday, Sunday on Friday', () => {
+      const friday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 7))
+      const result = getCurrentDayOrDaysTillNextSunday(friday)
+
+      expect(result).toEqual([20200707, 20200708, 20200709])
+    })
+    it('Should return Thursday, Friday, Saturday, Sunday on Thursday', () => {
+      const thursday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 6))
+      const result = getCurrentDayOrDaysTillNextSunday(thursday)
+
+      expect(result).toEqual([20200706, 20200707, 20200708, 20200709])
+    })
+    it('Should return Wednesday, Thursday, Friday, Saturday, Sunday on Wednesday', () => {
+      const wednesday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 5))
+      const result = getCurrentDayOrDaysTillNextSunday(wednesday)
+
+      expect(result).toEqual([20200705, 20200706, 20200707, 20200708, 20200709])
+    })
+    it('Should return Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday on Tuesday', () => {
+      const tuesday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 4))
+      const result = getCurrentDayOrDaysTillNextSunday(tuesday)
+
+      expect(result).toEqual([20200704, 20200705, 20200706, 20200707, 20200708, 20200709])
+    })
+    it('Should return Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday on Monday', () => {
+      const monday = getTimezoneAgnosticDayFromDate(new Date(2020, 7, 3))
+      const result = getCurrentDayOrDaysTillNextSunday(monday)
+
+      expect(result).toEqual([20200703, 20200704, 20200705, 20200706, 20200707, 20200708, 20200709])
+    })
+  })
+
+  describe('getLastDayOfMonth', () => {
+    it('Should return 31st of January', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 0, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20200031)
+    })
+
+    it('Should return 29th of February', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2020, 1, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20200129)
+    })
+
+    it('Should return 28th of February', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 1, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210128)
+    })
+
+    it('Should return 31st of March', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 2, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210231)
+    })
+
+    it('Should return 30th of April', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 3, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210330)
+    })
+
+    it('Should return 31st of May', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 4, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210431)
+    })
+
+    it('Should return 30th of June', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 5, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210530)
+    })
+
+    it('Should return 31st of July', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 6, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210631)
+    })
+
+    it('Should return 31st of August', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 7, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210731)
+    })
+
+    it('Should return 30th of September', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 8, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210830)
+    })
+
+    it('Should return 31st of October', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 9, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20210931)
+    })
+
+    it('Should return 30th of November', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 10, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20211030)
+    })
+
+    it('Should return 31st of December', () => {
+      const baseDate = getTimezoneAgnosticDayFromDate(new Date(2021, 11, 3))
+      const result = getLastDayOfMonth(baseDate)
+
+      expect(result).toBe(20211131)
+    })
+  })
 })
