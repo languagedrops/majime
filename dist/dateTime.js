@@ -110,6 +110,9 @@ exports.getTimezoneAgnosticDayFromDate = (date) => date.getFullYear() * 10000 + 
 exports.getDayFromTimezoneAgnosticDate = (date) => date % 100;
 exports.getYearFromTimezoneAgnosticDate = (date) => Math.trunc(date / 10000);
 exports.getMonthFromTimezoneAgnosticDate = (date) => Math.trunc(date / 100) % 100;
+exports.getDateWithoutYearFromTimezoneAgnosticDate = (date) => date % 10000;
+exports.getDateWithoutDayFromTimezoneAgnosticDate = (date) => Math.trunc(date / 100);
+exports.getFirstDayOfMonth = (date) => exports.getDateWithoutDayFromTimezoneAgnosticDate(date) * 100 + 1;
 exports.getLocalDateObjectFromTimezoneAgnostic = (input) => {
     const year = exports.getYearFromTimezoneAgnosticDate(input);
     const months = exports.getMonthFromTimezoneAgnosticDate(input);
@@ -119,7 +122,7 @@ exports.getLocalDateObjectFromTimezoneAgnostic = (input) => {
 const knownMonthEndDates = new Set([31, 129, 231, 330, 431, 530, 631, 731, 830, 931, 1030]);
 exports.isLeapYear = (year) => year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
 exports.getFollowingTimeZoneAgnosticDay = (baseDate) => {
-    const dateWithoutYear = baseDate % 10000;
+    const dateWithoutYear = exports.getDateWithoutYearFromTimezoneAgnosticDate(baseDate);
     const year = exports.getYearFromTimezoneAgnosticDate(baseDate);
     if (dateWithoutYear === 1131) {
         return (year + 1) * 10000 + 1;
@@ -130,6 +133,30 @@ exports.getFollowingTimeZoneAgnosticDay = (baseDate) => {
     }
     else {
         return baseDate + 1;
+    }
+};
+const monthEndDatesForMonths = {
+    0: 31,
+    1: 28,
+    2: 31,
+    3: 30,
+    4: 31,
+    5: 30,
+    6: 31,
+    7: 31,
+    8: 30,
+    9: 31,
+    10: 30,
+    11: 31,
+};
+exports.getLastDayOfMonth = (baseDate) => {
+    const year = exports.getYearFromTimezoneAgnosticDate(baseDate);
+    const month = exports.getMonthFromTimezoneAgnosticDate(baseDate);
+    if (month === 1 && exports.isLeapYear(year)) {
+        return year * 10000 + month * 100 + 29;
+    }
+    else {
+        return year * 10000 + month * 100 + monthEndDatesForMonths[month];
     }
 };
 const knownMonthEndDatesForStartDates = {
@@ -145,7 +172,7 @@ const knownMonthEndDatesForStartDates = {
     1101: 1030,
 };
 exports.getPreviousTimeZoneAgnosticDay = (baseDate) => {
-    const dateWithoutYear = baseDate % 10000;
+    const dateWithoutYear = exports.getDateWithoutYearFromTimezoneAgnosticDate(baseDate);
     const year = exports.getYearFromTimezoneAgnosticDate(baseDate);
     if (dateWithoutYear === 1) {
         return (year - 1) * 10000 + 1131;
@@ -207,4 +234,16 @@ exports.getTimeZoneAgnosticDaysDifference = (smallerDate, higherDate) => {
     else {
         return exports.getTimeZoneAgnosticDatesBetweenDates(smallerDate, higherDate).length;
     }
+};
+exports.getCurrentDayOrDaysTillPreviousMonday = (baseDate) => {
+    const dateObject = exports.getLocalDateObjectFromTimezoneAgnostic(baseDate);
+    const dayOfTheWeek = dateObject.getDay();
+    const numberOfDaysToBeReturned = dayOfTheWeek === 0 ? 7 : dayOfTheWeek;
+    return exports.getLastNTimeZoneAgnosticDays(baseDate, numberOfDaysToBeReturned);
+};
+exports.getCurrentDayOrDaysTillNextSunday = (baseDate) => {
+    const dateObject = exports.getLocalDateObjectFromTimezoneAgnostic(baseDate);
+    const dayOfTheWeek = dateObject.getDay();
+    const numberOfDaysToBeReturned = 8 - (dayOfTheWeek === 0 ? 7 : dayOfTheWeek);
+    return exports.getFollowingNTimeZoneAgnosticDays(baseDate, numberOfDaysToBeReturned);
 };
