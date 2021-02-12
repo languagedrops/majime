@@ -3,15 +3,15 @@ export declare const mapKeys: <T>(input: {
 }, keyTransformer: (key: string) => string) => {
     [keys: string]: T;
 };
-export declare const mapValues: <T, U>(input: {
+export declare const mapValues: <T, U, V extends boolean | undefined>(input: {
     [keys: string]: T;
-}, valueTransformer: (value: T) => U, filterValues?: true | undefined) => {
-    [keys: string]: U;
+}, valueTransformer: (value: T) => V extends true ? Exclude<U, null | undefined> : U, filterValues?: V | undefined) => {
+    [keys: string]: V extends true ? Exclude<U, null | undefined> : U;
 };
-export declare const mapKeysAndValues: <T, U>(input: {
+export declare const mapKeysAndValues: <T, U, V extends boolean | undefined>(input: {
     [keys: string]: T;
-}, valueTransformer: (key: string, value: T) => U, filterValues?: true | undefined) => {
-    [keys: string]: U;
+}, valueTransformer: (key: string, value: T) => V extends true ? Exclude<U, null | undefined> : U, filterValues?: true | undefined) => {
+    [keys: string]: V extends true ? Exclude<U, null | undefined> : U;
 };
 export declare const extractKeysAndValues: <T, K extends keyof T>(input: T) => {
     readonly key: K;
