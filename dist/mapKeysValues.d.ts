@@ -5,12 +5,12 @@ export declare const mapKeys: <T>(input: {
 };
 export declare const mapValues: <T, U, V extends boolean | undefined>(input: {
     [keys: string]: T;
-}, valueTransformer: (value: T) => V extends true ? Exclude<U, null | undefined> : U, filterValues?: V | undefined) => {
+}, valueTransformer: (value: T) => U, filterValues?: V | undefined) => {
     [keys: string]: V extends true ? Exclude<U, null | undefined> : U;
 };
 export declare const mapKeysAndValues: <T, U, V extends boolean | undefined>(input: {
     [keys: string]: T;
-}, valueTransformer: (key: string, value: T) => V extends true ? Exclude<U, null | undefined> : U, filterValues?: true | undefined) => {
+}, valueTransformer: (key: string, value: T) => U, filterValues?: true | undefined) => {
     [keys: string]: V extends true ? Exclude<U, null | undefined> : U;
 };
 export declare const extractKeysAndValues: <T, K extends keyof T>(input: T) => {
