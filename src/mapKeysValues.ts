@@ -9,25 +9,27 @@ export const mapKeys = <T>(input: { [keys: string]: T}, keyTransformer: (key: st
   return newMap
 }
 
-export const mapValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (value: T) => U, filterValues?: true): {[keys: string]: U } => {
-  const newMap: {[keys: string]: U } = {}
+type IfTrueThenNotNull<BoolOrNothing extends boolean | undefined, R> = BoolOrNothing extends true ? Exclude<R, null | undefined> : R
+
+export const mapValues = <T, U, V extends boolean | undefined>(input: { [keys: string]: T}, valueTransformer: (value: T) => U, filterValues?: V): {[keys: string]: IfTrueThenNotNull<V, U> } => {
+  const newMap: {[keys: string]: IfTrueThenNotNull<V, U> } = {}
   Object.keys(input)
     .forEach( (key) => {
       const newValue = valueTransformer(input[key])
       if (!!newValue || !filterValues) {
-        newMap[key] = newValue
+        newMap[key] = newValue as IfTrueThenNotNull<V, U>
       }
     })
   return newMap
 }
 
-export const mapKeysAndValues = <T, U>(input: { [keys: string]: T}, valueTransformer: (key: string, value: T) => U, filterValues?: true): {[keys: string]: U } => {
-  const newMap: {[keys: string]: U } = {}
+export const mapKeysAndValues = <T, U, V extends boolean | undefined>(input: { [keys: string]: T}, valueTransformer: (key: string, value: T) => U, filterValues?: true): {[keys: string]: IfTrueThenNotNull<V, U> } => {
+  const newMap: {[keys: string]: IfTrueThenNotNull<V, U> } = {}
   Object.keys(input)
     .forEach( (key) => {
       const newValue = valueTransformer(key, input[key])
       if (!!newValue || !filterValues) {
-        newMap[key] = newValue
+        newMap[key] = newValue as IfTrueThenNotNull<V, U>
       }
     })
   return newMap
