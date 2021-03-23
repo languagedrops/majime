@@ -35,3 +35,11 @@ exports.extractKeysAndValues = (input) => {
     return Object.keys(input)
         .map((key) => ({ key: key, value: input[key] }));
 };
+exports.invertObjectKeysAndValues = (input) => {
+    const newMap = {};
+    Object.keys(input).forEach((inputKey) => {
+        const newKey = input[inputKey];
+        newMap[newKey] = inputKey;
+    });
+    return newMap;
+};

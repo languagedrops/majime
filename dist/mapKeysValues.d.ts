@@ -17,3 +17,8 @@ export declare const extractKeysAndValues: <T, K extends keyof T>(input: T) => {
     readonly key: K;
     readonly value: T[K];
 }[];
+export declare const invertObjectKeysAndValues: <T extends string, U extends string>(input: {
+    [key: string]: T;
+}) => {
+    [key: string]: U;
+};
