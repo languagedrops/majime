@@ -39,3 +39,13 @@ export const extractKeysAndValues = <T, K extends keyof T>(input: T): Array<{ re
   return Object.keys(input)
   .map( (key) => ({ key: key as K, value: (input as any)[key] as T[K] }))
 }
+
+
+export const invertObjectKeysAndValues = <T extends string, U extends string>(input: { [key: string]: T }): { [key: string]: U } => {
+  const newMap: { [key: string]: U } = {}
+  Object.keys(input).forEach((inputKey: string) => {
+    const newKey: string = input[inputKey]
+    newMap[newKey] = inputKey as U
+  })
+  return newMap
+}
