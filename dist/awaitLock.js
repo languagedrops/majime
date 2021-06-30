@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.wrapInLock = exports.AwaitLock = void 0;
 class AwaitLock {
     constructor() {
         this.isAcquired = false;
@@ -28,7 +29,7 @@ class AwaitLock {
     }
 }
 exports.AwaitLock = AwaitLock;
-exports.wrapInLock = async (lock, promise) => {
+const wrapInLock = async (lock, promise) => {
     await lock.acquireAsync();
     try {
         const value = await promise();
@@ -40,3 +41,4 @@ exports.wrapInLock = async (lock, promise) => {
         throw error;
     }
 };
+exports.wrapInLock = wrapInLock;

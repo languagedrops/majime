@@ -1,82 +1,99 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getCurrentDayOrDaysTillNextSunday = exports.getCurrentDayOrDaysTillPreviousMonday = exports.getTimeZoneAgnosticDaysDifference = exports.getTimeZoneAgnosticDatesBetweenDates = exports.getFollowingNTimeZoneAgnosticDays = exports.getLastNTimeZoneAgnosticDays = exports.isTimezoneAgnosticPreviousDay = exports.getPreviousTimeZoneAgnosticDay = exports.getLastDayOfMonth = exports.getFollowingTimeZoneAgnosticDay = exports.isLeapYear = exports.getLocalDateObjectFromTimezoneAgnostic = exports.getFirstDayOfMonth = exports.getDateWithoutDayFromTimezoneAgnosticDate = exports.getDateWithoutYearFromTimezoneAgnosticDate = exports.getMonthFromTimezoneAgnosticDate = exports.getYearFromTimezoneAgnosticDate = exports.getDayFromTimezoneAgnosticDate = exports.getTimezoneAgnosticDayFromDate = exports.getLocalTimeStamp = exports.getUTCTimeStamp = exports.Month = exports.oneMinuteValue = exports.oneHourValue = exports.formatDate = exports.getDaysSinceDate = exports.getHoursSinceDate = exports.getMinutesSinceDate = exports.getSecondsSinceDate = exports.getMillisecondsSinceDate = exports.getMillisecondsBetweenDates = exports.getSecondsDifference = exports.getMinutesDifference = exports.getHoursDifference = exports.getDaysDifference = exports.getDateDifference = exports.addDaysToDate = exports.addHoursToDate = exports.addMinutesToDate = exports.addSecondsToDate = void 0;
 const standard_1 = require("./standard");
 if (!Date.prototype.addSeconds) {
     Date.prototype.addSeconds = function (seconds) {
         return exports.addSecondsToDate(this, seconds);
     };
 }
-exports.addSecondsToDate = (date, seconds) => {
+const addSecondsToDate = (date, seconds) => {
     return new Date(date.getTime() + seconds * 1000);
 };
+exports.addSecondsToDate = addSecondsToDate;
 if (!Date.prototype.addMinutes) {
     Date.prototype.addMinutes = function (minutes) {
         return exports.addMinutesToDate(this, minutes);
     };
 }
-exports.addMinutesToDate = (date, minutes) => {
+const addMinutesToDate = (date, minutes) => {
     return exports.addSecondsToDate(date, minutes * 60);
 };
+exports.addMinutesToDate = addMinutesToDate;
 if (!Date.prototype.addHours) {
     Date.prototype.addHours = function (hours) {
         return exports.addHoursToDate(this, hours);
     };
 }
-exports.addHoursToDate = (date, hours) => {
+const addHoursToDate = (date, hours) => {
     return exports.addMinutesToDate(date, hours * 60);
 };
-exports.addDaysToDate = (date, days) => {
+exports.addHoursToDate = addHoursToDate;
+const addDaysToDate = (date, days) => {
     return exports.addHoursToDate(date, days * 24);
 };
-exports.getDateDifference = (date1, date2) => {
+exports.addDaysToDate = addDaysToDate;
+const getDateDifference = (date1, date2) => {
     const newLocalTime = new Date(date1.getTime() - date2.getTime());
     const newUTCTimeStamp = (newLocalTime.getTime() + newLocalTime.getTimezoneOffset() * 60 * 1000);
     return new Date(newUTCTimeStamp);
 };
-exports.getDaysDifference = (date1, date2) => {
+exports.getDateDifference = getDateDifference;
+const getDaysDifference = (date1, date2) => {
     const diffInMillisec = exports.getDateDifference(date1, date2).getTime();
     return diffInMillisec / (1000 * 60 * 60 * 24);
 };
-exports.getHoursDifference = (date1, date2) => {
+exports.getDaysDifference = getDaysDifference;
+const getHoursDifference = (date1, date2) => {
     const diffInMillisec = exports.getDateDifference(date1, date2).getTime();
     return diffInMillisec / (1000 * 60 * 60);
 };
-exports.getMinutesDifference = (date1, date2) => {
+exports.getHoursDifference = getHoursDifference;
+const getMinutesDifference = (date1, date2) => {
     const diffInMillisec = exports.getDateDifference(date1, date2).getTime();
     return diffInMillisec / (1000 * 60);
 };
-exports.getSecondsDifference = (date1, date2) => {
+exports.getMinutesDifference = getMinutesDifference;
+const getSecondsDifference = (date1, date2) => {
     const diffInMillisec = exports.getDateDifference(date1, date2).getTime();
     return diffInMillisec / 1000;
 };
-exports.getMillisecondsBetweenDates = (first, second) => {
+exports.getSecondsDifference = getSecondsDifference;
+const getMillisecondsBetweenDates = (first, second) => {
     return second.getTime() - first.getTime();
 };
-exports.getMillisecondsSinceDate = (date) => {
+exports.getMillisecondsBetweenDates = getMillisecondsBetweenDates;
+const getMillisecondsSinceDate = (date) => {
     return exports.getMillisecondsBetweenDates(date, new Date());
 };
-exports.getSecondsSinceDate = (date) => {
+exports.getMillisecondsSinceDate = getMillisecondsSinceDate;
+const getSecondsSinceDate = (date) => {
     return exports.getMillisecondsSinceDate(date) / 1000;
 };
-exports.getMinutesSinceDate = (date) => {
+exports.getSecondsSinceDate = getSecondsSinceDate;
+const getMinutesSinceDate = (date) => {
     return exports.getSecondsSinceDate(date) / 60;
 };
-exports.getHoursSinceDate = (date) => {
+exports.getMinutesSinceDate = getMinutesSinceDate;
+const getHoursSinceDate = (date) => {
     return exports.getMinutesSinceDate(date) / 60;
 };
-exports.getDaysSinceDate = (date) => {
+exports.getHoursSinceDate = getHoursSinceDate;
+const getDaysSinceDate = (date) => {
     return exports.getHoursSinceDate(date) / 24;
 };
+exports.getDaysSinceDate = getDaysSinceDate;
 const addZeroPaddingToNumber = (figure) => {
     const stringFigure = figure.toString();
     return stringFigure.length < 2 ? '0' + stringFigure : stringFigure;
 };
-exports.formatDate = (date, addSeconds = true) => {
+const formatDate = (date, addSeconds = true) => {
     const hours = addZeroPaddingToNumber(date.getHours());
     const minutes = addZeroPaddingToNumber(date.getMinutes());
     const seconds = addZeroPaddingToNumber(date.getSeconds());
     return addSeconds ? hours + ':' + minutes + ':' + seconds : hours + ':' + minutes;
 };
+exports.formatDate = formatDate;
 exports.oneHourValue = 60 * 60 * 1000; /* ms */
 if (!Date.prototype.oneHourValue) {
     Date.prototype.oneHourValue = exports.oneHourValue;
@@ -100,28 +117,39 @@ var Month;
     Month[Month["November"] = 10] = "November";
     Month[Month["December"] = 11] = "December";
 })(Month = exports.Month || (exports.Month = {}));
-exports.getUTCTimeStamp = (year, month, day, hours = 0) => {
+const getUTCTimeStamp = (year, month, day, hours = 0) => {
     return new Date(Date.UTC(year, month, day, hours)).getTime();
 };
-exports.getLocalTimeStamp = (year, month, day, hours = 0) => {
+exports.getUTCTimeStamp = getUTCTimeStamp;
+const getLocalTimeStamp = (year, month, day, hours = 0) => {
     return new Date(year, month, day, hours).getTime();
 };
-exports.getTimezoneAgnosticDayFromDate = (date) => date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate();
-exports.getDayFromTimezoneAgnosticDate = (date) => date % 100;
-exports.getYearFromTimezoneAgnosticDate = (date) => Math.trunc(date / 10000);
-exports.getMonthFromTimezoneAgnosticDate = (date) => Math.trunc(date / 100) % 100;
-exports.getDateWithoutYearFromTimezoneAgnosticDate = (date) => date % 10000;
-exports.getDateWithoutDayFromTimezoneAgnosticDate = (date) => Math.trunc(date / 100);
-exports.getFirstDayOfMonth = (date) => exports.getDateWithoutDayFromTimezoneAgnosticDate(date) * 100 + 1;
-exports.getLocalDateObjectFromTimezoneAgnostic = (input) => {
+exports.getLocalTimeStamp = getLocalTimeStamp;
+const getTimezoneAgnosticDayFromDate = (date) => date.getFullYear() * 10000 + date.getMonth() * 100 + date.getDate();
+exports.getTimezoneAgnosticDayFromDate = getTimezoneAgnosticDayFromDate;
+const getDayFromTimezoneAgnosticDate = (date) => date % 100;
+exports.getDayFromTimezoneAgnosticDate = getDayFromTimezoneAgnosticDate;
+const getYearFromTimezoneAgnosticDate = (date) => Math.trunc(date / 10000);
+exports.getYearFromTimezoneAgnosticDate = getYearFromTimezoneAgnosticDate;
+const getMonthFromTimezoneAgnosticDate = (date) => Math.trunc(date / 100) % 100;
+exports.getMonthFromTimezoneAgnosticDate = getMonthFromTimezoneAgnosticDate;
+const getDateWithoutYearFromTimezoneAgnosticDate = (date) => date % 10000;
+exports.getDateWithoutYearFromTimezoneAgnosticDate = getDateWithoutYearFromTimezoneAgnosticDate;
+const getDateWithoutDayFromTimezoneAgnosticDate = (date) => Math.trunc(date / 100);
+exports.getDateWithoutDayFromTimezoneAgnosticDate = getDateWithoutDayFromTimezoneAgnosticDate;
+const getFirstDayOfMonth = (date) => exports.getDateWithoutDayFromTimezoneAgnosticDate(date) * 100 + 1;
+exports.getFirstDayOfMonth = getFirstDayOfMonth;
+const getLocalDateObjectFromTimezoneAgnostic = (input) => {
     const year = exports.getYearFromTimezoneAgnosticDate(input);
     const months = exports.getMonthFromTimezoneAgnosticDate(input);
     const day = exports.getDayFromTimezoneAgnosticDate(input);
     return new Date(year, months, day);
 };
+exports.getLocalDateObjectFromTimezoneAgnostic = getLocalDateObjectFromTimezoneAgnostic;
 const knownMonthEndDates = new Set([31, 129, 231, 330, 431, 530, 631, 731, 830, 931, 1030]);
-exports.isLeapYear = (year) => year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
-exports.getFollowingTimeZoneAgnosticDay = (baseDate) => {
+const isLeapYear = (year) => year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0);
+exports.isLeapYear = isLeapYear;
+const getFollowingTimeZoneAgnosticDay = (baseDate) => {
     const dateWithoutYear = exports.getDateWithoutYearFromTimezoneAgnosticDate(baseDate);
     const year = exports.getYearFromTimezoneAgnosticDate(baseDate);
     if (dateWithoutYear === 1131) {
@@ -135,6 +163,7 @@ exports.getFollowingTimeZoneAgnosticDay = (baseDate) => {
         return baseDate + 1;
     }
 };
+exports.getFollowingTimeZoneAgnosticDay = getFollowingTimeZoneAgnosticDay;
 const monthEndDatesForMonths = {
     0: 31,
     1: 28,
@@ -149,7 +178,7 @@ const monthEndDatesForMonths = {
     10: 30,
     11: 31,
 };
-exports.getLastDayOfMonth = (baseDate) => {
+const getLastDayOfMonth = (baseDate) => {
     const year = exports.getYearFromTimezoneAgnosticDate(baseDate);
     const month = exports.getMonthFromTimezoneAgnosticDate(baseDate);
     if (month === 1 && exports.isLeapYear(year)) {
@@ -159,6 +188,7 @@ exports.getLastDayOfMonth = (baseDate) => {
         return year * 10000 + month * 100 + monthEndDatesForMonths[month];
     }
 };
+exports.getLastDayOfMonth = getLastDayOfMonth;
 const knownMonthEndDatesForStartDates = {
     101: 31,
     301: 231,
@@ -171,7 +201,7 @@ const knownMonthEndDatesForStartDates = {
     1001: 931,
     1101: 1030,
 };
-exports.getPreviousTimeZoneAgnosticDay = (baseDate) => {
+const getPreviousTimeZoneAgnosticDay = (baseDate) => {
     const dateWithoutYear = exports.getDateWithoutYearFromTimezoneAgnosticDate(baseDate);
     const year = exports.getYearFromTimezoneAgnosticDate(baseDate);
     if (dateWithoutYear === 1) {
@@ -188,10 +218,12 @@ exports.getPreviousTimeZoneAgnosticDay = (baseDate) => {
         return baseDate - 1;
     }
 };
-exports.isTimezoneAgnosticPreviousDay = (baseDate, comparisonDate) => {
+exports.getPreviousTimeZoneAgnosticDay = getPreviousTimeZoneAgnosticDay;
+const isTimezoneAgnosticPreviousDay = (baseDate, comparisonDate) => {
     return baseDate === exports.getFollowingTimeZoneAgnosticDay(comparisonDate);
 };
-exports.getLastNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
+exports.isTimezoneAgnosticPreviousDay = isTimezoneAgnosticPreviousDay;
+const getLastNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
     if (numberOfDays < 1) {
         return [];
     }
@@ -202,7 +234,8 @@ exports.getLastNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
         ];
     }, [baseDate]);
 };
-exports.getFollowingNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
+exports.getLastNTimeZoneAgnosticDays = getLastNTimeZoneAgnosticDays;
+const getFollowingNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
     if (numberOfDays < 1) {
         return [];
     }
@@ -213,7 +246,8 @@ exports.getFollowingNTimeZoneAgnosticDays = (baseDate, numberOfDays) => {
         ];
     }, [baseDate]);
 };
-exports.getTimeZoneAgnosticDatesBetweenDates = (smallerDate, higherDate) => {
+exports.getFollowingNTimeZoneAgnosticDays = getFollowingNTimeZoneAgnosticDays;
+const getTimeZoneAgnosticDatesBetweenDates = (smallerDate, higherDate) => {
     if (smallerDate >= higherDate) {
         return [];
     }
@@ -224,7 +258,8 @@ exports.getTimeZoneAgnosticDatesBetweenDates = (smallerDate, higherDate) => {
     }
     return result;
 };
-exports.getTimeZoneAgnosticDaysDifference = (smallerDate, higherDate) => {
+exports.getTimeZoneAgnosticDatesBetweenDates = getTimeZoneAgnosticDatesBetweenDates;
+const getTimeZoneAgnosticDaysDifference = (smallerDate, higherDate) => {
     if (smallerDate === higherDate) {
         return 0;
     }
@@ -235,15 +270,18 @@ exports.getTimeZoneAgnosticDaysDifference = (smallerDate, higherDate) => {
         return exports.getTimeZoneAgnosticDatesBetweenDates(smallerDate, higherDate).length;
     }
 };
-exports.getCurrentDayOrDaysTillPreviousMonday = (baseDate) => {
+exports.getTimeZoneAgnosticDaysDifference = getTimeZoneAgnosticDaysDifference;
+const getCurrentDayOrDaysTillPreviousMonday = (baseDate) => {
     const dateObject = exports.getLocalDateObjectFromTimezoneAgnostic(baseDate);
     const dayOfTheWeek = dateObject.getDay();
     const numberOfDaysToBeReturned = dayOfTheWeek === 0 ? 7 : dayOfTheWeek;
     return exports.getLastNTimeZoneAgnosticDays(baseDate, numberOfDaysToBeReturned);
 };
-exports.getCurrentDayOrDaysTillNextSunday = (baseDate) => {
+exports.getCurrentDayOrDaysTillPreviousMonday = getCurrentDayOrDaysTillPreviousMonday;
+const getCurrentDayOrDaysTillNextSunday = (baseDate) => {
     const dateObject = exports.getLocalDateObjectFromTimezoneAgnostic(baseDate);
     const dayOfTheWeek = dateObject.getDay();
     const numberOfDaysToBeReturned = 8 - (dayOfTheWeek === 0 ? 7 : dayOfTheWeek);
     return exports.getFollowingNTimeZoneAgnosticDays(baseDate, numberOfDaysToBeReturned);
 };
+exports.getCurrentDayOrDaysTillNextSunday = getCurrentDayOrDaysTillNextSunday;

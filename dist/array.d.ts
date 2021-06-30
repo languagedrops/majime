@@ -2,7 +2,7 @@ export interface CompareFuctionWithOptionalRevese<T> {
     readonly compareFunction: (element: T) => number | string | Date;
     readonly reverse?: boolean;
 }
-declare global  {
+declare global {
     interface Array<T> {
         remove(elem: T): T[];
         flatten(): T;
@@ -72,7 +72,7 @@ export declare const firstElement: <T>(fromArray: T[]) => T | null;
 export declare const lastElement: <T>(array: T[]) => T | null;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];
 export declare const filterNull: <T>(array: T[]) => Exclude<T, null | undefined>[];
-export declare const sortedByProperty: <T>(sourceArray: T[], compareFunction: (element: T) => string | number | Date, reverse?: boolean | undefined) => T[];
+export declare const sortedByProperty: <T>(sourceArray: T[], compareFunction: (element: T) => number | string | Date, reverse?: boolean | undefined) => T[];
 export declare const sortedByProperties: <T>(sourceArray: T[], ...args: CompareFuctionWithOptionalRevese<T>[]) => T[];
 export declare const sorted: <T>(sourceArray: T[], compareFunction?: ((lhs: T, rhs: T) => number) | undefined) => T[];
 export declare const chunk: <T>(chunkSize: number, array: T[]) => T[][];

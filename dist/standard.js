@@ -1,9 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.isNull = (item) => {
+exports.normalize = exports.getHash = exports.filterDictionary = exports.asyncJsonParse = exports.SafeSetInterval = exports.generateUUID = exports.capitalizeFirstLetter = exports.truncate = exports.filterObject = exports.omit = exports.delayRejected = exports.delayWithValue = exports.delay = exports.makeUnique = exports.probablity = exports.clamp = exports.toMMSS = exports.range = exports.isNull = void 0;
+const isNull = (item) => {
     return item === null || item === undefined;
 };
-exports.range = (start, limit) => {
+exports.isNull = isNull;
+const range = (start, limit) => {
     if (Number.isNaN(limit) || limit < 0) {
         return [];
     }
@@ -12,7 +14,8 @@ exports.range = (start, limit) => {
         return index + start;
     });
 };
-exports.toMMSS = (time) => {
+exports.range = range;
+const toMMSS = (time) => {
     if (!time) {
         return '0:00';
     }
@@ -22,54 +25,69 @@ exports.toMMSS = (time) => {
     const secondsString = seconds < 10 ? '0' + seconds : seconds.toString();
     return minuteString + ':' + secondsString;
 };
-exports.clamp = (value, min, max) => {
+exports.toMMSS = toMMSS;
+const clamp = (value, min, max) => {
     return min < max
         ? (value < min ? min : value > max ? max : value)
         : (value < max ? max : value > min ? min : value);
 };
-exports.probablity = (likelihood) => {
+exports.clamp = clamp;
+const probablity = (likelihood) => {
     return Math.random() <= likelihood;
 };
-exports.makeUnique = (array) => {
+exports.probablity = probablity;
+const makeUnique = (array) => {
     return [...new Set(array)];
 };
-exports.delay = (millis, value) => {
+exports.makeUnique = makeUnique;
+const delay = (millis, value) => {
     return new Promise((resolve) => setTimeout(() => resolve(value), millis));
 };
-exports.delayRejected = (millis, value) => {
+exports.delay = delay;
+const delayWithValue = (millis, value) => {
+    return new Promise((resolve) => setTimeout(() => resolve(value), millis));
+};
+exports.delayWithValue = delayWithValue;
+const delayRejected = (millis, value) => {
     return new Promise((_, reject) => setTimeout(() => reject(value), millis));
 };
-exports.omit = (key, object) => {
+exports.delayRejected = delayRejected;
+const omit = (key, object) => {
     const newObject = Object.assign({}, object);
     delete newObject[key];
     return newObject;
 };
-exports.filterObject = (input, filter) => {
-    const newMap = {};
+exports.omit = omit;
+const filterObject = (input, filter) => {
+    let newMap = {};
     Object.keys(input)
         .forEach((key) => {
         if (filter(key, input[key])) {
-            newMap[key] = input[key];
+            newMap = Object.assign(Object.assign({}, newMap), { key: input[key] });
         }
     });
     return newMap;
 };
-exports.truncate = (str, length) => {
+exports.filterObject = filterObject;
+const truncate = (str, length) => {
     if (str.length > length) {
         return str.slice(0, length - 3) + '...';
     }
     return str;
 };
-exports.capitalizeFirstLetter = (str) => {
+exports.truncate = truncate;
+const capitalizeFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
-exports.generateUUID = () => {
+exports.capitalizeFirstLetter = capitalizeFirstLetter;
+const generateUUID = () => {
     const s4 = () => Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
         s4() + '-' + s4() + s4() + s4();
 };
+exports.generateUUID = generateUUID;
 class SafeSetInterval {
     constructor() {
         this.timer = null;
@@ -86,10 +104,11 @@ class SafeSetInterval {
     }
 }
 exports.SafeSetInterval = SafeSetInterval;
-exports.asyncJsonParse = (data) => {
+const asyncJsonParse = (data) => {
     return (new Response(data)).json();
 };
-exports.filterDictionary = (dict, filterFunction) => {
+exports.asyncJsonParse = asyncJsonParse;
+const filterDictionary = (dict, filterFunction) => {
     const result = {};
     Object.keys(dict).forEach((key) => {
         const currentValue = dict[key];
@@ -99,15 +118,18 @@ exports.filterDictionary = (dict, filterFunction) => {
     });
     return result;
 };
-exports.getHash = (inputString) => {
+exports.filterDictionary = filterDictionary;
+const getHash = (inputString) => {
     return exports.range(0, inputString.length).reduce((accum, index) => {
         return accum + inputString.charCodeAt(index);
     }, 0);
 };
-exports.normalize = (inputRange, outputRange, value) => {
+exports.getHash = getHash;
+const normalize = (inputRange, outputRange, value) => {
     const minNew = outputRange[0];
     const maxNew = outputRange[1];
     const minOld = inputRange[0];
     const maxOld = inputRange[1];
     return ((maxNew - minNew) / (maxOld - minOld)) * (value - maxOld) + maxNew;
 };
+exports.normalize = normalize;

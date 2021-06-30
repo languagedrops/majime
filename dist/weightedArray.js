@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getRandomWeightedElement = void 0;
 const random_1 = require("./random");
-exports.getRandomWeightedElement = (fromArray) => {
+const getRandomWeightedElement = (fromArray) => {
     if (fromArray.length === 0) {
         return null;
     }
@@ -25,3 +26,4 @@ exports.getRandomWeightedElement = (fromArray) => {
     const pickedItem = elementsAndAccumWeight.output.find((item) => item.accumulatedWeight >= random);
     return pickedItem && pickedItem.element || null;
 };
+exports.getRandomWeightedElement = getRandomWeightedElement;

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mapKeys = (input, keyTransformer) => {
+exports.invertObjectKeysAndValues = exports.extractKeysAndValues = exports.mapKeysAndValues = exports.mapValues = exports.mapKeys = void 0;
+const mapKeys = (input, keyTransformer) => {
     const newMap = {};
     Object.keys(input)
         .forEach((key) => {
@@ -9,7 +10,8 @@ exports.mapKeys = (input, keyTransformer) => {
     });
     return newMap;
 };
-exports.mapValues = (input, valueTransformer, filterValues) => {
+exports.mapKeys = mapKeys;
+const mapValues = (input, valueTransformer, filterValues) => {
     const newMap = {};
     Object.keys(input)
         .forEach((key) => {
@@ -20,7 +22,8 @@ exports.mapValues = (input, valueTransformer, filterValues) => {
     });
     return newMap;
 };
-exports.mapKeysAndValues = (input, valueTransformer, filterValues) => {
+exports.mapValues = mapValues;
+const mapKeysAndValues = (input, valueTransformer, filterValues) => {
     const newMap = {};
     Object.keys(input)
         .forEach((key) => {
@@ -31,11 +34,13 @@ exports.mapKeysAndValues = (input, valueTransformer, filterValues) => {
     });
     return newMap;
 };
-exports.extractKeysAndValues = (input) => {
+exports.mapKeysAndValues = mapKeysAndValues;
+const extractKeysAndValues = (input) => {
     return Object.keys(input)
         .map((key) => ({ key: key, value: input[key] }));
 };
-exports.invertObjectKeysAndValues = (input) => {
+exports.extractKeysAndValues = extractKeysAndValues;
+const invertObjectKeysAndValues = (input) => {
     const newMap = {};
     Object.keys(input).forEach((inputKey) => {
         const newKey = input[inputKey];
@@ -43,3 +48,4 @@ exports.invertObjectKeysAndValues = (input) => {
     });
     return newMap;
 };
+exports.invertObjectKeysAndValues = invertObjectKeysAndValues;

@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.mergeArraysOfIds = exports.skipWhile = exports.takeWhile = exports.chunk = exports.sorted = exports.sortedByProperties = exports.sortedByProperty = exports.filterNull = exports.lastElements = exports.lastElement = exports.firstElement = exports.randomElements = exports.randomElementWithExceptions = exports.randomElement = exports.shuffle = exports.groupByMultipleValues = exports.groupByAndMap = exports.groupByMultipleKeys = exports.groupBy = exports.substractArrays = exports.isArrayUnique = exports.insert = exports.reverseArray = exports.uniqueByProperty = exports.removeLastElement = exports.sortIntersection = exports.arraysEqual = exports.flattenArray = void 0;
 const random_1 = require("./random");
 if (!Array.prototype.remove) {
     Array.prototype.remove = function (elem) {
@@ -11,9 +12,10 @@ if (!Array.prototype.flatten) {
         return [].concat(...this);
     };
 }
-exports.flattenArray = (arrays) => {
+const flattenArray = (arrays) => {
     return [].concat(...arrays);
 };
+exports.flattenArray = flattenArray;
 /*
     Array-aware equality checker:
     Returns whether arguments a and b are == to each other;
@@ -21,7 +23,7 @@ exports.flattenArray = (arrays) => {
     elements are pairwise === to each other recursively under this
     definition.
 */
-exports.arraysEqual = (lhs, rhs) => {
+const arraysEqual = (lhs, rhs) => {
     if (lhs instanceof Array && rhs instanceof Array) {
         if (lhs.length !== rhs.length) {
             return false;
@@ -37,10 +39,11 @@ exports.arraysEqual = (lhs, rhs) => {
         return lhs === rhs; // if not both arrays, should be the same
     }
 };
+exports.arraysEqual = arraysEqual;
 /*
     It leave elements of source array that also are contained in order array at the same indexes
 */
-exports.sortIntersection = (sourceArray, orderArray) => {
+const sortIntersection = (sourceArray, orderArray) => {
     if (!orderArray || sourceArray.length !== orderArray.length) {
         return sourceArray;
     }
@@ -62,17 +65,19 @@ exports.sortIntersection = (sourceArray, orderArray) => {
     }
     return result;
 };
+exports.sortIntersection = sortIntersection;
 if (!Array.prototype.removeLastElement) {
     Array.prototype.removeLastElement = function () {
         return exports.removeLastElement(this);
     };
 }
-exports.removeLastElement = (fromArray) => {
+const removeLastElement = (fromArray) => {
     if (fromArray.length === 0) {
         return fromArray;
     }
     return fromArray.slice(0, fromArray.length - 1);
 };
+exports.removeLastElement = removeLastElement;
 if (!Array.prototype.unique) {
     Array.prototype.unique = function () {
         return [...new Set(this)];
@@ -83,7 +88,7 @@ if (!Array.prototype.uniqueByProperty) {
         return exports.uniqueByProperty(this, compareFunction);
     };
 }
-exports.uniqueByProperty = (fromArray, compareFunction) => {
+const uniqueByProperty = (fromArray, compareFunction) => {
     const result = [];
     fromArray.forEach((element) => {
         if (!result.some((uniqueElement) => compareFunction(uniqueElement, element))) {
@@ -92,6 +97,7 @@ exports.uniqueByProperty = (fromArray, compareFunction) => {
     });
     return result;
 };
+exports.uniqueByProperty = uniqueByProperty;
 if (!Array.prototype.toSet) {
     Array.prototype.toSet = function () {
         return new Set(this);
@@ -102,51 +108,56 @@ if (!Array.prototype.reversed) {
         return exports.reverseArray(this);
     };
 }
-exports.reverseArray = (array) => {
+const reverseArray = (array) => {
     return [...array].reverse();
 };
+exports.reverseArray = reverseArray;
 if (!Array.prototype.insert) {
     Array.prototype.insert = function (elem, index) {
         return exports.insert(this, index, elem);
     };
 }
-exports.insert = (array, index, newItem) => [
+const insert = (array, index, newItem) => [
     ...array.slice(0, index),
     newItem,
     ...array.slice(index),
 ];
+exports.insert = insert;
 if (!Array.prototype.isUnique) {
     Array.prototype.isUnique = function () {
         return exports.isArrayUnique(this);
     };
 }
-exports.isArrayUnique = (array) => array.length === new Set(array).size;
+const isArrayUnique = (array) => array.length === new Set(array).size;
+exports.isArrayUnique = isArrayUnique;
 if (!Array.prototype.substract) {
     Array.prototype.substract = function (otherArray) {
         return exports.substractArrays(this, otherArray);
     };
 }
-exports.substractArrays = (a, b) => {
+const substractArrays = (a, b) => {
     return a.filter((aElement) => !b.includes(aElement));
 };
+exports.substractArrays = substractArrays;
 if (!Array.prototype.groupBy) {
     Array.prototype.groupBy = function (keyExtractor) {
         return exports.groupBy(this, keyExtractor);
     };
 }
-exports.groupBy = (fromArray, keyExtractor) => {
+const groupBy = (fromArray, keyExtractor) => {
     const groupped = {};
     fromArray.forEach((item, index) => {
         groupped[keyExtractor(item, index)] = item;
     });
     return groupped;
 };
+exports.groupBy = groupBy;
 if (!Array.prototype.groupByMultipleKeys) {
     Array.prototype.groupByMultipleKeys = function (multipleKeysExtractor) {
         return exports.groupByMultipleKeys(this, multipleKeysExtractor);
     };
 }
-exports.groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
+const groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
     const groupped = {};
     fromArray.forEach((item, index) => {
         const keys = multipleKeysExtractor(item, index);
@@ -156,24 +167,26 @@ exports.groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
     });
     return groupped;
 };
+exports.groupByMultipleKeys = groupByMultipleKeys;
 if (!Array.prototype.groupByAndMap) {
     Array.prototype.groupByAndMap = function (keyExtractor, transform) {
         return exports.groupByAndMap(this, keyExtractor, transform);
     };
 }
-exports.groupByAndMap = (fromArray, keyExtractor, transform) => {
+const groupByAndMap = (fromArray, keyExtractor, transform) => {
     const groupped = {};
     fromArray.forEach((item, index) => {
         groupped[keyExtractor(item, index)] = transform(item, index);
     });
     return groupped;
 };
+exports.groupByAndMap = groupByAndMap;
 if (!Array.prototype.groupByMultipleValues) {
     Array.prototype.groupByMultipleValues = function (keyExtractor) {
         return exports.groupByMultipleValues(this, keyExtractor);
     };
 }
-exports.groupByMultipleValues = (fromArray, keyExtractor) => {
+const groupByMultipleValues = (fromArray, keyExtractor) => {
     const groupped = {};
     fromArray.forEach((item, index) => {
         const key = keyExtractor(item, index);
@@ -181,12 +194,13 @@ exports.groupByMultipleValues = (fromArray, keyExtractor) => {
     });
     return groupped;
 };
+exports.groupByMultipleValues = groupByMultipleValues;
 if (!Array.prototype.shuffle) {
     Array.prototype.shuffle = function () {
         return exports.shuffle(this);
     };
 }
-exports.shuffle = (array) => {
+const shuffle = (array) => {
     // if it's 1 or 0 items, just return
     if (array.length <= 1) {
         return array;
@@ -204,72 +218,80 @@ exports.shuffle = (array) => {
     }
     return newArray;
 };
+exports.shuffle = shuffle;
 if (!Array.prototype.randomElement) {
     Array.prototype.randomElement = function () {
         return exports.randomElement(this);
     };
 }
-exports.randomElement = (fromArray) => {
+const randomElement = (fromArray) => {
     return fromArray[Math.floor(Math.random() * fromArray.length)];
 };
+exports.randomElement = randomElement;
 if (!Array.prototype.randomElementWithExceptions) {
     Array.prototype.randomElementWithExceptions = function (except) {
         return exports.randomElementWithExceptions(this, except);
     };
 }
-exports.randomElementWithExceptions = (fromArray, excludeArray) => {
+const randomElementWithExceptions = (fromArray, excludeArray) => {
     const filteredArray = exports.substractArrays(fromArray, excludeArray);
     return exports.randomElement(filteredArray);
 };
+exports.randomElementWithExceptions = randomElementWithExceptions;
 if (!Array.prototype.randomElements) {
     Array.prototype.randomElements = function (count) {
         return exports.randomElements(this, count);
     };
 }
-exports.randomElements = (fromArray, count) => {
+const randomElements = (fromArray, count) => {
     if (count > fromArray.length) {
         throw Error('trying to get more elements than array length');
     }
     return exports.shuffle(fromArray).slice(0, count);
 };
+exports.randomElements = randomElements;
 if (!Array.prototype.firstElement) {
     Array.prototype.firstElement = function () {
         return exports.firstElement(this);
     };
 }
-exports.firstElement = (fromArray) => {
+const firstElement = (fromArray) => {
     return fromArray[0];
 };
+exports.firstElement = firstElement;
 if (!Array.prototype.lastElement) {
     Array.prototype.lastElement = function () {
         return exports.lastElement(this);
     };
 }
-exports.lastElement = (array) => {
+const lastElement = (array) => {
     return array[array.length - 1];
 };
+exports.lastElement = lastElement;
 if (!Array.prototype.lastElements) {
     Array.prototype.lastElements = function (numberOfElements) {
         return exports.lastElements(this, numberOfElements);
     };
 }
-exports.lastElements = (array, numberOfElements) => {
+const lastElements = (array, numberOfElements) => {
     return array.slice(Math.max(array.length - numberOfElements, 0));
 };
+exports.lastElements = lastElements;
 if (!Array.prototype.filterNull) {
     Array.prototype.filterNull = function () {
         return exports.filterNull(this);
     };
 }
-exports.filterNull = (array) => {
+const filterNull = (array) => {
     return array.filter((elem) => elem != null);
 };
+exports.filterNull = filterNull;
 if (!Array.prototype.sortedByProperty) {
     Array.prototype.sortedByProperty = function (compareFunction, reverse) {
         return exports.sortedByProperty(this, compareFunction, reverse);
     };
 }
-exports.sortedByProperty = (sourceArray, compareFunction, reverse) => {
+const sortedByProperty = (sourceArray, compareFunction, reverse) => {
     return sourceArray.slice().sort((a, b) => {
         const comparableA = compareFunction(a);
         const comparableB = compareFunction(b);
@@ -284,6 +306,7 @@ exports.sortedByProperty = (sourceArray, compareFunction, reverse) => {
         }
     });
 };
+exports.sortedByProperty = sortedByProperty;
 if (!Array.prototype.sortedByProperties) {
     Array.prototype.sortedByProperties = function (...args) {
         return exports.sortedByProperties(this, ...args);
@@ -306,25 +329,27 @@ const compareTwoElemntsWithDepth = (depth, compareFunctionList, elementA, elemen
         return compareTwoElemntsWithDepth(depth + 1, compareFunctionList, elementA, elementB);
     }
 };
-exports.sortedByProperties = (sourceArray, ...args) => {
+const sortedByProperties = (sourceArray, ...args) => {
     return sourceArray.slice().sort((a, b) => {
         return compareTwoElemntsWithDepth(0, args, a, b);
     });
 };
+exports.sortedByProperties = sortedByProperties;
 if (!Array.prototype.sorted) {
     Array.prototype.sorted = function (compareFunction) {
         return exports.sorted(this, compareFunction);
     };
 }
-exports.sorted = (sourceArray, compareFunction) => {
+const sorted = (sourceArray, compareFunction) => {
     return sourceArray.slice().sort(compareFunction);
 };
+exports.sorted = sorted;
 if (!Array.prototype.chunk) {
     Array.prototype.chunk = function (chunkSize) {
         return exports.chunk(chunkSize, this);
     };
 }
-exports.chunk = (chunkSize, array) => {
+const chunk = (chunkSize, array) => {
     const groups = [];
     let i = 0;
     for (i = 0; i < array.length; i += chunkSize) {
@@ -332,24 +357,26 @@ exports.chunk = (chunkSize, array) => {
     }
     return groups;
 };
+exports.chunk = chunk;
 if (!Array.prototype.takeWhile) {
     Array.prototype.takeWhile = function (filterFunction, reverse) {
         return exports.takeWhile(this, filterFunction, reverse);
     };
 }
-exports.takeWhile = (inputArray, filterFunction, reverse) => {
+const takeWhile = (inputArray, filterFunction, reverse) => {
     const array = reverse ? inputArray.slice().reverse() : inputArray.slice();
     const findIndex = array.findIndex((element, index) => !filterFunction(element, index));
     const endIndex = findIndex === -1 ? undefined : findIndex;
     const result = array.slice(0, endIndex);
     return reverse ? result.reverse() : result;
 };
+exports.takeWhile = takeWhile;
 if (!Array.prototype.skipWhile) {
     Array.prototype.skipWhile = function (filterFunction, reverse) {
         return exports.skipWhile(this, filterFunction, reverse);
     };
 }
-exports.skipWhile = (inputArray, filterFunction, reverse) => {
+const skipWhile = (inputArray, filterFunction, reverse) => {
     const array = reverse ? inputArray.slice().reverse() : inputArray.slice();
     const findIndex = array.findIndex((element, index) => !filterFunction(element, index));
     if (findIndex === -1) {
@@ -358,7 +385,8 @@ exports.skipWhile = (inputArray, filterFunction, reverse) => {
     const result = array.slice(findIndex);
     return reverse ? result.reverse() : result;
 };
-exports.mergeArraysOfIds = (firstArray, secondArray) => {
+exports.skipWhile = skipWhile;
+const mergeArraysOfIds = (firstArray, secondArray) => {
     // it uses imperative code because in this case it's more appropriate. We have tests that cover functionality
     const result = [];
     let firstArrayIndex = 0;
@@ -380,3 +408,4 @@ exports.mergeArraysOfIds = (firstArray, secondArray) => {
     }
     return result.unique();
 };
+exports.mergeArraysOfIds = mergeArraysOfIds;

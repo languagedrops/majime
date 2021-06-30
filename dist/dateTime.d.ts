@@ -1,5 +1,5 @@
-export {  };
-declare global  {
+export {};
+declare global {
     interface Date {
         oneHourValue: number;
         oneMinuteValue: number;
@@ -38,7 +38,7 @@ export declare enum Month {
     September = 8,
     October = 9,
     November = 10,
-    December = 11,
+    December = 11
 }
 export declare const getUTCTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;
 export declare const getLocalTimeStamp: (year: number, month: Month, day: number, hours?: number) => number;
