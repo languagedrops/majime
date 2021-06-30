@@ -1,6 +1,6 @@
 {
   "name": "majime",
-  "version": "4.5.2",
+  "version": "4.5.3",
   "description": "Collection of TS utility functions",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/languagedrops/majime#readme",
   "devDependencies": {
-    "@types/jest": "26.0.23",
     "@babel/core": "7.14.6",
+    "@types/jest": "26.0.23",
     "babel-jest": "27.0.6",
     "jest": "27.0.6",
     "ts-jest": "27.0.3",
