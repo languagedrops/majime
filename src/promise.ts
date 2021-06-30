@@ -1,4 +1,4 @@
-import { delay, delayRejected } from './standard'
+import { delayRejected, delayWithValue } from './standard'
 
 
 export const promiseSequenceForEach = async <T, R>(inputArray: T[], callback: (element: T, index: number, array: T[]) => Promise<R>) => {
@@ -18,7 +18,7 @@ export const promiseSequenceMap = async <T, R>(inputArray: T[], transformer: (el
 export const promiseWithTimeout = async <T, K>(promise: Promise<T>, returnValueOnTimeout: K, timeoutInMs = 1000, rejectPromise = false): Promise<T | K> => {
   const timeout: Promise<K> = rejectPromise
     ? delayRejected(timeoutInMs, returnValueOnTimeout)
-    : delay(timeoutInMs, returnValueOnTimeout)
+    : delayWithValue(timeoutInMs, returnValueOnTimeout)
 
   return Promise.race([
     promise,

@@ -40,7 +40,11 @@ export const makeUnique = <T>(array: T[]): T[] => {
   return [...new Set(array)]
 }
 
-export const delay = <T>(millis: number, value?: T): Promise<T> => {
+export const delay = <T>(millis: number, value?: T): Promise<T | undefined> => {
+  return new Promise((resolve) => setTimeout( () => resolve(value) , millis) )
+}
+
+export const delayWithValue = <T>(millis: number, value: T): Promise<T> => {
   return new Promise((resolve) => setTimeout( () => resolve(value) , millis) )
 }
 
@@ -55,11 +59,11 @@ export const omit = <T, K extends keyof T>(key: K, object: T): Omit<T, K> => {
 }
 
 export const filterObject = <T extends { readonly [key: string]: any }, K extends keyof T>(input: T, filter: (key: string, value: T[K]) => boolean): Partial<T> => {
-  const newMap: Partial<T> = {}
+  let newMap: Partial<T> = {}
   Object.keys(input)
     .forEach((key) => {
       if (filter(key, input[key])) {
-        newMap[key] = input[key]
+        newMap = { ...newMap, key: input[key] }
       }
     })
   return newMap
