@@ -59,11 +59,11 @@ const omit = (key, object) => {
 };
 exports.omit = omit;
 const filterObject = (input, filter) => {
-    let newMap = {};
+    const newMap = {};
     Object.keys(input)
         .forEach((key) => {
         if (filter(key, input[key])) {
-            newMap = Object.assign(Object.assign({}, newMap), { key: input[key] });
+            newMap[key] = input[key];
         }
     });
     return newMap;
