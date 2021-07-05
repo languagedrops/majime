@@ -59,11 +59,11 @@ export const omit = <T, K extends keyof T>(key: K, object: T): Omit<T, K> => {
 }
 
 export const filterObject = <T extends { readonly [key: string]: any }, K extends keyof T>(input: T, filter: (key: string, value: T[K]) => boolean): Partial<T> => {
-  let newMap: Partial<T> = {}
+  const newMap: Partial<T> = {}
   Object.keys(input)
     .forEach((key) => {
       if (filter(key, input[key])) {
-        newMap = { ...newMap, key: input[key] }
+        newMap[key as K] = input[key]
       }
     })
   return newMap
