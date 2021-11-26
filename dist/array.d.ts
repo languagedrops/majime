@@ -67,7 +67,7 @@ export declare const groupByMultipleValues: <T>(fromArray: T[], keyExtractor: (i
 export declare const shuffle: <T>(array: T[]) => T[];
 export declare const randomElement: <T>(fromArray: T[]) => T | null;
 export declare const randomElementWithExceptions: <T>(fromArray: T[], excludeArray: T[]) => T | null;
-export declare const randomElements: <T>(fromArray: T[], count: number) => T[];
+export declare const randomElements: <T>(fromArray: T[], count: number, safeExecution?: boolean | undefined) => T[];
 export declare const firstElement: <T>(fromArray: T[]) => T | null;
 export declare const lastElement: <T>(array: T[]) => T | null;
 export declare const lastElements: <T>(array: T[], numberOfElements: number) => T[];

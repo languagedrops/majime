@@ -239,12 +239,12 @@ const randomElementWithExceptions = (fromArray, excludeArray) => {
 };
 exports.randomElementWithExceptions = randomElementWithExceptions;
 if (!Array.prototype.randomElements) {
-    Array.prototype.randomElements = function (count) {
-        return exports.randomElements(this, count);
+    Array.prototype.randomElements = function (count, safeExecution) {
+        return exports.randomElements(this, count, safeExecution);
     };
 }
-const randomElements = (fromArray, count) => {
-    if (count > fromArray.length) {
+const randomElements = (fromArray, count, safeExecution) => {
+    if (count > fromArray.length && !safeExecution) {
         throw Error('trying to get more elements than array length');
     }
     return exports.shuffle(fromArray).slice(0, count);
