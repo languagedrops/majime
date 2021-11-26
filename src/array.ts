@@ -310,13 +310,13 @@ export const randomElementWithExceptions = <T>(fromArray: T[], excludeArray: T[]
 
 
 if (!Array.prototype.randomElements) {
-  Array.prototype.randomElements = function<T>(count: number): T[] {
-    return randomElements(this, count)
+  Array.prototype.randomElements = function<T>(count: number, safeExecution?: boolean): T[] {
+    return randomElements(this, count, safeExecution)
   }
 }
 
-export const randomElements = <T>(fromArray: T[], count: number): T[] => {
-  if (count > fromArray.length) { throw Error('trying to get more elements than array length') }
+export const randomElements = <T>(fromArray: T[], count: number, safeExecution?: boolean): T[] => {
+  if (count > fromArray.length && !safeExecution) { throw Error('trying to get more elements than array length') }
   return shuffle(fromArray).slice(0, count)
 }
 
