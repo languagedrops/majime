@@ -29,7 +29,7 @@ declare global {
         shuffle(): T[];
         randomElement(): T | null;
         randomElementWithExceptions(except: T[]): T | null;
-        randomElements(count: number): T[];
+        randomElements(count: number, safeExecution?: boolean): T[];
         firstElement(): T | null;
         lastElement(): T | null;
         lastElements(numberOfElements: number): T[];
