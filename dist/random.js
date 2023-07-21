@@ -10,15 +10,15 @@ const getRandomWithExceptions = (floor, ceiling, exceptions) => {
     if (ceiling - floor <= potentialExceptions.length) {
         return undefined;
     }
-    const random = exports.getRandom(floor, ceiling);
+    const random = (0, exports.getRandom)(floor, ceiling);
     if (exceptions.includes(random)) {
-        return exports.getRandomWithExceptions(floor, ceiling, exceptions);
+        return (0, exports.getRandomWithExceptions)(floor, ceiling, exceptions);
     }
     return random;
 };
 exports.getRandomWithExceptions = getRandomWithExceptions;
 // expects a number between 0-1
 const getRandomBoolean = (weight) => {
-    return exports.getRandom(1, 10000) < (weight || 0.5) * 10000;
+    return (0, exports.getRandom)(1, 10000) < (weight || 0.5) * 10000;
 };
 exports.getRandomBoolean = getRandomBoolean;

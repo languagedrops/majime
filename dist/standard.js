@@ -120,7 +120,7 @@ const filterDictionary = (dict, filterFunction) => {
 };
 exports.filterDictionary = filterDictionary;
 const getHash = (inputString) => {
-    return exports.range(0, inputString.length).reduce((accum, index) => {
+    return (0, exports.range)(0, inputString.length).reduce((accum, index) => {
         return accum + inputString.charCodeAt(index);
     }, 0);
 };
@@ -130,6 +130,6 @@ const normalize = (inputRange, outputRange, value) => {
     const maxNew = outputRange[1];
     const minOld = inputRange[0];
     const maxOld = inputRange[1];
-    return ((maxNew - minNew) / (maxOld - minOld)) * (value - maxOld) + maxNew;
+    return ((maxNew - minNew) / (maxOld - minOld)) * (value - maxOld) + maxNew || 0;
 };
 exports.normalize = normalize;

@@ -17,7 +17,7 @@ const lowerFirst = (source) => {
     return `${first.toLowerCase()}${rest.join('')}`;
 };
 exports.lowerFirst = lowerFirst;
-const wordUpperFirst = (source) => exports.mapWords(source, exports.upperFirst);
+const wordUpperFirst = (source) => (0, exports.mapWords)(source, exports.upperFirst);
 exports.wordUpperFirst = wordUpperFirst;
 const mapWords = (source, mapper) => source
     .split(' ')

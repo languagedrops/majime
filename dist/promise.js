@@ -18,8 +18,8 @@ const promiseSequenceMap = async (inputArray, transformer) => {
 exports.promiseSequenceMap = promiseSequenceMap;
 const promiseWithTimeout = async (promise, returnValueOnTimeout, timeoutInMs = 1000, rejectPromise = false) => {
     const timeout = rejectPromise
-        ? standard_1.delayRejected(timeoutInMs, returnValueOnTimeout)
-        : standard_1.delayWithValue(timeoutInMs, returnValueOnTimeout);
+        ? (0, standard_1.delayRejected)(timeoutInMs, returnValueOnTimeout)
+        : (0, standard_1.delayWithValue)(timeoutInMs, returnValueOnTimeout);
     return Promise.race([
         promise,
         timeout,

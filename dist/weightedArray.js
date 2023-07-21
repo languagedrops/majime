@@ -10,7 +10,7 @@ const getRandomWeightedElement = (fromArray) => {
         return fromArray[0].element;
     }
     const maximum = fromArray.reduce((accum, item) => accum + item.weight, 0);
-    const random = random_1.getRandom(0, maximum * 100) / 100;
+    const random = (0, random_1.getRandom)(0, maximum * 100) / 100;
     const initialAccum = {
         output: [],
         currentAccumulatedWeight: 0,

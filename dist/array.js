@@ -29,7 +29,7 @@ const arraysEqual = (lhs, rhs) => {
             return false;
         }
         for (let i = 0; i < lhs.length; i++) {
-            if (!exports.arraysEqual(lhs[i], rhs[i])) {
+            if (!(0, exports.arraysEqual)(lhs[i], rhs[i])) {
                 return false;
             }
         }
@@ -68,7 +68,7 @@ const sortIntersection = (sourceArray, orderArray) => {
 exports.sortIntersection = sortIntersection;
 if (!Array.prototype.removeLastElement) {
     Array.prototype.removeLastElement = function () {
-        return exports.removeLastElement(this);
+        return (0, exports.removeLastElement)(this);
     };
 }
 const removeLastElement = (fromArray) => {
@@ -85,7 +85,7 @@ if (!Array.prototype.unique) {
 }
 if (!Array.prototype.uniqueByProperty) {
     Array.prototype.uniqueByProperty = function (compareFunction) {
-        return exports.uniqueByProperty(this, compareFunction);
+        return (0, exports.uniqueByProperty)(this, compareFunction);
     };
 }
 const uniqueByProperty = (fromArray, compareFunction) => {
@@ -105,7 +105,7 @@ if (!Array.prototype.toSet) {
 }
 if (!Array.prototype.reversed) {
     Array.prototype.reversed = function () {
-        return exports.reverseArray(this);
+        return (0, exports.reverseArray)(this);
     };
 }
 const reverseArray = (array) => {
@@ -114,7 +114,7 @@ const reverseArray = (array) => {
 exports.reverseArray = reverseArray;
 if (!Array.prototype.insert) {
     Array.prototype.insert = function (elem, index) {
-        return exports.insert(this, index, elem);
+        return (0, exports.insert)(this, index, elem);
     };
 }
 const insert = (array, index, newItem) => [
@@ -125,14 +125,14 @@ const insert = (array, index, newItem) => [
 exports.insert = insert;
 if (!Array.prototype.isUnique) {
     Array.prototype.isUnique = function () {
-        return exports.isArrayUnique(this);
+        return (0, exports.isArrayUnique)(this);
     };
 }
 const isArrayUnique = (array) => array.length === new Set(array).size;
 exports.isArrayUnique = isArrayUnique;
 if (!Array.prototype.substract) {
     Array.prototype.substract = function (otherArray) {
-        return exports.substractArrays(this, otherArray);
+        return (0, exports.substractArrays)(this, otherArray);
     };
 }
 const substractArrays = (a, b) => {
@@ -141,7 +141,7 @@ const substractArrays = (a, b) => {
 exports.substractArrays = substractArrays;
 if (!Array.prototype.groupBy) {
     Array.prototype.groupBy = function (keyExtractor) {
-        return exports.groupBy(this, keyExtractor);
+        return (0, exports.groupBy)(this, keyExtractor);
     };
 }
 const groupBy = (fromArray, keyExtractor) => {
@@ -154,7 +154,7 @@ const groupBy = (fromArray, keyExtractor) => {
 exports.groupBy = groupBy;
 if (!Array.prototype.groupByMultipleKeys) {
     Array.prototype.groupByMultipleKeys = function (multipleKeysExtractor) {
-        return exports.groupByMultipleKeys(this, multipleKeysExtractor);
+        return (0, exports.groupByMultipleKeys)(this, multipleKeysExtractor);
     };
 }
 const groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
@@ -170,7 +170,7 @@ const groupByMultipleKeys = (fromArray, multipleKeysExtractor) => {
 exports.groupByMultipleKeys = groupByMultipleKeys;
 if (!Array.prototype.groupByAndMap) {
     Array.prototype.groupByAndMap = function (keyExtractor, transform) {
-        return exports.groupByAndMap(this, keyExtractor, transform);
+        return (0, exports.groupByAndMap)(this, keyExtractor, transform);
     };
 }
 const groupByAndMap = (fromArray, keyExtractor, transform) => {
@@ -183,7 +183,7 @@ const groupByAndMap = (fromArray, keyExtractor, transform) => {
 exports.groupByAndMap = groupByAndMap;
 if (!Array.prototype.groupByMultipleValues) {
     Array.prototype.groupByMultipleValues = function (keyExtractor) {
-        return exports.groupByMultipleValues(this, keyExtractor);
+        return (0, exports.groupByMultipleValues)(this, keyExtractor);
     };
 }
 const groupByMultipleValues = (fromArray, keyExtractor) => {
@@ -197,7 +197,7 @@ const groupByMultipleValues = (fromArray, keyExtractor) => {
 exports.groupByMultipleValues = groupByMultipleValues;
 if (!Array.prototype.shuffle) {
     Array.prototype.shuffle = function () {
-        return exports.shuffle(this);
+        return (0, exports.shuffle)(this);
     };
 }
 const shuffle = (array) => {
@@ -211,7 +211,7 @@ const shuffle = (array) => {
         // choose a random not-yet-placed item to place there
         // must be an item AFTER the current item, because the stuff
         // before has all already been placed
-        const randomChoiceIndex = random_1.getRandom(i, newArray.length - 1);
+        const randomChoiceIndex = (0, random_1.getRandom)(i, newArray.length - 1);
         const temp = newArray[i];
         newArray[i] = newArray[randomChoiceIndex];
         newArray[randomChoiceIndex] = temp;
@@ -221,7 +221,7 @@ const shuffle = (array) => {
 exports.shuffle = shuffle;
 if (!Array.prototype.randomElement) {
     Array.prototype.randomElement = function () {
-        return exports.randomElement(this);
+        return (0, exports.randomElement)(this);
     };
 }
 const randomElement = (fromArray) => {
@@ -230,29 +230,29 @@ const randomElement = (fromArray) => {
 exports.randomElement = randomElement;
 if (!Array.prototype.randomElementWithExceptions) {
     Array.prototype.randomElementWithExceptions = function (except) {
-        return exports.randomElementWithExceptions(this, except);
+        return (0, exports.randomElementWithExceptions)(this, except);
     };
 }
 const randomElementWithExceptions = (fromArray, excludeArray) => {
-    const filteredArray = exports.substractArrays(fromArray, excludeArray);
-    return exports.randomElement(filteredArray);
+    const filteredArray = (0, exports.substractArrays)(fromArray, excludeArray);
+    return (0, exports.randomElement)(filteredArray);
 };
 exports.randomElementWithExceptions = randomElementWithExceptions;
 if (!Array.prototype.randomElements) {
     Array.prototype.randomElements = function (count, safeExecution) {
-        return exports.randomElements(this, count, safeExecution);
+        return (0, exports.randomElements)(this, count, safeExecution);
     };
 }
 const randomElements = (fromArray, count, safeExecution) => {
     if (count > fromArray.length && !safeExecution) {
         throw Error('trying to get more elements than array length');
     }
-    return exports.shuffle(fromArray).slice(0, count);
+    return (0, exports.shuffle)(fromArray).slice(0, count);
 };
 exports.randomElements = randomElements;
 if (!Array.prototype.firstElement) {
     Array.prototype.firstElement = function () {
-        return exports.firstElement(this);
+        return (0, exports.firstElement)(this);
     };
 }
 const firstElement = (fromArray) => {
@@ -261,7 +261,7 @@ const firstElement = (fromArray) => {
 exports.firstElement = firstElement;
 if (!Array.prototype.lastElement) {
     Array.prototype.lastElement = function () {
-        return exports.lastElement(this);
+        return (0, exports.lastElement)(this);
     };
 }
 const lastElement = (array) => {
@@ -270,7 +270,7 @@ const lastElement = (array) => {
 exports.lastElement = lastElement;
 if (!Array.prototype.lastElements) {
     Array.prototype.lastElements = function (numberOfElements) {
-        return exports.lastElements(this, numberOfElements);
+        return (0, exports.lastElements)(this, numberOfElements);
     };
 }
 const lastElements = (array, numberOfElements) => {
@@ -279,7 +279,7 @@ const lastElements = (array, numberOfElements) => {
 exports.lastElements = lastElements;
 if (!Array.prototype.filterNull) {
     Array.prototype.filterNull = function () {
-        return exports.filterNull(this);
+        return (0, exports.filterNull)(this);
     };
 }
 const filterNull = (array) => {
@@ -288,7 +288,7 @@ const filterNull = (array) => {
 exports.filterNull = filterNull;
 if (!Array.prototype.sortedByProperty) {
     Array.prototype.sortedByProperty = function (compareFunction, reverse) {
-        return exports.sortedByProperty(this, compareFunction, reverse);
+        return (0, exports.sortedByProperty)(this, compareFunction, reverse);
     };
 }
 const sortedByProperty = (sourceArray, compareFunction, reverse) => {
@@ -309,7 +309,7 @@ const sortedByProperty = (sourceArray, compareFunction, reverse) => {
 exports.sortedByProperty = sortedByProperty;
 if (!Array.prototype.sortedByProperties) {
     Array.prototype.sortedByProperties = function (...args) {
-        return exports.sortedByProperties(this, ...args);
+        return (0, exports.sortedByProperties)(this, ...args);
     };
 }
 const compareTwoElemntsWithDepth = (depth, compareFunctionList, elementA, elementB) => {
@@ -337,7 +337,7 @@ const sortedByProperties = (sourceArray, ...args) => {
 exports.sortedByProperties = sortedByProperties;
 if (!Array.prototype.sorted) {
     Array.prototype.sorted = function (compareFunction) {
-        return exports.sorted(this, compareFunction);
+        return (0, exports.sorted)(this, compareFunction);
     };
 }
 const sorted = (sourceArray, compareFunction) => {
@@ -346,7 +346,7 @@ const sorted = (sourceArray, compareFunction) => {
 exports.sorted = sorted;
 if (!Array.prototype.chunk) {
     Array.prototype.chunk = function (chunkSize) {
-        return exports.chunk(chunkSize, this);
+        return (0, exports.chunk)(chunkSize, this);
     };
 }
 const chunk = (chunkSize, array) => {
@@ -360,7 +360,7 @@ const chunk = (chunkSize, array) => {
 exports.chunk = chunk;
 if (!Array.prototype.takeWhile) {
     Array.prototype.takeWhile = function (filterFunction, reverse) {
-        return exports.takeWhile(this, filterFunction, reverse);
+        return (0, exports.takeWhile)(this, filterFunction, reverse);
     };
 }
 const takeWhile = (inputArray, filterFunction, reverse) => {
@@ -373,7 +373,7 @@ const takeWhile = (inputArray, filterFunction, reverse) => {
 exports.takeWhile = takeWhile;
 if (!Array.prototype.skipWhile) {
     Array.prototype.skipWhile = function (filterFunction, reverse) {
-        return exports.skipWhile(this, filterFunction, reverse);
+        return (0, exports.skipWhile)(this, filterFunction, reverse);
     };
 }
 const skipWhile = (inputArray, filterFunction, reverse) => {
