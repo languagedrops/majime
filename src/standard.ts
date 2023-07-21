@@ -141,5 +141,5 @@ export const normalize = (inputRange: [number, number], outputRange: [number, nu
   const minOld = inputRange[0]
   const maxOld = inputRange[1]
 
-  return ((maxNew - minNew) / (maxOld - minOld)) * (value - maxOld) + maxNew
+  return ((maxNew - minNew) / (maxOld - minOld)) * (value - maxOld) + maxNew || 0
 }
