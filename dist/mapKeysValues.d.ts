@@ -14,7 +14,7 @@ export declare const mapKeysAndValues: <T, U, V extends boolean | undefined>(inp
 }, valueTransformer: (key: string, value: T) => U, filterValues?: true) => {
     [keys: string]: IfTrueThenNotNull<V, U>;
 };
-export declare const extractKeysAndValues: <T, K extends keyof T>(input: T) => {
+export declare const extractKeysAndValues: <T extends object, K extends keyof T>(input: T) => {
     readonly key: K;
     readonly value: T[K];
 }[];
