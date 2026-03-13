@@ -120,7 +120,7 @@ const filterDictionary = (dict, filterFunction) => {
 };
 exports.filterDictionary = filterDictionary;
 const getHash = (inputString) => {
-    return (0, exports.range)(0, inputString.length).reduce((accum, index) => {
+    return exports.range(0, inputString.length).reduce((accum, index) => {
         return accum + inputString.charCodeAt(index);
     }, 0);
 };

@@ -11,7 +11,7 @@ export declare const mapValues: <T, U, V extends boolean | undefined>(input: {
 };
 export declare const mapKeysAndValues: <T, U, V extends boolean | undefined>(input: {
     [keys: string]: T;
-}, valueTransformer: (key: string, value: T) => U, filterValues?: true) => {
+}, valueTransformer: (key: string, value: T) => U, filterValues?: true | undefined) => {
     [keys: string]: IfTrueThenNotNull<V, U>;
 };
 export declare const extractKeysAndValues: <T extends object, K extends keyof T>(input: T) => {
